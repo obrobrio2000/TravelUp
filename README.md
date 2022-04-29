@@ -11,11 +11,11 @@ Project for the Computer Networks Course, held in the Academic Year 2021/2022 by
 
 
 
-## Idea of ​​the project
+## Idea of the project
 
 
 
-## Organization pages
+## Page organization
 
 
 
