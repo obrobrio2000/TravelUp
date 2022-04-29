@@ -7,8 +7,16 @@ services:
         hostname: node
         ports:
             - "8080:8080"
+        depends_on:
+            postgres:
+                condition: service_healthy
+        links:
+            - postgres
         networks:
-            - net
+            - frontend
+            - backend
+        volumes:
+            - "./node:/usr/src/app"
     nginx:
         build:
           context: ./nginx
@@ -19,7 +27,42 @@ services:
         depends_on:
             - node
         networks:
-            - net
+            - frontend
+    postgres:
+        image: postgres:14.1-alpine
+        restart: always
+        environment:
+            - POSTGRES_PASSWORD=postgres
+        container_name: postgres
+        hostname: postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - backend
+        volumes:
+            - "./postgres/db-seed.sql:/docker-entrypoint-initdb.d/db-seed.sql"
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_LISTEN_PORT: 16543
+            PGADMIN_DEFAULT_EMAIL: "postgres@example.com"
+            PGADMIN_DEFAULT_PASSWORD: "postgres"
+        container_name: pgadmin
+        hostname: pgadmin
+        ports:
+            - "16543:16543"
+        depends_on:
+            postgres:
+                condition: service_healthy
+        links:
+            - postgres
+        networks:
+            - backend
 networks:
-    net:
-        external: true
+    frontend:
+    backend:
