@@ -1,0 +1,34 @@
+{
+  "dependencies": {
+    "nodemailer": "^6.7.4",
+    "nodemailer-smtp-transport": "^2.7.4"
+  },
+  "scripts": {
+    "start": "nodemon -L server.js"
+  },
+  "name": "travelup_mail",
+  "version": "1.0.0",
+  "description": "TravelUp is a useful application to organize your travel itinerary.",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TUEngineers/TravelUp.git"
+  },
+  "keywords": [
+    "travelup",
+    "tuengineers",
+    "travel",
+    "trip",
+    "itinerary",
+    "booking"
+  ],
+  "author": "TUEngineers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TUEngineers/TravelUp/issues"
+  },
+  "homepage": "https://github.com/TUEngineers/TravelUp#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
