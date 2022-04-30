@@ -91,6 +91,41 @@ services:
             - backend
         volumes:
             - "./mail:/usr/src/app"
+    rabbit:
+        image: rabbitmq:3.8-management-alpine
+        container_name: rabbit
+        hostname: rabbit
+        ports:
+            - '5672:5672' # AMQP protocol port
+            - '15672:15672' # HTTP management UI
+        restart: unless-stopped
+        environment:
+            - RABBITMQ_DEFAULT_USER=myuser
+            - RABBITMQ_DEFAULT_PASS=mypassword
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+    websocket:
+        build:
+            context: ./websocket
+        container_name: websocket
+        hostname: websocket
+        ports:
+            - '1337:1337'
+        restart: unless-stopped
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - "./websocket:/usr/src/app"
 networks:
     frontend:
     backend:

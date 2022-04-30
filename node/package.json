@@ -35,5 +35,9 @@
   "homepage": "https://github.com/TUEngineers/TravelUp#readme",
   "devDependencies": {
     "nodemon": "^2.0.16"
+  },
+  "nodemonConfig": {
+    "watch": ["server.js", "public/"],
+	"ext": "js, css, html, htm, php"
   }
 }
