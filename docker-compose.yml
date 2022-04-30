@@ -7,6 +7,9 @@ services:
         hostname: node
         ports:
             - "8080:8080"
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
         depends_on:
             postgres:
                 condition: service_healthy
@@ -17,6 +20,7 @@ services:
             - backend
         volumes:
             - "./node:/usr/src/app"
+            - "./docs:/usr/src/app/public"
     nginx:
         build:
             context: ./nginx
@@ -31,7 +35,6 @@ services:
         networks:
             - frontend
         volumes:
-            - ./node/public:/usr/share/nginx/html
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/ssl:/etc/nginx/ssl
     postgres:
@@ -69,6 +72,60 @@ services:
             - postgres
         networks:
             - backend
+    mail:
+        build:
+            context: ./mail
+        container_name: mail
+        hostname: mail
+        ports:
+            - "465:465"
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - "./mail:/usr/src/app"
+    rabbit:
+        image: rabbitmq:3.8-management-alpine
+        container_name: rabbit
+        hostname: rabbit
+        ports:
+            - '5672:5672' # AMQP protocol port
+            - '15672:15672' # HTTP management UI
+        restart: unless-stopped
+        environment:
+            - RABBITMQ_DEFAULT_USER=myuser
+            - RABBITMQ_DEFAULT_PASS=mypassword
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+    websocket:
+        build:
+            context: ./websocket
+        container_name: websocket
+        hostname: websocket
+        ports:
+            - '1337:1337'
+        restart: unless-stopped
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - "./websocket:/usr/src/app"
 networks:
     frontend:
     backend:

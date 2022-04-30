@@ -11,7 +11,7 @@
   "scripts": {
     "start": "nodemon -L server.js"
   },
-  "name": "travelup",
+  "name": "travelup_node",
   "version": "1.0.0",
   "description": "TravelUp is a useful application to organize your travel itinerary.",
   "main": "server.js",
@@ -35,5 +35,9 @@
   "homepage": "https://github.com/TUEngineers/TravelUp#readme",
   "devDependencies": {
     "nodemon": "^2.0.16"
+  },
+  "nodemonConfig": {
+    "watch": ["server.js", "public/"],
+	"ext": "js, css, html, htm, php"
   }
 }

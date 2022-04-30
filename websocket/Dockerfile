@@ -5,5 +5,5 @@ COPY ./package*.json ./
 RUN npm i -g nodemon
 RUN npm i --loglevel=error --production
 COPY . .
-EXPOSE 8080
+EXPOSE 1337
 CMD [ "npm", "run", "start" ]
