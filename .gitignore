@@ -1,2 +1,4 @@
-node_modules
-nginx/ssl
+node_modules/*
+*.key
+*.pem
+!*dhparam*.pem
