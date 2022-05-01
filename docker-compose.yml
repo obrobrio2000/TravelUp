@@ -1,8 +1,7 @@
 version: "3.8"
 services:
     node:
-        build:
-            context: ./node
+        build: "./node"
         container_name: node
         hostname: node
         ports:
@@ -19,11 +18,9 @@ services:
             - frontend
             - backend
         volumes:
-            - "./node:/usr/src/app"
-            - "./docs:/usr/src/app/public"
+            - "./node/public:/usr/src/app/public"
     nginx:
-        build:
-            context: ./nginx
+        build: "./nginx"
         container_name: nginx
         hostname: nginx
         ports:
@@ -38,7 +35,7 @@ services:
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/ssl:/etc/nginx/ssl
     postgres:
-        image: postgres:14.1-alpine
+        image: postgres:alpine
         restart: always
         environment:
             - POSTGRES_PASSWORD=postgres
@@ -73,8 +70,7 @@ services:
         networks:
             - backend
     mail:
-        build:
-            context: ./mail
+        build: "./mail"
         container_name: mail
         hostname: mail
         ports:
@@ -89,10 +85,8 @@ services:
         networks:
             - frontend
             - backend
-        volumes:
-            - "./mail:/usr/src/app"
     rabbit:
-        image: rabbitmq:3.8-management-alpine
+        image: rabbitmq:management-alpine
         container_name: rabbit
         hostname: rabbit
         ports:
@@ -110,13 +104,14 @@ services:
             - frontend
             - backend
     websocket:
-        build:
-            context: ./websocket
+        build: "./websocket"
         container_name: websocket
         hostname: websocket
         ports:
             - '1337:1337'
         restart: unless-stopped
+        environment:
+            - NODE_ENV=production
         depends_on:
             - node
         links:
@@ -124,8 +119,6 @@ services:
         networks:
             - frontend
             - backend
-        volumes:
-            - "./websocket:/usr/src/app"
 networks:
     frontend:
     backend:
