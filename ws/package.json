@@ -3,7 +3,7 @@
     "websocket": "^1.0.34"
   },
   "scripts": {
-    "start": "nodemon -L server.js"
+    "start": "nodemon server.js"
   },
   "name": "travelup_websocket",
   "version": "1.0.0",
@@ -22,6 +22,11 @@
     "booking"
   ],
   "author": "TUEngineers",
+  "contributors": [
+    "Filippo Serafini",
+    "Stefano Mazziotta",
+    "Giovanni Magliocchetti"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/TUEngineers/TravelUp/issues"
@@ -31,7 +36,10 @@
     "nodemon": "^2.0.16"
   },
   "nodemonConfig": {
-    "watch": ["server.js", "public/"],
-	"ext": "js, css, html, htm, php"
+    "watch": [
+      "server.js",
+      "public/"
+    ],
+    "ext": "js, css, html, htm, php, json"
   }
 }

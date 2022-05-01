@@ -3,5 +3,5 @@ WORKDIR /usr/src/app
 COPY ./package.json ./
 RUN npm i --loglevel=error --include=dev
 COPY . .
-EXPOSE 8080
+EXPOSE 1337
 CMD [ "npm", "run", "start" ]

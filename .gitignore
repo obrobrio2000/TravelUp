@@ -1,2 +1,5 @@
-node_modules
-nginx/ssl
+node_modules/*
+package-lock.json
+*.key
+*.pem
+!*dhparam*.pem
