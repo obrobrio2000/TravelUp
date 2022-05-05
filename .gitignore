@@ -4,3 +4,4 @@ package-lock.json
 *.pem
 !*dhparam*.pem
 *Zone.Identifier
+fiveserver.config.js
