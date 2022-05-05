@@ -1,28 +1,6 @@
 # TravelUp
-TravelUp is a useful application to organize your travel itinerary.
+TravelUp è un'utile applicazione per organizzare il tuo itinerario di viaggio.
 
-Project for the Computer Networks Course, held in the Academic Year 2021/2022 by Professor Andrea Vitaletti at Sapienza University of Rome.
+Progetto per i corsi di Linguaggi e Tecnologie per il Web e Reti di Calcolatori, tenuti rispettivamente dai proff. Rosati e Vitaletti nell'Anno Accademico 2021/2022 presso Sapienza Università di Roma.
 
-## Requirements
-
-
-
-## Used technologies
-
-
-
-## Idea of the project
-
-
-
-## Page organization
-
-
-
-## Checks
-
-
-
-## Future updates
-
-
+## Da completare...
