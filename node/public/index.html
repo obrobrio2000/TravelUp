@@ -1,40 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel=”stylesheet” href=”css/bootstrap.css”>
-    <link rel=”stylesheet” href=”css/bootstrap-responsive.css”>
-    <title>Home</title>
+    <title>TravelUp</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+
+    <!-- aos css file cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/3.0.0-beta.6/aos.css">
+
+    <!-- magnific popup css cdn link  -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"> -->
+
+    <!-- bootstrap cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- google oauth -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+        content="539407945480-3pqnobkoml1t0907p5oshk1m5t75cco4.apps.googleusercontent.com">
+
+    <!-- facebook oauth -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '{your-app-id}',
+                cookie: true,
+                xfbml: true,
+                version: '{api-version}'
+            });
+            FB.AppEvents.logPageView();
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
 </head>
+
 <body>
-    <div class="container-fluid" style="padding-left:0;padding-right: 0;">
-        <div class="left">
-            <div class="fonts">
-                <h1>Non hai un account?</h1><br>
-                <p>Registrati ora e scopri un nuovo modo di viaggiare con TravelUp</p><br>
-                <button type="button" >Registrati ora</button>
-            </div>
+
+    <!-- inizio sezione header -->
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v13.0&appId=516293156710461&autoLogAppEvents=1"
+        nonce="1IymiZq6"></script>
+
+    <header>
+
+        <div class="container">
+
+            <!-- <a href="" class="logo"><span>Travel</span>Up</a> -->
+            <a class="navbar-brand logo" href="">
+                <img src="/assets/images/logoleft.png" style="max-width: 175px; height: auto;" alt="">
+            </a>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <!-- <li><a href="#about">Chi siamo</a></li> -->
+                    <li><a href="#itin">Itinerari</a></li>
+                    <li><a href="#review">Recensioni</a></li>
+                    <li><a href="#contact">Contattaci</a></li>
+                    <li><a href="#home">Accedi</a></li>
+                </ul>
+            </nav>
+
+            <div class="fas fa-bars"></div>
+
         </div>
-        <div class="right">
-            <div class="rightFonts">
-                <div class="space">
-                    <h1>TravelUp</h1><br>
-                    <form>
-                        <input type="text" id="nomeUt" name="nomeUt" value="Nome Utente" width="6px"><br><br>
-                        <input type="text" id="password" name="password" value="Password" width="6px"><br><br>
-                        <button type="submit" class="login-btn">Login</button>
-                        <button type="submit" class="login-btn">Accedi con Google</button>
-                        <button type="submit" class="login-btn">Accedi con Facebook</button>
-                    </form>
+
+    </header>
+
+    <!-- fine sezione header -->
+
+    <!-- inizio sezione home -->
+
+    <section class="home" id="home">
+
+        <div class="container">
+
+            <div class="row min-vh-100 align-items-center text-center text-md-left">
+
+                <div class="col-md-6 pr-md-5" data-aos="fade-right">
+                    <img src="/assets/images/home.svg" width="100%" alt="">
                 </div>
+
+                <div class="col-md-6 pl-md-5 content" data-aos="fade-left">
+                    <!-- <h1><span>stay</span> safe, <span>stay</span> healthy.</h1>
+                    <h3>caring for you.</h3>
+                    <a href=""><button class="button">learn more</button></a> -->
+                    <h1>Crea l'<span>itinerario</span> dei tuoi <span>sogni</span>!</h1>
+                    <h3>TravelUp ti permette di comporre il tuo itinerario di viaggio secondo
+                        luoghi di interesse, eventi, traffico, meteo e molto altro! Inizia ora:</h3>
+                    <div class="container">
+                        <div class="row oauthBtns">
+                            <div class="col g-signin2" data-width="300" data-height="40" data-theme="dark"
+                                data-longtitle="true" data-onsuccess="onSignIn"></div>
+                            <div class="col fb-login-button" data-width="300" data-size="large"
+                                data-button-type="continue_with" data-layout="default" data-auto-logout-link="false"
+                                data-use-continue-as="true"></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
         </div>
-    </div>
+
+    </section>
+
+    <!-- fine sezione home -->
+
+    <!-- inizio sezione about  -->
+
+    <!-- <section class="about" id="about">
+
+        <div class="container">
+
+            <div class="row min-vh-100 align-items-center">
+
+                <div class="col-md-6 content" data-aos="fade-up-right">
+
+                    <div class="box">
+                        <h3> <i class="fas fa-globe"></i> da compilare se serve </h3>
+                        <p>da compilare se serve</p>
+                    </div>
+
+                    <div class="box">
+                        <h3> <i class="fas fa-compass"></i> da compilare se serve </h3>
+                        <p>da compilare se serve</p>
+                    </div>
+
+                    <div class="box">
+                        <h3> <i class="fas fa-car"></i> da compilare se serve </h3>
+                        <p>da compilare se serve</p>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 d-none d-md-block" data-aos="fade-up-left">
+                    <img src="/assets/images/home.svg" width="100%" alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section> -->
+
+    <!-- fine sezione about -->
+
+    <!-- inizio sezione itinerari  -->
+
+    <!-- <section class="itinerari" id="itinerari">
+
+        <div class="container">
+
+            <h1 class="heading"><span>'</span> Foto dei nostri utenti <span>'</span></h1>
+
+            <div class="box-container">
+
+                <div class="box" data-aos="zoom-in">
+                    <a href="/assets/images/turista-roma.jpg" title="our team">
+                        <img src="/assets/images/turista-roma.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="box" data-aos="zoom-in">
+                    <a href="/assets/images/turista-roma.jpg" title="our lab">
+                        <img src="/assets/images/turista-parigi.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="box" data-aos="zoom-in">
+                    <a href="/assets/images/turista-roma.jpg" title="emergency rooms">
+                        <img src="/assets/images/turista-roma.jpg" alt="">
+                    </a>
+                </div>
+
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section> -->
+
+    <section class="itin" id="itin">
+
+        <div class="container min-vh-100">
+
+            <h1 class="heading" data-aos="fade-up"><span>✈</span> Itinerari già pronti <span>✈</span></h1>
+            <h2 class="heading-description text-center" data-aos="fade-up">Hai qualche domanda o vuoi segnalarci qualche
+                problema? Contatta il
+                nostro supporto, ti risponderemo al più presto!</h2>
+
+            <div class="box-container">
+
+                <div class="box" data-aos="fade-up-right">
+                    <img src="/assets/images/itinerari-barcellona.jpg" alt="">
+                    <div class="content">
+                        <span>27/05/2022 - 29/05/2022</span>
+                        <a href="">
+                            <h3>Barcellona, Spagna</h3>
+                        </a>
+                        <p>Un fine settimana a Barcellona per staccare dalla monotonia della vita di sempre. Sagrada
+                            Familia, La Rambla, Parco Guell, chili di paella! Ed è solo il primo giorno...</p>
+                        <a href=""><button class="button">Scegli itinerario</button></a>
+                    </div>
+                </div>
+
+                <div class="box" data-aos="fade-up">
+                    <img src="/assets/images/itinerari-amsterdam.jpg" alt="">
+                    <div class="content">
+                        <span>27/05/2022 - 29/05/2022</span>
+                        <a href="">
+                            <h3>Amsterdam, Paesi Bassi</h3>
+                        </a>
+                        <p>Un bel weekend ad Amsterdam con un sole che spacca la testa! Taxi aeroporto-hotel, poi tappa
+                            tattica in Piazza Dam ed infine dritti al museo di Van Gogh! E molto altro ancora...</p>
+                        <a href=""><button class="button">Scegli itinerario</button></a>
+                    </div>
+                </div>
+
+                <div class="box" data-aos="fade-up-left">
+                    <img src="/assets/images/itinerari-roma.jpg" alt="">
+                    <div class="content">
+                        <span>03/06/2022 - 05/06/2022</span>
+                        <a href="">
+                            <h3>Roma, Italia</h3>
+                        </a>
+                        <p>Venerdì, sabato e domenica tra Colosseo, Pantheon, Fontana di Trevi, Foro Romano... e qualche
+                            carbonara qua e là! Godersi la bellezza di Roma non è mai stato così facile!</p>
+                        <a href=""><button class="button">Scegli itinerario</button></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione itinerari -->
+
+    <!-- inizio sezione recensioni -->
+
+    <section class="review" id="review">
+
+        <div class="container">
+
+            <h1 class="heading" data-aos="fade-up"><span>🤩</span> Cosa dicono di noi <span>🤩</span></h1>
+            <h2 class="heading-description text-center" data-aos="fade-up">Recensioni di alcuni nostri utenti!</h2>
+
+            <div class="box-container">
+
+                <div class="box" data-aos="fade-up-right">
+                    <p>Ho usato TravelUp per il mio viaggio a Parigi e si è rivelato utilissimo! Non ho perso tempo
+                        a "cercare che posto vedere" perché avevo già tutto organizzato!</p>
+                    <h3>Filippo S.</h3>
+                    <span>04/05/2022</span>
+                    <img src="/assets/images/review1.jpg" alt="">
+                </div>
+
+                <div class="box" data-aos="fade-up">
+                    <p>Idea bellissima e davvero utile! Questo sito mi ha davvero fatto godere ogni minuto della mia
+                        vacanza in Sicilia! Davvero un sito da 30 e Lode!</p>
+                    <h3>Stefano M.</h3>
+                    <span>03/04/2022</span>
+                    <img src="/assets/images/review2.jpg" alt="">
+                </div>
+
+                <div class="box" data-aos="fade-up-left">
+                    <p>Con TravelUp puoi creare il tuo itinerario personalizzato, ma il bello è che ci sono anche
+                        itinerari predefiniti, già pronti per i pigri come me!</p>
+                    <h3>Giovanni M.</h3>
+                    <span>02/03/2022</span>
+                    <img src="/assets/images/review3.jpg" alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione recensioni  -->
+
+    <!-- inizio sezione counter  -->
+
+    <!-- <section class="counter">
+
+        <div class="container">
+
+            <div class="box-container">
+
+                <div class="box" data-aos="fade-up">
+                    <i class="fas fa-smile"></i>
+                    <span>120+</span>
+                    <h3>utenti</h3>
+                </div>
+
+                <div class="box" data-aos="fade-up">
+                    <i class="fas fa-users"></i>
+                    <span>50+</span>
+                    <h3>recensioni</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section> -->
+
+    <!-- fine sezione counter -->
+
+    <!-- inizio sezione contattaci -->
+
+    <section class="contact" id="contact">
+
+        <div class="container min-vh-100">
+
+            <div class="row justify-content-center">
+
+                <h1 class="heading" data-aos="fade-up"><span>📧</span> Contattaci <span>📧</span></h1>
+
+                <h2 class="heading-description text-center" data-aos="fade-up">Hai qualche domanda o vuoi segnalarci
+                    qualche
+                    problema? Contatta il
+                    nostro supporto, ti risponderemo al più presto!</h2>
+
+                <div class="col-md-10" data-aos="fade-up">
+
+                    <form method="post" action="https://formspree.io/f/xgedpbrp">
+
+                        <div class="inputBox">
+                            <input type="text" placeholder="Nome e cognome (obbligatorio)" required>
+                            <input type="number" placeholder="Cellulare (facoltativo)">
+                        </div>
+
+                        <div class="inputBox">
+                            <input type="email" name="email" placeholder="La tua email (obbligatorio)" required>
+                            <select name="" id="" required>
+                                <option value="" disabled selected>Tipo di richiesta (obbligatorio)</option>
+                                <option value="Problema">Problema</option>
+                                <option value="Suggerimento">Suggerimento</option>
+                                <option value="Domanda">Domanda</option>
+                            </select>
+                        </div>
+
+                        <textarea name="message" id="message" name="name" cols="30" rows="10"
+                            placeholder="Messaggio (obbligatorio)" required></textarea>
+
+                        <input type="submit" name="submit" id="submit" value="Invia" class="button">
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione contattaci -->
+
+    <!-- inizio sezione footer  -->
+
+    <section class="footer">
+
+        <!-- <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <a href="" class="logo">Travel<span>Up</span></a>
+                    <p>&copy; Copyright 2022, tutti i diritti riservati</p>
+                    <p>&copy; </p>
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <h3>Collegamenti</h3>
+                    <a href="">Home</a>
+                    <a href="">Chi siamo</a>
+                    <a href="">Contattaci</a>
+                    <a href="">Accedi</a>
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <h3>Condividi</h3>
+                    <a href="">Facebook</a>
+                    <a href="">Twitter</a>
+                    <a href="">Instagram</a>
+                    <a href="">GitHub</a>
+                </div>
+
+            </div>
+
+        </div> -->
+
+        <h1 class="credit text-center mx-auto" data-aos="fade-up">© Copyright 2022 TravelUp ®<span></span><br>All rights
+            reserved.<br><a href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
+
+    </section>
+
+    <!-- fine sezione footer -->
+
+    <!-- jquery cdn link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- magnific popup js link  -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script> -->
+
+    <!-- aos js file cdn link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/3.0.0-beta.6/aos.js"></script>
+
+    <!-- bootstrap js file cdn link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- custom js link  -->
+    <script src="/js/main.js"></script>
+
 </body>
+
 </html>

@@ -11,6 +11,12 @@ const client = new Client({
 
 app.use(express.static("public"));
 
+// Da riabilitare quando sarà tutto pronto
+// (per ora li usiamo tramite CDN così funziona liveserver su vscode):
+// app.use(express.static("node_modules/bootstrap/dist"));
+// app.use(express.static("node_modules/jquery/dist"));
+// app.use(express.static("node_modules/@fortawesome/fontawesome-free"));
+
 app.get("/contributors", async (req, res) => {
   const results = await client
     .query("SELECT * FROM contributors")

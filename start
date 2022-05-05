@@ -1,2 +1,5 @@
+# This script closes all, rebuilds and starts. Useful for both starting and re-starting (e.g. after a change).
+# Usage: ./start
+# To start in detached mode, use ./startd
 docker-compose down
 docker-compose up --build
