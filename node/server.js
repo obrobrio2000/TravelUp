@@ -10,8 +10,8 @@ const port = 8080;
 const app = express();
 
 // const client = new Client({
+//   user: process.env.POSTGRES_USER, // creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. POSTGRES_USER=user) una per riga
 //   password: process.env.POSTGRES_PASSWORD,
-//   user: process.env.POSTGRES_USER,
 //   host: process.env.POSTGRES_DB,
 // });
 
@@ -19,7 +19,7 @@ function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
 }
 
-app.use(session({ secret: process.env.SESSIONSECRET, resave: false, saveUninitialized: true }));
+app.use(session({ secret: process.env.SESSIONSECRET, resave: false, saveUninitialized: true })); // creare un file .env nella stessa directory di questo file e dichiarare la variabile SESSIONSECRET=aVostroPiacere
 app.use(passport.initialize());
 app.use(passport.session());
 

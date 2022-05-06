@@ -80,7 +80,7 @@ services:
         container_name: couchdb
         hostname: couchdb
         environment:
-            - COUCHDB_USER=${COUCHDB_USER}
+            - COUCHDB_USER=${COUCHDB_USER} # creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. ***REMOVED***) una per riga
             - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
         ports:
             - "5984:5984" # Management on http://localhost:5984/_utils/
@@ -97,7 +97,7 @@ services:
         image: postgres:alpine
         restart: always
         environment:
-            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_USER=${POSTGRES_USER} # creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. POSTGRES_USER=admin) una per riga
             - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
             - POSTGRES_DB=${POSTGRES_DB}
         container_name: postgres
@@ -117,7 +117,7 @@ services:
         image: dpage/pgadmin4
         environment:
             PGADMIN_LISTEN_PORT: 16543
-            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL} # creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. PGADMIN_DEFAULT_EMAIL=user@email.com) una per riga
             PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
         container_name: pgadmin
         hostname: pgadmin
@@ -139,7 +139,7 @@ services:
             - '15672:15672' # HTTP management UI
         restart: unless-stopped
         environment:
-            - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER} # creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. RABBITMQ_DEFAULT_USER=admin) una per riga
             - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
         depends_on:
             - node
