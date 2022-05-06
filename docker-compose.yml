@@ -81,7 +81,7 @@ services:
         hostname: couchdb
         environment:
             - ***REMOVED***
-            - COUCHDB_PASSWORD=YOURPASSWORD
+            - COUCHDB_PASSWORD=TravelUp
         ports:
             - "5984:5984"
         networks:
