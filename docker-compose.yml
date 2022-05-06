@@ -12,8 +12,11 @@ services:
         depends_on:
             postgres:
                 condition: service_healthy
+            couchdb:
+                condition: service_healthy
         links:
             - postgres
+            - couchdb
         networks:
             - frontend
             - backend
@@ -71,6 +74,25 @@ services:
         volumes:
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/ssl:/etc/nginx/ssl
+    couchdb:
+        image: couchdb
+        restart: always
+        container_name: couchdb
+        hostname: couchdb
+        environment:
+            - ***REMOVED***
+            - COUCHDB_PASSWORD=YOURPASSWORD
+        ports:
+            - "5984:5984"
+        networks:
+            - backend
+        volumes:
+            - ./couchdb:/opt/couchdb/data
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -f http://localhost:5984/" ]
+            interval: 5s
+            timeout: 5s
+            retries: 5
     postgres:
         image: postgres:alpine
         restart: always
@@ -85,7 +107,7 @@ services:
         volumes:
             - ./postgres/db-seed.sql:/docker-entrypoint-initdb.d/db-seed.sql
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
             interval: 5s
             timeout: 5s
             retries: 5
