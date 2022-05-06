@@ -6,7 +6,7 @@ const { OAuth2Client } = require('google-auth-library');
 require('dotenv').config();
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientID: process.env.GOOGLE_CLIENT_ID, // creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. GOOGLE_CLIENT_ID=clientId) una per riga
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:8080/auth/google/callback",
 },
@@ -23,7 +23,7 @@ passport.use(new GoogleStrategy({
 ));
 
 const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_ID, // creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. GOOGLE_CLIENT_ID=clientId) una per riga
     process.env.GOOGLE_CLIENT_SECRET,
     process.env.GOOGLE_REDIRECT_URL
 );
@@ -42,7 +42,7 @@ const url = oauth2Client.generateAuthUrl({
 });
 
 passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID,
+    clientID: process.env.FACEBOOK_APP_ID, // creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. FACEBOOK_APP_ID=clientId) una per riga
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:8080/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'emails', 'first_name', 'middle_name', 'last_name', 'birthday'],
