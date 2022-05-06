@@ -26,12 +26,12 @@
     <!-- custom css file link  -->
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- google oauth -->
+    <!-- google oauth
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id"
         content="539407945480-3pqnobkoml1t0907p5oshk1m5t75cco4.apps.googleusercontent.com">
 
-    <!-- facebook oauth -->
+    facebook oauth
     <script>
         window.fbAsyncInit = function () {
             FB.init({
@@ -49,7 +49,7 @@
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script> -->
 
 </head>
 
@@ -57,10 +57,10 @@
 
     <!-- inizio sezione header -->
 
-    <div id="fb-root"></div>
+    <!-- <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v13.0&appId=516293156710461&autoLogAppEvents=1"
-        nonce="1IymiZq6"></script>
+        nonce="1IymiZq6"></script> -->
 
     <header>
 
@@ -73,12 +73,14 @@
 
             <nav class="nav">
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <!-- <li><a href="#about">Chi siamo</a></li> -->
+                    <!-- <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Chi siamo</a></li>
                     <li><a href="#itin">Itinerari</a></li>
                     <li><a href="#review">Recensioni</a></li>
-                    <li><a href="#contact">Contattaci</a></li>
-                    <li><a href="#home">Accedi</a></li>
+                    <li><a href="#contact">Contattaci</a></li> -->
+                    <div class="loginLink">
+                        <li><a href="#home">Accedi</a></li>
+                    </div>
                 </ul>
             </nav>
 
@@ -103,19 +105,21 @@
                 </div>
 
                 <div class="col-md-6 pl-md-5 content" data-aos="fade-left">
-                    <!-- <h1><span>stay</span> safe, <span>stay</span> healthy.</h1>
-                    <h3>caring for you.</h3>
-                    <a href=""><button class="button">learn more</button></a> -->
-                    <h1>Crea l'<span>itinerario</span> dei tuoi <span>sogni</span>!</h1>
+                    <h1>Crea l'<span>itinerario</span> dei tuoi <span>sogni</span></h1>
                     <h3>TravelUp ti permette di comporre il tuo itinerario di viaggio secondo
-                        luoghi di interesse, eventi, traffico, meteo e molto altro! Inizia ora:</h3>
+                        luoghi di interesse, eventi, traffico, meteo e molto altro</h3>
+                    <a href="/auth/google"><button class="buttonGoogle">Accedi con Google</button></a>
+                    <a href="/auth/facebook"><button class="buttonFacebook">Accedi con Facebook</button></a>
                     <div class="container">
                         <div class="row oauthBtns">
-                            <div class="col g-signin2" data-width="300" data-height="40" data-theme="dark"
+                            <!-- <div class="col g-signin2" data-width="300" data-height="40" data-theme="dark"
                                 data-longtitle="true" data-onsuccess="onSignIn"></div>
-                            <div class="col fb-login-button" data-width="300" data-size="large"
-                                data-button-type="continue_with" data-layout="default" data-auto-logout-link="false"
-                                data-use-continue-as="true"></div>
+                            <div class="col fb-login-button" data-width="300" data-onlogin="onSignIn" data-size="large"
+                                data-button-type="continue_with" data-layout="default" data-auto-logout-link="true"
+                                data-use-continue-as="true"></div> -->
+                            <!-- <div><a href="/auth/google">Accedi con Google</a></div>
+                            <div><a href="/auth/facebook">Accedi con Facebook</a></div> -->
+                            <!-- <a href="#" onclick="signOut();">Sign out</a> -->
                         </div>
                     </div>
                 </div>
@@ -208,7 +212,7 @@
 
         <div class="container min-vh-100">
 
-            <h1 class="heading" data-aos="fade-up"><span>✈</span> Itinerari già pronti <span>✈</span></h1>
+            <h1 class="heading" data-aos="fade-up"><span></span> Itinerari già pronti <span></span></h1>
             <h2 class="heading-description text-center" data-aos="fade-up">Hai qualche domanda o vuoi segnalarci qualche
                 problema? Contatta il
                 nostro supporto, ti risponderemo al più presto!</h2>
@@ -268,7 +272,7 @@
 
         <div class="container">
 
-            <h1 class="heading" data-aos="fade-up"><span>🤩</span> Cosa dicono di noi <span>🤩</span></h1>
+            <h1 class="heading" data-aos="fade-up"><span></span> Cosa dicono di noi <span></span></h1>
             <h2 class="heading-description text-center" data-aos="fade-up">Recensioni di alcuni nostri utenti!</h2>
 
             <div class="box-container">
@@ -341,7 +345,7 @@
 
             <div class="row justify-content-center">
 
-                <h1 class="heading" data-aos="fade-up"><span>📧</span> Contattaci <span>📧</span></h1>
+                <h1 class="heading" data-aos="fade-up"><span></span> Contattaci <span></span></h1>
 
                 <h2 class="heading-description text-center" data-aos="fade-up">Hai qualche domanda o vuoi segnalarci
                     qualche
@@ -353,22 +357,22 @@
                     <form method="post" action="https://formspree.io/f/xgedpbrp">
 
                         <div class="inputBox">
-                            <input type="text" placeholder="Nome e cognome (obbligatorio)" required>
+                            <input type="text" placeholder="Nome e cognome *" required>
                             <input type="number" placeholder="Cellulare (facoltativo)">
                         </div>
 
                         <div class="inputBox">
-                            <input type="email" name="email" placeholder="La tua email (obbligatorio)" required>
+                            <input type="email" name="email" placeholder="La tua email *" required>
                             <select name="" id="" required>
-                                <option value="" disabled selected>Tipo di richiesta (obbligatorio)</option>
+                                <option value="" disabled selected>Tipo di richiesta *</option>
                                 <option value="Problema">Problema</option>
                                 <option value="Suggerimento">Suggerimento</option>
                                 <option value="Domanda">Domanda</option>
                             </select>
                         </div>
 
-                        <textarea name="message" id="message" name="name" cols="30" rows="10"
-                            placeholder="Messaggio (obbligatorio)" required></textarea>
+                        <textarea name="message" id="message" name="name" cols="30" rows="10" placeholder="Messaggio *"
+                            required></textarea>
 
                         <input type="submit" name="submit" id="submit" value="Invia" class="button">
 
@@ -418,8 +422,9 @@
 
         </div> -->
 
-        <h1 class="credit text-center mx-auto" data-aos="fade-up">© Copyright 2022 TravelUp ®<span></span><br>All rights
-            reserved.<br><a href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
+        <h1 class="credit text-center mx-auto homecredit">© Copyright 2022 TravelUp
+            ®<span></span><br>Tutti i diritti riservati.<br><a
+                href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
 
     </section>
 
@@ -439,6 +444,32 @@
 
     <!-- custom js link  -->
     <script src="/js/main.js"></script>
+
+    <!-- <script>
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
+
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+        }
+    </script>
+
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script> -->
 
 </body>
 

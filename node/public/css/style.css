@@ -39,8 +39,36 @@ section {
 
 .button {
   height: 3.5rem;
-  width: 15rem;
+  width: 20rem;
   background: var(--blue);
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.buttonGoogle {
+  height: 3.5rem;
+  width: 22.5rem;
+  background: var(--blue);
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.buttonFacebook {
+  height: 3.5rem;
+  width: 22.5rem;
+  background: var(--black);
   color: #fff;
   font-size: 1.7rem;
   border-radius: .5rem;
@@ -146,7 +174,7 @@ header .fa-bars {
 }
 
 .home .content h1 {
-  font-size: 4.5rem;
+  font-size: 4rem;
   color: var(--black);
 }
 
@@ -316,6 +344,7 @@ header .fa-bars {
   background-size: cover;
   background-position: center;
   background-blend-mode: multiply; */
+  margin-top: -0.1rem;
 }
 
 .contact .heading {
@@ -429,7 +458,7 @@ select {
 
 .footer {
   background: var(--black);
-  margin-top: -0.05rem;
+  margin-top: -0.1rem;
 }
 
 .footer p {
@@ -489,4 +518,12 @@ select {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
+}
+
+.oauthBtns {
+  font-size: 3rem;
+}
+
+.loginLink {
+  display: none;
 }

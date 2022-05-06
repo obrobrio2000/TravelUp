@@ -16,6 +16,13 @@ $(document).ready(function () {
       $('header').removeClass('header-active');
     }
 
+    if ($(this).scrollTop() > 800) {
+      $('.loginLink').show(1000);
+    }
+    else {
+      $('.loginLink').hide(1000);
+    }
+
   });
 
 });
@@ -24,13 +31,3 @@ AOS.init({
   duration: 1000,
   delay: 10
 });
-
-FB.getLoginStatus(function (response) {
-  statusChangeCallback(response);
-});
-
-function checkLoginState() {
-  FB.getLoginStatus(function (response) {
-    statusChangeCallback(response);
-  });
-}

@@ -3,7 +3,8 @@
     "nodemailer": "^6.7.4"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "node server.js"
   },
   "name": "travelup_mail",
   "version": "1.0.0",
@@ -33,6 +34,8 @@
   },
   "homepage": "https://github.com/TUEngineers/TravelUp#readme",
   "devDependencies": {
+    "dotenv": "^16.0.0",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.16"
   },
   "nodemonConfig": {
