@@ -1,1 +1,2 @@
+# This script closes all active containers
 docker-compose down

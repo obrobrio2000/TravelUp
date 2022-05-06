@@ -1,5 +1,5 @@
-"use strict";
 const nodemailer = require("nodemailer");
+require('dotenv').config();
 
 async function main() {
   let transporter = nodemailer.createTransport({
@@ -8,17 +8,15 @@ async function main() {
     service: 'gmail',
 	host: 'smtp.gmail.com',
 	auth: {
-		user: 'email@gmail.com',
-		pass: 'password' // generare una app password nelle impostazioni dell'account google
+    user: process.env.GMAIL_EMAIL,
+		pass: process.env.GMAIL_PASSWORD // generare una app password nelle impostazioni dell'account google
 		// https://myaccount.google.com/apppasswords
-		// anche se sono password usa e getta ricordiamoci comunque di cancellarla prima di pushare
-		// oppure mettiamo un qualcosa che prende i dati da un file di testo che escludiamo col .gitignore
 	}
   });
 
   let info = await transporter.sendMail({
-    from: "email@gmail.com",
-    to: "email@studenti.uniroma1.it",
+    from: process.env.GMAIL_EMAIL,
+    to: process.env.GMAIL_RECIPIENT,
     subject: "Ciao ✔",
     text: "Come stai?",
     html: "<b>Spero tutto bene</b>",
