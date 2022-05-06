@@ -28,7 +28,7 @@ const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_REDIRECT_URL
 );
 
-// generate a url that asks permissions for *PRODUCT* scopes
+// generate a url that asks permissions for *PRODUCT* (Blogger, Calendar etc.) scopes
 const scopes = [
     'https://www.googleapis.com/auth/calendar'
 ];
