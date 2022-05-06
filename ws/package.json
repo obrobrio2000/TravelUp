@@ -3,7 +3,8 @@
     "websocket": "^1.0.34"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "node server.js"
   },
   "name": "travelup_websocket",
   "version": "1.0.0",
@@ -33,6 +34,7 @@
   },
   "homepage": "https://github.com/TUEngineers/TravelUp#readme",
   "devDependencies": {
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.16"
   },
   "nodemonConfig": {

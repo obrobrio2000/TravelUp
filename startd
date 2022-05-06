@@ -1,2 +1,4 @@
+# Same as the "start" script but starts in detached mode.
+# Usage: ./startd
 docker-compose down
 docker-compose up -d --build
