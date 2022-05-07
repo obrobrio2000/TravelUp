@@ -48,6 +48,10 @@ app.get('/', (req, res) => {
     res.render('index', { user: req.user });
 });
 
+app.get('/index.html', (req, res) => {
+    res.redirect('/');
+});
+
 const authCheck = (req, res, next) => {
     if (!req.user) {
         next();
