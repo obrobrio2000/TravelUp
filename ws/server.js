@@ -1,18 +1,20 @@
-var WebSocketServer = require('websocket').server;
-var http = require('http');
-var server = http.createServer(function(request, response) {
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 1337 });
+
+// var active_connection = null;
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+  //active_connection = ws;
+  ws.send('something');
+  //test();
 });
-server.listen(1337, function() { });
-wsServer = new WebSocketServer({
-    httpServer: server
-});
-wsServer.on('request', function(request) {
-    var connection = request.accept(null, request.origin);
-    connection.on('message', function(message) {
-        if (message.type === 'utf8') {
-            console.log('Il messaggio ricevuto è: ' + message.utf8Data);
-        }
-    });
-    connection.on('close', function(connection) {
-    });
-});
+
+/*
+function test(){
+  active_connection.send('something else');
+}
+*/
