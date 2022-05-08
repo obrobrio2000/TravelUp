@@ -1,17 +1,22 @@
+const express = require('express');
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
-async function main() {
+const port = 465;
+
+const app = express();
+
+async function sendMail() {
   let transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     service: 'gmail',
-	host: 'smtp.gmail.com',
-	auth: {
-    user: process.env.GMAIL_EMAIL,
-		pass: process.env.GMAIL_PASSWORD // generare una app password nelle impostazioni dell'account google
-		// https://myaccount.google.com/apppasswords
-	}
+    host: 'smtp.gmail.com',
+    auth: {
+      user: process.env.GMAIL_EMAIL,
+      pass: process.env.GMAIL_PASSWORD // generare una app password nelle impostazioni dell'account google
+      // https://myaccount.google.com/apppasswords
+    }
   });
 
   let info = await transporter.sendMail({
@@ -25,4 +30,8 @@ async function main() {
   console.log("Messaggio inviato: %s", info.messageId);
 }
 
-main().catch(console.error);
+sendMail().catch(console.error);
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});

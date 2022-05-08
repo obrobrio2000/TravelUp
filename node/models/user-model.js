@@ -1,12 +1,5 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
+const nano = require('nano')(process.env.COUCHDB_URL);
 
-// const userSchema = new Schema({
-//     username: String,
-//     googleId: String,
-//     facebookId: String
-// });
+const utenti = nano.use('utenti');
 
-// const User = mongoose.model('user', userSchema);
-
-// module.exports = User;
+module.exports = utenti;

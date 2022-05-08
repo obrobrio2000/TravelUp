@@ -78,8 +78,12 @@
                     <h1>Crea l'<span>itinerario</span> dei tuoi <span>sogni</span></h1>
                     <h3>TravelUp ti permette di comporre il tuo itinerario di viaggio secondo
                         luoghi di interesse, eventi, traffico, meteo e molto altro</h3>
-                    <a href="/auth/google"><button class="buttonGoogle">Accedi con Google</button></a>
-                    <a href="/auth/facebook"><button class="buttonFacebook">Accedi con Facebook</button></a>
+                    <% if (!user) { %>
+                        <a href="/auth/google"><button class="buttonGoogle">Accedi con Google</button></a>
+                        <a href="/auth/facebook"><button class="buttonFacebook">Accedi con Facebook</button></a>
+                        <% } else { %>
+                            <a href="/dashboard"><button class="button">Continua</button></a>
+                            <% } %>
                 </div>
 
             </div>

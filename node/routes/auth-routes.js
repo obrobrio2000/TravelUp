@@ -12,10 +12,6 @@ router.get('/google/callback',
     })
 );
 
-router.get('/google',
-    passport.authenticate('google', { scope: ['email', 'profile', 'openid'] })
-);
-
 router.get('/facebook',
     passport.authenticate('facebook')
 );
@@ -28,4 +24,3 @@ router.get('/facebook/callback',
 );
 
 module.exports = router;
-
