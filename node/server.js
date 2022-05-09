@@ -6,16 +6,13 @@ const authRoutes = require('./routes/auth-routes');
 const itinerariRoutes = require('./routes/itinerari-routes');
 const passport = require('passport');
 const passportSetup = require('./config/passport-setup');
-const bodyParser = require('body-parser');
+const itinerari = nano.use('itinerari');
 
 const port = 8080;
 
 const app = express();
 
 app.set('view engine', 'ejs');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -30,8 +27,22 @@ app.use(express.static(__dirname + '/public'));
 app.use('/auth', authRoutes);
 app.use('/itinerari', itinerariRoutes);
 
-app.get('/', (req, res) => {
-    res.render('index', { user: req.user });
+app.get('/', async (req, res) => {
+    // res.render('index', { user: req.user });
+    try {
+        const q = {
+            selector: {
+                creatore: { "$eq": "TravelUp" }
+            }
+        };
+        const itin = await itinerari.find(q);
+        console.log(itin.docs);
+        console.log(itin.docs.length);
+        res.render('index', { itin: itin.docs, user: req.user });
+    } catch (err) {
+        console.log(err);
+        res.render('errore');
+    }
 });
 
 app.get('/index.html', (req, res) => {
@@ -57,8 +68,34 @@ app.get('/logout', (req, res) => {
 }
 );
 
-app.get('/error', (req, res) => {
-    res.render('error');
+app.get('/errore', (req, res) => {
+    res.render('errore');
+});
+
+// bootstrap
+app.get('/css/bootstrap.min.css', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.min.css');
+});
+app.get('/js/bootstrap.bundle.min.js', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
+});
+
+// aos
+app.get('/css/aos.css', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/aos/dist/aos.css');
+});
+app.get('/js/aos.js', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/aos/dist/aos.js');
+});
+
+// jquery
+app.get('/js/jquery.min.js', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/jquery/dist/jquery.min.js');
+});
+
+// fontawesome
+app.get('/css/all.min.css', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 });
 
 app.listen(port, () => {

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const utenti = require('../models/model');
-const itinerari = require('../models/model');
+const nano = require('nano')(process.env.COUCHDB_URL);
+const utenti = nano.use('utenti');
+const itinerari = nano.use('itinerari');
 
 const app = express();
 
@@ -30,7 +31,7 @@ router.get('/', authCheck, async (req, res) => {
         res.render('itinerari', { itin: itin.docs, user: req.user });
     } catch (err) {
         console.log(err);
-        res.render('error');
+        res.render('errore');
     }
 });
 
@@ -54,11 +55,11 @@ router.get('/:itinerario/elimina', authCheck, async (req, res) => {
             await itinerari.destroy(itin.docs[0]._id, itin.docs[0]._rev);
             res.redirect('/itinerari');
         } else {
-            res.render('error');
+            res.render('errore');
         }
     } catch (err) {
         console.log(err);
-        res.render('error');
+        res.render('errore');
     }
 });
 
@@ -69,16 +70,17 @@ router.get('/:itinerario', authCheck, async (req, res) => {
                 _id: { "$eq": req.params.itinerario }
             }
         };
+        console.log(req.params.itinerario);
         const itin = await itinerari.find(q);
         console.log(itin.docs[0]);
         if (itin.docs.length == 0) {
-            res.render('error');
+            res.render('errore');
         } else {
             res.render('visualizza-itinerario', { itinerario: itin.docs[0], user: req.user });
         }
     } catch (err) {
         console.log(err);
-        res.render('error');
+        res.render('errore');
     }
 });
 
