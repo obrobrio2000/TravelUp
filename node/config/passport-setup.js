@@ -2,7 +2,7 @@ require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const utenti = require('../models/user-model');
+const utenti = require('../models/model');
 const { google } = require('googleapis');
 const { OAuth2Client } = require('google-auth-library');
 
@@ -37,6 +37,7 @@ passport.use(new FacebookStrategy({
                 } catch (err) {
                     const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken, _rev: doc._rev }, profile.emails[0].value);
                     return response;
+                    console.error(err)
                 }
             } catch (err) {
                 const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken }, profile.emails[0].value);

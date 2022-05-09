@@ -79,6 +79,20 @@ section {
   margin: 1rem 0;
 }
 
+.buttonRed {
+  height: 3.5rem;
+  width: 20rem;
+  background: #830505;
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
 .button::before {
   content: '';
   position: absolute;
@@ -398,14 +412,6 @@ select {
   border-radius: 5px;
 }
 
-.itin {
-  /* background: var(--black); */
-  /* background: url(/assets/images/itinerari-roma.jpg), linear-gradient(var(--black), var(--black)) no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: multiply; */
-}
-
 .itin .heading-description {
   color: var(--black);
   text-align: center;
@@ -526,4 +532,8 @@ select {
 
 .loginLink {
   display: none;
+}
+
+.imgRound {
+  border-radius: 50%;
 }

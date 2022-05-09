@@ -3,7 +3,7 @@ const express = require('express');
 const session = require('cookie-session');
 const nano = require('nano')(process.env.COUCHDB_URL);
 const authRoutes = require('./routes/auth-routes');
-const dashboardRoutes = require('./routes/dashboard-routes');
+const itinerariRoutes = require('./routes/itinerari-routes');
 const passport = require('passport');
 const passportSetup = require('./config/passport-setup');
 const bodyParser = require('body-parser');
@@ -11,10 +11,6 @@ const bodyParser = require('body-parser');
 const port = 8080;
 
 const app = express();
-
-// function isLoggedIn(req, res, next) {
-//     req.user ? next() : res.sendStatus(401);
-// }
 
 app.set('view engine', 'ejs');
 
@@ -32,7 +28,7 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
 app.use('/auth', authRoutes);
-app.use('/dashboard', dashboardRoutes);
+app.use('/itinerari', itinerariRoutes);
 
 app.get('/', (req, res) => {
     res.render('index', { user: req.user });
@@ -46,7 +42,7 @@ const authCheck = (req, res, next) => {
     if (!req.user) {
         next();
     } else {
-        res.redirect('/dashboard');
+        res.redirect('/itinerari');
     }
 }
 
@@ -64,10 +60,6 @@ app.get('/logout', (req, res) => {
 app.get('/error', (req, res) => {
     res.render('error');
 });
-
-// app.get('/dashboard', isLoggedIn, (req, res) => {
-//     res.send(`Hello ${req.user} - ${req.user.displayName} - ${req.user.emails[0].value} - ${req.user._json.email}`);
-// });
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
