@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "websocket": "^1.0.34"
+    "express": "^4.18.1",
+    "websocket": "^1.0.34",
+    "ws": "^8.6.0"
   },
   "scripts": {
     "start": "nodemon server.js",

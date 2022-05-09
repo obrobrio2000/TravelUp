@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const passport = require('passport');
 
 router.get('/google',
@@ -7,13 +8,9 @@ router.get('/google',
 
 router.get('/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/dashboard',
+        successRedirect: '/itinerari',
         failureRedirect: '/error'
     })
-);
-
-router.get('/google',
-    passport.authenticate('google', { scope: ['email', 'profile', 'openid'] })
 );
 
 router.get('/facebook',
@@ -22,10 +19,9 @@ router.get('/facebook',
 
 router.get('/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/dashboard',
+        successRedirect: '/itinerari',
         failureRedirect: '/error'
     })
 );
 
 module.exports = router;
-

@@ -1,10 +1,10 @@
+require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-// const User = require('../models/user-model');
+const utenti = require('../models/model');
 const { google } = require('googleapis');
 const { OAuth2Client } = require('google-auth-library');
-require('dotenv').config();
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -22,22 +22,37 @@ passport.use(new FacebookStrategy({
 },
     function (accessToken, refreshToken, profile, cb) {
         process.nextTick(function () {
-            console.log("########## FACEBOOK ##########");
             console.log(profile);
         });
-        // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-        //     return cb(err, user);
-        // });
-        return cb(null, profile);
-        // new User({
-        //     username: profile.displayName,
-        //     facebookId: profile.id
-        // }).save().then(user => {
-        //     return cb(null, user);
-        // }).catch(err => {
-        //     console.log(err);
-        // }
-        // );
+
+        async function createUser() {
+            var doc = "";
+            try {
+                doc = await utenti.get(profile.emails[0].value);
+                var googleId = "null";
+                try {
+                    googleId = doc.googleId;
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken, _rev: doc._rev }, profile.emails[0].value);
+                    return response;
+                } catch (err) {
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken, _rev: doc._rev }, profile.emails[0].value);
+                    return response;
+                    console.error(err)
+                }
+            } catch (err) {
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken }, profile.emails[0].value);
+                return response;
+            }
+        }
+        createUser().then(function (result) {
+            console.log(result);
+            return cb(null, profile);
+        }
+        ).catch(function (err) {
+            console.log(err);
+            return cb(err);
+        }
+        );
     }
 ));
 
@@ -48,22 +63,37 @@ passport.use(new GoogleStrategy({
 },
     function (accessToken, refreshToken, profile, cb) {
         process.nextTick(function () {
-            console.log("########## GOOGLE ##########");
             console.log(profile);
         });
-        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //     return cb(err, user);
-        // });
-        return cb(null, profile);
-        // new User({
-        //     username: profile.displayName,
-        //     googleId: profile.id
-        // }).save().then(user => {
-        //     return cb(null, user);
-        // }).catch(err => {
-        //     console.log(err);
-        // }
-        // );
+
+        async function createUser() {
+            var doc = "";
+            try {
+                doc = await utenti.get(profile.emails[0].value);
+                var facebookId = "null";
+                try {
+                    facebookId = doc.facebookId;
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, accessToken: accessToken, refreshToken: refreshToken, _rev: doc._rev }, profile.emails[0].value);
+                    return response;
+                } catch (err) {
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, accessToken: accessToken, refreshToken: refreshToken, _rev: doc._rev }, profile.emails[0].value);
+                    return response;
+                    console.error(err)
+                }
+            } catch (err) {
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, refreshToken: refreshToken }, profile.emails[0].value);
+                return response;
+            }
+        }
+        createUser().then(function (result) {
+            console.log(result);
+            return cb(null, profile);
+        }
+        ).catch(function (err) {
+            console.log(err);
+            return cb(err);
+        }
+        );
     }
 ));
 

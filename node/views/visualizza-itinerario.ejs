@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelUp</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/3.0.0-beta.6/aos.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style_itinerario.css">
+</head>
+
+<body>
+
+    <header class="no-mobile no-print"><img src="/assets/images/logoleft.png" class="logoFooter"
+            style="max-width: 175px; height: auto;" alt="">
+    </header>
+
+    <div class="container">
+        <div class="timeline">
+            <div class="timeline-row">
+                <div class="timeline-time">
+                    7:45<small>21/10/2022</small>
+                </div>
+                <div class="timeline-content">
+                    <i class="icon-attachment"></i>
+                    <h4>Tappa 1</h4>
+                    <p>Per adesso è solo una tappa placeholder statica</p>
+                    <div class="thumbs">
+                        <img class="img-fluid" src="<%= itinerario.foto %>"
+                            alt="">
+                    </div>
+                    <div class="">
+                        <span class="badge badge-pill">Tag 1</span>
+                        <span class="badge badge-pill">Tag 2</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- inizio sezione footer  -->
+
+    <section class="footer no-mobile">
+
+        <a class="text-center no-print" href="/itinerari"><button class="button"
+                onclick="window.print();return false;">Stampa/scarica PDF</button></a>
+
+        <h4 class="credit text-center mx-auto homecredit">© Copyright 2022 TravelUp
+            ®<span></span><br>Tutti i diritti riservati.</h4>
+
+    </section>
+
+    <!-- fine sezione footer -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/3.0.0-beta.6/aos.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/js/main_itinerario.js"></script>
+
+</body>
+
+</html>
