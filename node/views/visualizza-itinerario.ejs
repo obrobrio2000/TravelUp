@@ -4,19 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelUp</title>
+    <title>TravelUp: Visualizza itinerario</title>
     <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
     <link rel="manifest" href="assets/favicons/site.webmanifest">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/3.0.0-beta.6/aos.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
+    <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
     <link rel="stylesheet" href="/css/style_itinerario.css">
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -25,8 +22,13 @@
 
 <body>
 
-    <header class="no-mobile no-print"><img src="/assets/images/logoleft.png" class="logoFooter"
-            style="max-width: 175px; height: auto;" alt="">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v13.0&appId=516293156710461&autoLogAppEvents=1"
+        nonce="bIDk1MgX"></script>
+
+    <header class="no-mobile no-print"><a href="/"><img src="/assets/images/logoleft.png" class="logoFooter"
+            style="max-width: 175px; height: auto;" alt=""></a>
     </header>
 
     <div class="container">
@@ -38,7 +40,7 @@
                 <div class="timeline-content">
                     <i class="icon-attachment"></i>
                     <h4>Tappa 1</h4>
-                    <p>Per adesso è solo una tappa placeholder statica</p>
+                    <p>Tappa da prendere dal database</p>
                     <div class="thumbs">
                         <img class="img-fluid" src="<%= itinerario.foto %>" alt="">
                     </div>
@@ -57,11 +59,19 @@
     <section class="footer">
 
         <div class="container text-center no-print">
-            <a><button class="button"
-                    onclick="window.print();return false;">Stampa/scarica PDF</button></a>
-            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
-                data-size="large" data-text="Guarda l&#39;itinerario di viaggio che ho appena creato su TravelUp!"
-                data-hashtags="travelup" data-dnt="true" data-show-count="false"></a>
+            <a><button class="button" onclick="window.print();return false;">Stampa/scarica PDF</button></a>
+            <a><button class="button">Inserisci su Google Calendar</button></a>
+            <div class="container facebookShareButton text-center">
+                <div class="fb-share-button" data-href="https://127.0.0.1/itinerari/<%= itinerario._id %>"
+                    data-layout="button" data-size="large"><a target="_blank"
+                        class="fb-xfbml-parse-ignore">Condividi</a>
+                </div>
+            </div>
+            <div class="container twitterShareButton">
+                <a class="twitter-share-button" data-size="large"
+                    data-text="Guarda l&#39;itinerario di viaggio che ho appena creato su TravelUp!"
+                    data-hashtags="travelup" data-dnt="true" data-show-count="false"></a>
+            </div>
         </div>
 
         <h4 class="credit text-center mx-auto homecredit">© Copyright 2022 TravelUp
@@ -71,12 +81,9 @@
 
     <!-- fine sezione footer -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/3.0.0-beta.6/aos.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-
+    <script src="/js/aos.js"></script> <!-- AOS JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+    <script src="/js/jquery.min.js"></script> <!-- jQuery -->
     <script src="/js/main_itinerario.js"></script>
 
 </body>
