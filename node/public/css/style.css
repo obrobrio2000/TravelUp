@@ -16,7 +16,7 @@
   outline: none !important;
   text-decoration: none !important;
   font-weight: 400;
-  transition: all .2s linear;
+  /* transition: all .2s linear; */
 }
 
 *::selection {
@@ -255,10 +255,6 @@ header .fa-bars {
 
 .review {
   background: var(--black);
-  /* background: url(/assets/images/itinerari-roma.jpg), linear-gradient(var(--black), var(--black)) no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: multiply; */
 }
 
 .review .heading {
@@ -354,10 +350,6 @@ header .fa-bars {
 
 .contact {
   background: var(--black);
-  /* background: url(/assets/images/itinerari-roma.jpg), linear-gradient(var(--black), var(--black)) no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: multiply; */
   margin-top: -0.1rem;
 }
 
@@ -412,18 +404,18 @@ select {
   border-radius: 5px;
 }
 
-.itin .heading-description {
+.itinerari .heading-description {
   color: var(--black);
   text-align: center;
 }
 
-.itin .box-container {
+.itinerari .box-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.itin .box-container .box {
+.itinerari .box-container .box {
   width: 30rem;
   margin: 2rem 1rem;
   overflow: hidden;
@@ -431,33 +423,33 @@ select {
   box-shadow: 0 .3rem .5rem rgba(0, 0, 0, .3);
 }
 
-.itin .box-container .box img {
+.itinerari .box-container .box img {
   height: 20rem;
   width: 100%;
   object-fit: cover;
 }
 
-.itin .box-container .box .content {
+.itinerari .box-container .box .content {
   padding: 0 1.5rem;
 }
 
-.itin .box-container .box .content span {
+.itinerari .box-container .box .content span {
   color: #666;
   font-size: 1.5rem;
   display: block;
   padding: 1rem 0;
 }
 
-.itin .box-container .box .content h3 {
+.itinerari .box-container .box .content h3 {
   font-size: 2rem;
   color: var(--black);
 }
 
-.itin .box-container .box .content:hover h3 {
+.itinerari .box-container .box .content:hover h3 {
   color: var(--blue);
 }
 
-.itin .box-container .box .content p {
+.itinerari .box-container .box .content p {
   font-size: 1.3rem;
   color: var(--black);
 }
