@@ -16,8 +16,6 @@
     <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
     <link rel="stylesheet" href="/css/style_itinerario.css">
 
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 </head>
 
 <body>
@@ -26,6 +24,8 @@
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v13.0&appId=516293156710461&autoLogAppEvents=1"
         nonce="bIDk1MgX"></script>
+
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     <header class="no-mobile no-print header-active"><a href="/"><img src="/assets/images/logoleft.png"
                 class="logoFooter" style="max-width: 175px; height: auto;" alt=""></a>
@@ -90,7 +90,13 @@
     <script src="/js/aos.js"></script> <!-- AOS JS -->
     <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
     <script src="/js/jquery.min.js"></script> <!-- jQuery -->
-    <script src="/js/main_itinerario.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            delay: 10
+        });
+    </script>
 
 </body>
 
