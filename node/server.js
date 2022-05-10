@@ -1,12 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('cookie-session');
-const nano = require('nano')(process.env.COUCHDB_URL);
+const itinerari = require('./models/itinerari-model');
 const authRoutes = require('./routes/auth-routes');
 const itinerariRoutes = require('./routes/itinerari-routes');
 const passport = require('passport');
 const passportSetup = require('./config/passport-setup');
-const itinerari = nano.use('itinerari');
 
 const port = 8080;
 

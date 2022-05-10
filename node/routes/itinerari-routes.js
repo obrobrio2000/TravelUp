@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const nano = require('nano')(process.env.COUCHDB_URL);
-const utenti = nano.use('utenti');
-const itinerari = nano.use('itinerari');
+const utenti = require('../models/utenti-model');
+const itinerari = require('../models/itinerari-model');
 const { google } = require('googleapis');
 const { OAuth2 } = google.auth;
 
