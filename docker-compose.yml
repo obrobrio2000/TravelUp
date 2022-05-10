@@ -114,7 +114,7 @@ services:
             test: [ "CMD-SHELL", "curl -f http://localhost:5984/" ]
             interval: 5s
             timeout: 5s
-            retries: 5s
+            retries: 5
         # networks:
         #     frontend:
         #     backend:
