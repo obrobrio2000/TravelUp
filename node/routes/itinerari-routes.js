@@ -104,16 +104,16 @@ router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
             const utente = await utenti.find(q2);
             console.log(utente.docs);
 
-            if (utente.docs[0].metodoLogin == 'Facebook') {
+            if (utente.docs[0].metodo == 'F') {
                 res.render('erroreCalendar');
-            } else if (utente.docs[0].metodoLogin == 'Google') {
+            } else if (utente.docs[0].metodo == 'G') {
                 const oAuth2Client = new OAuth2(
                     process.env.GOOGLE_CLIENT_ID,
                     process.env.GOOGLE_CLIENT_SECRET,
                 )
 
                 oAuth2Client.setCredentials({
-                    access_token: utente.docs[0].accessToken,
+                    access_token: utente.docs[0].pippo,
                 })
 
                 const calendar = google.calendar({ version: 'v3', auth: oAuth2Client })
