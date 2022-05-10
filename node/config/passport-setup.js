@@ -29,14 +29,14 @@ passport.use(new GoogleStrategy({
                 var facebookId = "null";
                 try {
                     facebookId = doc.facebookId;
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, accessToken: accessToken, refreshToken: refreshToken, metodoLogin: "Google", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, pippo: accessToken, metodo: "G", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 } catch (err) {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, accessToken: accessToken, refreshToken: refreshToken, metodoLogin: "Google", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, pippo: accessToken, metodo: "G", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 }
             } catch (err) {
-                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, refreshToken: refreshToken, metodoLogin: "Google" }, profile.emails[0].value);
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", pippo: accessToken, metodo: "G" }, profile.emails[0].value);
                 return response;
             }
         }
@@ -69,14 +69,14 @@ passport.use(new FacebookStrategy({
                 var googleId = "null";
                 try {
                     googleId = doc.googleId;
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken, metodoLogin: "Facebook", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, pippo: accessToken, metodo: "F", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 } catch (err) {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken, metodoLogin: "Facebook", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, pippo: accessToken, metodo: "F", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 }
             } catch (err) {
-                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, refreshToken: refreshToken, metodoLogin: "Facebook" }, profile.emails[0].value);
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, pippo: accessToken, metodo: "F" }, profile.emails[0].value);
                 return response;
             }
         }
