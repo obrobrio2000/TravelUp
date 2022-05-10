@@ -102,7 +102,7 @@ services:
         container_name: couchdb
         hostname: couchdb
         environment:
-            - COUCHDB_USER=${COUCHDB_USER}
+            - COUCHDB_USER=${COUCHDB_USER} # creare un file .env nella stessa directory di questo file e dichiarare le variabili (es. COUCHDB_USER=admin) una per riga
             - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
         ports:
             - "5984:5984" # Management on http://localhost:5984/_utils/
@@ -114,9 +114,7 @@ services:
             test: [ "CMD-SHELL", "curl -f http://localhost:5984/" ]
             interval: 5s
             timeout: 5s
-            retries: 5
-            start_period: 40s
+            retries: 5s
         # networks:
         #     frontend:
         #     backend:
-        
