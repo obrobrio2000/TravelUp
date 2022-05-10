@@ -1,0 +1,153 @@
+version: "3.8"
+services:
+    node:
+        build: "./node"
+        container_name: node
+        hostname: node
+        ports:
+            - "8080:8080"
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        depends_on:
+            postgres:
+                condition: service_healthy
+            couchdb:
+                condition: service_healthy
+        links:
+            - postgres
+            - couchdb
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - ./node/public:/usr/src/app/public
+            - ./node/server.js:/usr/src/app/server.js
+    mail:
+        build: "./mail"
+        container_name: mail
+        hostname: mail
+        ports:
+            - "465:465"
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - ./mail/server.js:/usr/src/app/server.js
+    ws:
+        build: "./ws"
+        container_name: ws
+        hostname: ws
+        ports:
+            - '1337:1337'
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - ./ws/server.js:/usr/src/app/server.js
+    nginx:
+        build: "./nginx"
+        container_name: nginx
+        hostname: nginx
+        ports:
+            - "80:80"
+            - "443:443"
+        restart: unless-stopped
+        depends_on:
+            - node
+        networks:
+            - frontend
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/ssl:/etc/nginx/ssl
+    couchdb:
+        image: couchdb
+        restart: always
+        container_name: couchdb
+        hostname: couchdb
+        environment:
+            - COUCHDB_USER=${COUCHDB_USER}
+            - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+        ports:
+            - "5984:5984" # Management on http://localhost:5984/_utils/
+        networks:
+            - backend
+        volumes:
+            - ./couchdb:/opt/couchdb/data
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -f http://localhost:5984/" ]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+    postgres:
+        image: postgres:alpine
+        restart: always
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+        container_name: postgres
+        hostname: postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - backend
+        volumes:
+            - ./postgres/db-seed.sql:/docker-entrypoint-initdb.d/db-seed.sql
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_LISTEN_PORT: 16543
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+        container_name: pgadmin
+        hostname: pgadmin
+        ports:
+            - "16543:16543"
+        depends_on:
+            postgres:
+                condition: service_healthy
+        links:
+            - postgres
+        networks:
+            - backend
+    rabbit:
+        image: rabbitmq:management-alpine
+        container_name: rabbit
+        hostname: rabbit
+        ports:
+            - '5672:5672' # AMQP protocol port
+            - '15672:15672' # HTTP management UI
+        restart: unless-stopped
+        environment:
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - frontend
+            - backend
+networks:
+    frontend:
+    backend:
