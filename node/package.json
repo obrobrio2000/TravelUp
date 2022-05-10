@@ -16,6 +16,10 @@
     "passport": "^0.5.2",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
+    "require-from-remote": "^1.0.5",
+    "require-remote": "^1.0.1",
+    "require-remote-module": "^1.0.3",
+    "url-require": "^1.0.2",
     "vue": "^3.2.33"
   },
   "scripts": {
