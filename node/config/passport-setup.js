@@ -2,8 +2,7 @@ require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const nano = require('nano')(process.env.COUCHDB_URL);
-const utenti = nano.use('utenti');
+const utenti = require('../models/utenti-model');
 
 passport.serializeUser(function (user, done) {
     done(null, user);

@@ -10,7 +10,7 @@
   },
   "name": "travelup_websocket",
   "version": "1.0.0",
-  "description": "TravelUp is a useful application to organize your travel itinerary.",
+  "description": " TravelUp è un'utile applicazione per organizzare il tuo itinerario di viaggio.",
   "main": "server.js",
   "repository": {
     "type": "git",
@@ -22,9 +22,9 @@
     "travel",
     "trip",
     "itinerary",
-    "booking"
+    "journey"
   ],
-  "author": "TUEngineers",
+  "author": "TravelUp",
   "contributors": [
     "Filippo Serafini",
     "Stefano Mazziotta",
