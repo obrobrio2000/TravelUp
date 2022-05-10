@@ -28,7 +28,6 @@ app.use('/auth', authRoutes);
 app.use('/itinerari', itinerariRoutes);
 
 app.get('/', async (req, res) => {
-    // res.render('index', { user: req.user });
     try {
         const q = {
             selector: {
