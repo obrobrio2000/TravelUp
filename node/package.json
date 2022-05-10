@@ -1,63 +1,56 @@
 {
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.1.1",
-    "@popperjs/core": "^2.11.5",
-    "aos": "^3.0.0-beta.6",
-    "body-parser": "^1.20.0",
-    "bootstrap": "^5.1.3",
-    "cookie-parser": "^1.4.6",
-    "cookie-session": "^2.0.0",
-    "ejs": "^3.1.7",
-    "express": "^4.18.1",
-    "google-calendar": "^1.3.2",
-    "googleapis": "^100.0.0",
-    "jquery": "^3.6.0",
-    "nano": "^10.0.0",
-    "passport": "^0.5.2",
-    "passport-facebook": "^3.0.0",
-    "passport-google-oauth20": "^2.0.0",
-    "require-from-remote": "^1.0.5",
-    "require-remote": "^1.0.1",
-    "require-remote-module": "^1.0.3",
-    "url-require": "^1.0.2",
-    "vue": "^3.2.33"
-  },
-  "scripts": {
-    "start": "nodemon server.js",
-    "test": "node server.js"
-  },
-  "name": "travelup_node",
-  "version": "1.0.0",
-  "description": "TravelUp is a useful application to organize your travel itinerary.",
-  "main": "server.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TUEngineers/TravelUp.git"
-  },
-  "keywords": [
-    "travelup",
-    "tuengineers",
-    "travel",
-    "trip",
-    "itinerary",
-    "booking"
-  ],
-  "author": "TUEngineers",
-  "contributors": [
-    "Filippo Serafini",
-    "Stefano Mazziotta",
-    "Giovanni Magliocchetti"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TUEngineers/TravelUp/issues"
-  },
-  "homepage": "https://github.com/TUEngineers/TravelUp#readme",
-  "devDependencies": {
-    "dotenv": "^16.0.0",
-    "nodemon": "^2.0.16"
-  },
-  "nodemonConfig": {
-    "ext": "."
-  }
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.1.1",
+        "@popperjs/core": "^2.11.5",
+        "aos": "^3.0.0-beta.6",
+        "bootstrap": "^5.1.3",
+        "cookie-session": "^2.0.0",
+        "ejs": "^3.1.7",
+        "express": "^4.18.1",
+        "googleapis": "^100.0.0",
+        "jquery": "^3.6.0",
+        "nano": "^10.0.0",
+        "passport": "^0.5.2",
+        "passport-facebook": "^3.0.0",
+        "passport-google-oauth20": "^2.0.0",
+        "vue": "^3.2.33"
+    },
+    "scripts": {
+        "start": "nodemon server.js",
+        "test": "node server.js"
+    },
+    "name": "travelup_node",
+    "version": "1.0.0",
+    "description": " TravelUp è un'utile applicazione per organizzare il tuo itinerario di viaggio.",
+    "main": "server.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TUEngineers/TravelUp.git"
+    },
+    "keywords": [
+        "travelup",
+        "tuengineers",
+        "travel",
+        "trip",
+        "itinerary",
+        "journey"
+    ],
+    "author": "TravelUp",
+    "contributors": [
+        "Filippo Serafini",
+        "Stefano Mazziotta",
+        "Giovanni Magliocchetti"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/TUEngineers/TravelUp/issues"
+    },
+    "homepage": "https://github.com/TUEngineers/TravelUp#readme",
+    "devDependencies": {
+        "dotenv": "^16.0.0",
+        "nodemon": "^2.0.16"
+    },
+    "nodemonConfig": {
+        "ext": "."
+    }
 }
