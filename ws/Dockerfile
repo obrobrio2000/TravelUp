@@ -4,5 +4,5 @@ COPY ./package.json ./
 RUN npm i --loglevel=error --include=dev
 RUN npm i ws
 COPY . .
-EXPOSE 1337
+EXPOSE 3001
 CMD [ "npm", "run", "start" ]
