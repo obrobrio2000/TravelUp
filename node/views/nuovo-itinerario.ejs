@@ -26,13 +26,19 @@
 
         <div class="container">
 
-            <a class="navbar-brand logo" href="/">
+            <a class="navbar-brand logo" href="">
                 <img src="/assets/images/logoleft.png" style="max-width: 175px; height: auto;" alt="">
             </a>
 
             <nav class="nav">
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <% if (!user) { %>
+                        <div class="loginLink">
+                            <li><a href="#home">Accedi</a></li>
+                        </div>
+                        <% } else { %>
+                            <li><a href="/logout">Esci</a></li>
+                            <% } %>
                 </ul>
             </nav>
 
@@ -46,14 +52,29 @@
 
     <!-- inizio sezione home -->
 
-    <section class="home" id="home">
+    <section class="home" id="home" >
 
-        Lavori in corso...
+        <div class="container pt-5">
 
+            <div class="container row min-vh-100 align-items-center text-center text-md-left pt-5 mt-5" style="background-color: greenyellow">
+                <div class="row" style="background-color: blue">
+                    <div class="col me-2" style="background-color: rgb(192, 136, 52)"> <p>CIAO</p> </div>
+                    <div class="col col-lg-4 " style="background-color: rgb(192, 136, 52)"> <p>CIAO</p> </div>
+                </div>
+                <div class="row" style="background-color: blue">
+                    <div class="col-4 ms-3 me-4" style="background-color: rgb(192, 136, 52)"> 1 </div>
+                    <div class="col-7 ms-5 " style="background-color: rgb(138, 92, 24)"> 1 </div>
+                </div>
+                <div class="row" style="background-color: blue">
+                    <div class="col " style="background-color: rgb(192, 136, 52)"> 1 </div>
+                </div>
+
+            </div>
+
+        </div>    
     </section>
 
     <!-- fine sezione home -->
-
     <!-- inizio sezione footer  -->
 
     <section class="footer">
