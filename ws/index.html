@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+ <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
 </head>
 <body>
-<form action="http://localhost:8889/api" method="post">
-  <input type="submit" value="Invia api request">
-</form>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><br>
+      <input id = "input2" autocomplete = "off"/><button>Send</button>
+    </form>
+    
+    <script>
+
+      const socket = io("http://localhost:3001")
+      
+
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+      var input2 = document.getElementById('input2');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+          if (input.value) {
+            socket.emit('Message', '{"citta":'+'"'+input.value+'"'+ ',"stato":'+ '"'+input2.value+'"}');
+            input.value = '';
+            input2.value = '';
+          }
+      });
+      
+   
+
+    </script>
+    <h1 id="test"></h1>
 </body>
 </html>
