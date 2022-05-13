@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/crea_itinerario.css">
 
 </head>
 
@@ -42,7 +42,8 @@
                 </ul>
             </nav>
 
-            <div class="fas fa-bars"></div>
+            <div class="fas fa-bars">
+            </div>
 
         </div>
 
@@ -52,21 +53,99 @@
 
     <!-- inizio sezione home -->
 
-    <section class="home" id="home" >
-
-        <div class="container pt-5">
-
-            <div class="container row min-vh-100 align-items-center text-center text-md-left pt-5 mt-5" style="background-color: greenyellow">
-                <div class="row" style="background-color: blue">
-                    <div class="col me-2" style="background-color: rgb(192, 136, 52)"> <p>CIAO</p> </div>
-                    <div class="col col-lg-4 " style="background-color: rgb(192, 136, 52)"> <p>CIAO</p> </div>
+    <section class="home" id="home">
+        <div class="container pt-5" >
+            <div class="container-fluid min-vh-100 pt-5 mt-5 w-100">
+                <div class="row align-items-start w-100 ">
+                    <div class="col">
+                        <div>
+                            <form method="get">
+                                <label >Città</label>
+                                <input type="text" placeholder="Inserisci la città di destinazione">
+                                <input type="submit" value="Search">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col h-100 d-flex justify-content-end">
+                        <div class="d-flex flex-column" >   
+                            <label>Distance: </label>
+                            <div>
+                                <button class="btn btn-info">3Km</button>
+                                <button class="btn btn-info">5Km</button>
+                                <button class="btn btn-info">10Km</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row" style="background-color: blue">
-                    <div class="col-4 ms-3 me-4" style="background-color: rgb(192, 136, 52)"> 1 </div>
-                    <div class="col-7 ms-5 " style="background-color: rgb(138, 92, 24)"> 1 </div>
+                <div class="space">
                 </div>
-                <div class="row" style="background-color: blue">
-                    <div class="col " style="background-color: rgb(192, 136, 52)"> 1 </div>
+                <div class="row itinerari">
+                    <div class="col-4 gestioneItinerari ps-3"> 
+                        <div class="row tappeItinerario ">
+                           <label> Vista Itinerario </label>
+                           <div class="list-group scrollInfo">
+                                <ul id="Viewer">
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-between align-items-start">
+                            <button class="button">Scarica PDF</button>
+                            <button class="button">Salva</button>
+                        </div>
+                    </div>
+                    <div class="col interesse">
+                        <label>Punti di interesse</label>
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <div class="container-fluid">
+                                <span class="navbar" data-bs-toggle="collapse" data-bs-traget="#ItinerarioAnalisi" aria-controls="ItinerarioAnalisi" aria-expanded="false"></span>
+                                <div class="collapse navbar-collapse" id="ItinerarioAnalisi">
+                                    <div class="w-100 navbar-nav me-auto mb-2 mb-lg-0">
+                                        <button class="button nav-item nav-link active border" type="button" >Hotels</button>
+                                        <button class="button nav-item nav-link active border" type="button">Food</button>
+                                        <button class="button nav-item nav-link active border" type="button">Musei</button>
+                                        <button class="button nav-item nav-link active border" type="button">Intrattenimento</button>
+                                        <button class="button nav-item nav-link active border" type="button">Sport</button>
+                                        <button class="button nav-item nav-link active border" type="button">Trasporto</button>
+                                    </dvi>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="list-group scrollInfo">
+                            <ul>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="fw-bold titoloTappa">
+                                                Luogo 1
+                                            </div>
+                                            <div id="button">
+                                                <button class="badge bg-primary rounded-pill" id="add">Add</button>
+                                            </div>
+                                        </div>
+                                        <div class="descriptionBox">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="fw-bold titoloTappa">
+                                                Luogo 2
+                                            </div>
+                                            <div id="button">
+                                                <button class="badge bg-primary rounded-pill" id="add">Add</button>
+                                            </div>
+                                        </div>
+                                        <div class="descriptionBox">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -85,6 +164,7 @@
 
     </section>
 
+
     <!-- fine sezione footer -->
 
     <script src="/js/aos.js"></script> <!-- AOS JS -->
@@ -97,6 +177,19 @@
             duration: 1000,
             delay: 10
         });
+    </script>
+    <script>
+        $(function(){
+    $('button#add').on('click', function(){
+        var element = $(this).parent().parent().parent().parent().clone().find('div#button,div.descriptionBox').remove().end().html();
+        element = $(element).children().append('<div><button id="remove" class="badge bg-primary rounded-pill">Rimuovi</button></div>')
+        $(element).children().children("#remove").on('click', function(){
+            $(this).parentsUntil("ul").remove();
+        });
+        element = element.wrap('<li class="list-group-item "></li>').parent();
+        $('#Viewer').append(element);
+    });
+});
     </script>
 
 </body>
