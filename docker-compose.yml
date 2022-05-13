@@ -53,14 +53,16 @@ services:
         container_name: ws
         hostname: ws
         ports:
-            - '1337:1337'
+            - "1337:1337"
         restart: unless-stopped
         environment:
             - NODE_ENV=production
         depends_on:
             - node
+            - couchdb
         links:
             - node
+            - couchdb
         networks:
             - frontend
             - backend
