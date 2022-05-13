@@ -58,20 +58,10 @@ services:
             - couchdb
         links:
             - node
-<<<<<<< HEAD
-        # networks:
-        #     - frontend
-        #     - backend
-||||||| d05f666
-        networks:
-            - frontend
-            - backend
-=======
             - couchdb
         networks:
             - frontend
             - backend
->>>>>>> Websocket
         volumes:
             - ./ws/server.js:/usr/src/app/server.js
             - ./ws/.env:/usr/src/app/.env
