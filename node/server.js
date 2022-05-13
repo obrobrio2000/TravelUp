@@ -70,6 +70,8 @@ app.get('/errore', (req, res) => {
     res.render('errore');
 });
 
+
+
 // bootstrap
 app.get('/css/bootstrap.min.css', function (req, res) {
     res.sendFile(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.min.css');
@@ -97,5 +99,5 @@ app.get('/css/all.min.css', function (req, res) {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Server in ascolto sull'indirizzo http://localhost:${port}`);
 });
