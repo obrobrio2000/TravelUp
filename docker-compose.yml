@@ -63,6 +63,24 @@ services:
         volumes:
             - ./ws/server.js:/usr/src/app/server.js
             - ./ws/.env:/usr/src/app/.env
+    apirequest:
+        build: "./apiserver"
+        container_name: api
+        hostname: api
+        ports:
+            - '1717:1717'
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        depends_on:
+            - node
+        links:
+            - node
+        # networks:
+        #     - frontend
+        #     - backend
+        volumes:
+            - ./apiserver/server.js:/usr/src/app/server.js
     nginx:
         build: "./nginx"
         container_name: nginx
