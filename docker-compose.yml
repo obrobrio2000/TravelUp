@@ -45,6 +45,25 @@ services:
             - ./.env
         volumes:
             - ./mail/server.js:/usr/src/app/server.js
+    apirequest:
+        build: "./apiserver"
+        container_name: apirequest
+        hostname: apirequest
+        ports:
+            - '1515:1515'
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        depends_on:
+            - node
+        links:
+            - node
+        networks:
+            - backend
+        env_file:
+            - ./.env
+        volumes:
+            - ./apiserver/server.js:/usr/src/app/server.js        
     ws:
         build: "./ws"
         container_name: ws
@@ -64,30 +83,6 @@ services:
             - ./.env
         volumes:
             - ./ws/server.js:/usr/src/app/server.js
-<<<<<<< HEAD
-            - ./ws/.env:/usr/src/app/.env
-    apirequest:
-        build: "./apiserver"
-        container_name: api
-        hostname: api
-        ports:
-            - '1717:1717'
-        restart: unless-stopped
-        environment:
-            - NODE_ENV=production
-        depends_on:
-            - node
-        links:
-            - node
-        # networks:
-        #     - frontend
-        #     - backend
-        volumes:
-            - ./apiserver/server.js:/usr/src/app/server.js
-||||||| 539710f
-            - ./ws/.env:/usr/src/app/.env
-=======
->>>>>>> 2b575d6d6e63fd11c2eaec75872bd1998dd4721f
     nginx:
         build: "./nginx"
         container_name: nginx
