@@ -7,20 +7,18 @@ client
     params: {
       
       key: process.env.MAPS_API_KEY,
-      destinations:[{ lat:51.4994794, lng:-0.1269979}],
-      mode:"walking",
-      origins:[{ lat:51.4822656, lng:-0.1933769 }],
-     
-
+      destinations:[{ lat:51.4994794, lng:-0.1269979}, {lat:52.4994794, lng:-0.1269979}], //
+      mode:"driving",
+      origins:[{ lat:41.4822656, lng:-0.1233769 },{lat:52.4994794, lng:-0.1269979}],    //origini e destinazioni di prova
+      departure_time :Date.now(),
+      traffic_model:"best_guess"
     },
-    timeout: 1000 // milliseconds
+    timeout: 5000 // milliseconds 
   })
   .then(r => {
-
-    console.log(r.data.rows[0].elements[0]);
+    console.log(Date.now())
+    console.log(r.data);
   })
   .catch(e => {
     console.log(e);
   });
-
-  
