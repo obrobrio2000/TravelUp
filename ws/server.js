@@ -25,18 +25,15 @@ const mangoQuery = {
 	}
 }
 
-const parameters ={};
-
-
-
-
-
+const parameters ={}; 
 
 server.listen(1337, () =>{
 	console.log("Server running on port 1337 ...")
 });
 
 io.on('connection', (socket) => {
+	//console.log(socket.id);
+	console.log("connesso: "+socket.id);
 	socket.on('Message', (msg) => {
 		var isPresent = false;
 		var id;

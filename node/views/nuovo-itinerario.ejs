@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!--
+    TODO:Connessione websocket
+    TODO:Lista suggerimenti
+-->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,7 +67,7 @@
                         <div>
                             <form method="get">
                                 <label >Città</label>
-                                <input type="text" placeholder="Inserisci la città di destinazione">
+                                <input type="text" placeholder="Inserisci la città di destinazione" id="citta">
                                 <input type="submit" value="Search">
                             </form>
                         </div>
@@ -172,14 +177,13 @@
     <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
     <script src="/js/jquery.min.js"></script> <!-- jQuery -->
     <script src="/js/main.js"></script>
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script><!-- Socket.IO-->
 
     <script>
         AOS.init({
             duration: 1000,
             delay: 10
         });
-    </script>
-    <script>
         $(function(){
     $('button#add').on('click', function(){
         var element = $(this).parent().parent().parent().parent().clone().find('div#button,div.descriptionBox').remove().end().html();
@@ -192,7 +196,14 @@
     });
 });
     </script>
-
+    <script>
+        const socket = io("http://localhost:1337")
+        $(function(){
+            $('#citta').on('input',function(){
+              socket.emit('Message', '{"citta":'+'"'+this.value+'"}');  
+            })
+        })
+    </script>
 </body>
 
 </html>

@@ -21,7 +21,7 @@
       form.addEventListener('submit', function(e) {
         e.preventDefault();
           if (input.value) {
-            socket.emit('Message', '{"citta":'+'"'+input.value+'"'+ ',"stato":'+ '"'+input2.value+'"}');
+            socket.emit('Info', '{"citta":'+'"'+input.value+'"'+ ',"stato":'+ '"'+input2.value+'"}');
             input.value = '';
             input2.values = '';
           }
