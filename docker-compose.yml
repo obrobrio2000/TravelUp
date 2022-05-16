@@ -56,8 +56,10 @@ services:
             - NODE_ENV=production
         depends_on:
             - node
+            - ws
         links:
             - node
+            - ws
         networks:
             - backend
         env_file:
