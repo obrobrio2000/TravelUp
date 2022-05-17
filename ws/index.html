@@ -12,7 +12,7 @@
     
     <script>
 
-      const socket = io("http://localhost:1337")
+      const socket = io("http://localhost:3000")
       
 
       var form = document.getElementById('form');
@@ -23,7 +23,7 @@
           if (input.value) {
             socket.emit('Message', '{"citta":'+'"'+input.value+'"'+ ',"stato":'+ '"'+input2.value+'"}');
             input.value = '';
-            input2.values = '';
+            input2.value = '';
           }
       });
       
