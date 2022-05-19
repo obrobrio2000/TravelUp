@@ -3,6 +3,8 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors:{origin : "*"} });
 const NodeCouchDb = require("node-couchdb");
+var _uuid;
+
 
 //Connessione al db
 const couch = new NodeCouchDb({
@@ -14,6 +16,8 @@ const couch = new NodeCouchDb({
 		pass:'admin'
 	}
 });
+
+
 
 const logging = "logging_cities";
 
@@ -59,10 +63,14 @@ io.on('connection', (socket) => {
 				
 			}
 			
-			//Se non è presente,viene inserito nel db con un _id random
+			//Se non è presente,viene inserito nel db con un _id unico
 			if(!isPresent){
+
+				couch.uniqid().then(ids => {
+						ids[0],	_uuid = ids[0]});
+
 				couch.insert(logging, {
-					_id: Math.floor((Math.random() *(100000000000000 - 15)+15)).toString,
+					_id: _uuid,
 					citta: JSON.parse(msg).citta,
 					stato: JSON.parse(msg).stato,
 					contatore:1    
