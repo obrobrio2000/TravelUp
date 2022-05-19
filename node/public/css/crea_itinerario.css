@@ -160,14 +160,35 @@ div .itinerari {
 
 div .itinerari .gestioneItinerari {
     width: 30%;
+    height: 100%;
 }
 
 div .itinerari .gestioneItinerari .tappeItinerario{
-    height: 72rem;
+    height: 75%;
 }
 
 div .itinerari .interesse {
     width: 70%;
+    height: 100%;
+}
+div .img-thumb{
+  background-color: aquamarine;
+  height: 100%;
+  width: 20%;
+}
+
+img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+ul .infotappe{
+  height: 100%;
+}
+
+li .element-view{
+  height: 10%;
 }
 
 @media (max-width: 992px){
