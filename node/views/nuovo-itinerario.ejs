@@ -3,7 +3,6 @@
 
 <!--
     TODO:Connessione websocket
-    TODO:Lista suggerimenti
 -->
 
 <head>
@@ -65,21 +64,11 @@
                 <div class="row align-items-start w-100 ">
                     <div class="col">
                         <div>
-                            <form method="get">
+                            <form id="form">
                                 <label >Città</label>
-                                <input type="text" placeholder="Inserisci la città di destinazione" id="citta">
-                                <input type="submit" value="Search">
+                                <input type="text" placeholder="Inserisci la città" autocomplete="off" id="citta">
+                                <button>Search</button>
                             </form>
-                        </div>
-                    </div>
-                    <div class="col h-100 d-flex justify-content-end">
-                        <div class="d-flex flex-column" >   
-                            <label>Distance: </label>
-                            <div>
-                                <button class="btn btn-info">3Km</button>
-                                <button class="btn btn-info">5Km</button>
-                                <button class="btn btn-info">10Km</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,8 +107,8 @@
                             </div>
                         </nav>
                         <div class="list-group scrollInfo">
-                            <ul>
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <ul class="infotappe" id="infotappe">
+                                <li class="list-group-item d-flex justify-content-between align-items-start element-view">
                                     <div class="ms-2 me-auto">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="fw-bold titoloTappa">
@@ -129,12 +118,12 @@
                                                 <button class="badge bg-primary rounded-pill" id="add">Add</button>
                                             </div>
                                         </div>
-                                        <div class="descriptionBox">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
-                                        </div>
+                                            <div class="descriptionBox">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
+                                            </div>
                                     </div>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <li class="list-group-item d-flex justify-content-between align-items-start element-view">
                                     <div class="ms-2 me-auto">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="fw-bold titoloTappa">
@@ -144,9 +133,12 @@
                                                 <button class="badge bg-primary rounded-pill" id="add">Add</button>
                                             </div>
                                         </div>
-                                        <div class="descriptionBox">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
-                                        </div>
+                                            <div class="descriptionBox">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
+                                            </div>
+                                            <div class="findmore">
+                                                <a href="">Scopri di piu...</a>
+                                            </div>
                                     </div>
                                 </li>
                             </ul>
@@ -184,24 +176,59 @@
             duration: 1000,
             delay: 10
         });
-        $(function(){
-    $('button#add').on('click', function(){
-        var element = $(this).parent().parent().parent().parent().clone().find('div#button,div.descriptionBox').remove().end().html();
-        element = $(element).children().append('<div><button id="remove" class="badge bg-primary rounded-pill">Rimuovi</button></div>')
-        $(element).children().children("#remove").on('click', function(){
-            $(this).parentsUntil("ul").remove();
-        });
-        element = element.wrap('<li class="list-group-item "></li>').parent();
-        $('#Viewer').append(element);
-    });
-});
     </script>
     <script>
         const socket = io("http://localhost:1337")
-        $(function(){
-            $('#citta').on('input',function(){
-              socket.emit('Message', '{"citta":'+'"'+this.value+'"}');  
-            })
+        socket.on('connect',()=>{
+            socket.emit('room', {room_name: 'clients'});
+        })
+        var form = document.getElementById('form');
+        var citta = document.getElementById('citta');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (citta.value) {
+                socket.emit('Luoghi', '{"citta":'+'"'+citta.value+'"}');
+            }
+        });
+        socket.on('luoghi_rispostaClient', (musei)=>{
+            info = musei;
+            lista = document.getElementsByClassName('infotappe')
+            $(lista).empty()
+            for(let key in info){
+                titolo = info[key]['title']
+                desc = info[key]['desc']
+                if(typeof desc === 'undefined'){
+                    desc = 'Non è stato possibile trovare una descrizione per questo luogo'
+                }
+                link = info[key]['url']
+                $(lista).append('<li class="list-group-item d-flex justify-content-between align-items-start element-view">      \
+                                                <div class="ms-2 me-auto">  \
+                                        <div class="d-flex justify-content-between align-items-start">\
+                                            <div class="fw-bold titoloTappa">\
+                                                '+titolo+'\
+                                            </div>\
+                                            <div id="button">\
+                                                <button class="badge bg-primary rounded-pill" id="add">Add</button>\
+                                            </div>\
+                                        </div>\
+                                            <div class="descriptionBox">\
+                                                '+desc+'\
+                                            </div>\
+                                            <div class="findmore">\
+                                                <a href='+link+' target="_blank" >Scopri di piu...</a>\
+                                            </div>\
+                                    </div>\
+                                </li>')
+            }
+            $(lista).find('.rounded-pill').on('click', function(){
+                    element = $(this).parents('.element-view').clone().find('div#button,div.descriptionBox,div.findmore').remove().end().html();
+                    element = $(element).children().append('<div><button id="remove" class="badge bg-primary rounded-pill">Rimuovi</button></div>')
+                    $(element).children().children("#remove").on('click', function(){
+                        $(this).parentsUntil("ul").remove();
+                    });
+                    element = element.wrap('<li class="list-group-item "></li>').parent();
+                    $('#Viewer').append(element);
+                });
         })
     </script>
 </body>

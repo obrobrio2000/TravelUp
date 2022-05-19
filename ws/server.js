@@ -32,15 +32,17 @@ server.listen(1337, () =>{
 });
 
 io.on('connection', (socket) => {
-	//console.log(socket.id);
-	console.log("connesso: "+socket.id);
-	socket.on('Message', (msg) => {
-		var isPresent = false;
+	socket.on('room',(data)=>{
+		socket.join(data.room_name);
+		console.log('Socket: '+socket.id+' è entrato nella stanza: '+data.room_name)
+	})
+	socket.on('Luoghi', (msg) => {
+		var citta = JSON.parse(msg).citta;
+		/*var isPresent = false;
 		var id;
 		var count;
 		var rev;
-		var citta;
-		var stato;
+		
 		
 		//Query per vedere se richiesta citta-stato gia presente nel logging_db
 		couch.mango(logging, mangoQuery, parameters).then(({data, headers, status}) => {
@@ -101,10 +103,14 @@ io.on('connection', (socket) => {
 		});
 		
 		JSON.stringify(msg);
-		
-		
+		*/
+		socket.to('api').emit('LuoghiApi',socket.id,citta);
 	
 	});
+	socket.on('luoghi_rispostaApi',(socketid,musei)=>{
+		console.log('ricevuta risposta');
+		io.to(socketid).emit('luoghi_rispostaClient',musei);
+	})
 });
 
 
