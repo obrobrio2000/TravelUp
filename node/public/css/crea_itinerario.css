@@ -2,7 +2,8 @@
 
 :root {
     --blue: #0c8de0;
-    --black: #014775;
+    --black: hsl(204, 98%, 23%);
+    --selected: hsl(205, 100%, 27%);
 }
 
 
@@ -159,7 +160,7 @@ div .itinerari {
 }
 
 div .itinerari .gestioneItinerari {
-    width: 30%;
+    width: 35%;
     height: 100%;
 }
 
@@ -168,7 +169,7 @@ div .itinerari .gestioneItinerari .tappeItinerario{
 }
 
 div .itinerari .interesse {
-    width: 70%;
+    width: 65%;
     height: 100%;
 }
 div .img-thumb{
@@ -177,10 +178,8 @@ div .img-thumb{
   width: 20%;
 }
 
-img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
+div .tappa{
+  width: 100%;
 }
 
 ul .infotappe{
@@ -245,6 +244,10 @@ li .element-view{
     z-index: -1;
     transition: .2s linear;
   }
+
+.selected {
+  background-color: var(--selected);
+}
 
 .scrollInfo {
     width: 100%;
