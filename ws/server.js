@@ -4,7 +4,6 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors:{origin : "*"} });
 const NodeCouchDb = require("node-couchdb");
 const { checkServerIdentity } = require("tls");
-var _uuid;
 
 
 //Connessione al db
@@ -142,6 +141,24 @@ io.on('connection', (socket) => {
 		
 	
 	});
+
+	socket.on('NuovoItinerario',(data)=>{
+		var _uuid;
+		console.log('itinerario ricevuto');
+		couch.uniqid().then(ids => {
+			ids[0], _uuid = ids[0]
+		});
+		couch.insert('itinerari', {
+			_id : _uuid,
+			nome: data.titolo,
+			creatore: data.creatore,
+			tappe: data.tappe
+		}).then(({data,headers,status})=>{
+			console.log('Inserito con successo');
+		},err=>{
+			console.log(err);
+		})
+	})
 
 	socket.on('luoghi_rispostaApi',(data)=>{
 		console.log('ricevuta risposta');
