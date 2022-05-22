@@ -1,108 +1,43 @@
 const express = require('express');
-const request = require('request');
+const axios = require('axios');
 const { io } = require("socket.io-client");
+const { accessSync } = require('fs');
 const url = require('url').URL
 
+const distanza = 10000;
 const socket = io("http://ws:1337");
 
 socket.on("connect",()=>{
     socket.emit('room', {room_name : 'api'});
 })
 
-socket.on("LuoghiApi", (socketid,citta)=>{
-
-    var requestUrl = new URL("https://api.opentripmap.com/0.1/en/places/geoname?name="+citta+"&country=it&apikey="+process.env.OPENTRIP_KEY)
-
-    console.log('richiesta ricevuta dalla apis')
-    var options = {
-        url: requestUrl,
-    };
-    var museums = [];
-    distanza = 10000;
-    kinds = "art_galleries%2Carchaeological_museums%2Cnational_museums%2Cother_museums";
-    var _lat;
-    var _lon;
-    request(options,(err,res,body)=>{
-        if(!err && res.statusCode == 200){
-            info = JSON.parse(body);
-            if(info.status != "NOT_FOUND"){
-                _lat = info.lat;
-                _lon = info.lon;
-                var requestUrl = new URL("https://api.opentripmap.com/0.1/en/places/radius?radius="+distanza+"&lon="+_lon+"&lat="+_lat+"&src_geom=wikidata&src_attr=wikidata&kinds="+kinds+"&rate=2&format=json&limit=20&apikey="+process.env.OPENTRIP_KEY)
-                options ={
-                    url: requestUrl,
-                };
-                request(options, (err, res, body) => {
-                    if (!err && res.statusCode == 200) {
-                        info = JSON.parse(body);
-                        var ids = ""
-                        info.forEach(element => {
-                            if(info.indexOf(element) != info.length-1){
-                                ids = ids + element.wikidata + "%7C";
-                            }else{
-                                ids = ids + element.wikidata;
-                            }
-                        });
-                        var requestUrl = new URL("https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids="+ids+"&sites=itwiki&redirects=no&props=info%7Clabels&languages=it&normalize=1")
-                        options = {
-                            url: requestUrl,
-                        }
-                        request(options,(err,res,body)=>{
-                            if(!err && res.statusCode == 200){
-                                info = JSON.parse(body);
-                                var titles = "";
-                                console.log(info);
-                                element = info["entities"];
-                                for(let key in element){
-                                    if(typeof element[key]['labels'] !== 'undefined' && typeof element[key]['labels']['it'] !== 'undefined' ){
-                                        console.log(element[key]['labels'])
-                                        if(Object.keys(element).indexOf(key)<Object.keys(element).length-1){
-                                            titles = titles + element[key]['labels']['it']['value'] + '%7C';
-                                        }else{
-                                            titles = titles + element[key]['labels']['it']['value'];
-                                        }
-                                    }else{
-                                        continue;
-                                    }
-                                }
-                                console.log(titles);
-                                requestUrl = new URL("https://it.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&titles="+titles+"&utf8=1&formatversion=latest&exchars=500&exlimit=20&exintro=1&explaintext=1&exsectionformat=raw")
-                                options = {
-                                    url: requestUrl,
-                                }
-                                request(options,(err,res,body)=>{
-                                    if(!err && res.statusCode == 200){
-                                        info = JSON.parse(body);
-                                        element = info["query"]["pages"];
-                                        for(let key in element){
-                                            if(element[key]["pageid"] != undefined){
-                                                museums.push(new Musuem(element[key]['title'],element[key]['extract'],element[key]["pageid"]));
-                                            }
-                                        }
-                                        socket.emit("luoghi_rispostaApi",socketid,museums);
-                                    }else{
-                                        console.log(err)
-                                    }
-                                })
-                            }else{
-                                console.log(err)
-                            }
-                        })
-                    }else{
-                        console.log(err);
-                    }
-            });
-            }else{
-                console.log(err)
-            }
-        }else{
-            console.log(err);
-        }
-    });
+socket.on("Cultura", (data)=>{
+    console.log('richiesta ricevuta dal server per cultura')
+    citta = data.citta;
+    socketid = data.socketid;
+    getCultura(citta,socketid);
 });
 
-socket.on("meteo");
+socket.on("Food",(data)=>{
+    console.log('richiesta ricevuta dal server per food');
+    citta = data.citta;
+    socketid = data.socketid;
+    getFood(citta,socketid);
+});
 
+socket.on("Intrattenimento",(data)=>{
+    console.log('richiesta ricevuta dal server per Intrattenimento');
+    citta = data.citta;
+    socketid = data.socketid;
+    getIntrattenimento(citta,socketid);
+});
+
+socket.on("Utility",(data)=>{
+    console.log('richiesta ricevuta dal server per Utility');
+    citta = data.citta;
+    socketid = data.socketid;
+    getUtilities(citta,socketid);
+});
 
 
     
@@ -115,35 +50,152 @@ function Musuem(title,desc,url){
     }
     this.url = 'https://it.wikipedia.org/?curid='+url;
 }
+async function getCultura(citta,socketid){
+    var URLrichiesta ='https://api.opentripmap.com/0.1/en/places/geoname?name='+citta+'&country=it&apikey='+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    const kinds = "cultural";
+    const posizione = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var info = response.data
+                                    return {lat:info.lat,lon:info.lon}
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    URLrichiesta ="https://api.opentripmap.com/0.1/en/places/radius?radius="+distanza+"&lon="+posizione.lon+"&lat="+posizione.lat+"&src_geom=wikidata&src_attr=wikidata&kinds="+kinds+"&rate=2&format=json&limit=20&apikey="+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    var locations = []
+    const names = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var names=[];
+                                    var info = response.data;
+                                    info.forEach(element => {
+                                        names.push(element.name)
+                                        locations.push({lat:element.point.lat,lon:element.point.lon})
+                                    });
+                                    return names;
 
-/*
-function richiestaCitta(citta){
-    var options = {
-        url: "https://api.opentripmap.com/0.1/en/places/geoname?name="+citta+"&country=it&apikey="+process.env.OPENTRIP_KEY,
-    };
-    request(options,(err,res,body)=>{
-        if(!err && res.statusCode == 200){
-            info = JSON.parse(body);
-            console.log(info);
-            if(info.status == "NOT_FOUND"){
-                console.log('Errore citta non trovata');
-                return null
-            }else{
-                return [info.lat,info.lon]
-            }
-        }
-    });
-    
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    const result = await getSearch(names,citta,locations);
+    socket.emit("luoghi_rispostaApi",{socketid,value:result,target:'Cultura'})
+}
+async function getFood(citta,socketid){
+    var URLrichiesta ='https://api.opentripmap.com/0.1/en/places/geoname?name='+citta+'&country=it&apikey='+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    const kinds = "bars,pubs,restaurants,fast_food";
+    const posizione = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var info = response.data
+                                    return {lat:info.lat,lon:info.lon}
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    URLrichiesta ="https://api.opentripmap.com/0.1/en/places/radius?radius="+distanza+"&lon="+posizione.lon+"&lat="+posizione.lat+"&src_geom=osm&src_attr=osm&kinds="+kinds+"&rate=2&format=json&limit=50&apikey="+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    var locations = []
+    const names = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var names=[];
+                                    var info = response.data;
+                                    info.forEach(element => {
+                                        names.push(element.name)
+                                        locations.push({lat:element.point.lat,lon:element.point.lon})
+                                    });
+                                    return names;
+
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    const result = await getSearch(names,citta,locations);
+    socket.emit("luoghi_rispostaApi",{socketid,value:result,target:'Food'})
+}
+async function getUtilities(citta,socketid){
+    var URLrichiesta ='https://api.opentripmap.com/0.1/en/places/geoname?name='+citta+'&country=it&apikey='+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    const kinds = "banks,atm,malls";
+    const posizione = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var info = response.data
+                                    return {lat:info.lat,lon:info.lon}
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    URLrichiesta ="https://api.opentripmap.com/0.1/en/places/radius?radius="+distanza+"&lon="+posizione.lon+"&lat="+posizione.lat+"&src_geom=osm&src_attr=osm&kinds="+kinds+"&rate=1&format=json&limit=50&apikey="+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    var locations = []
+    const names = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var names=[];
+                                    var info = response.data;
+                                    info.forEach(element => {
+                                        names.push(element.name)
+                                        locations.push({lat:element.point.lat,lon:element.point.lon})
+                                    });
+                                    return names;
+
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    const result = await getSearch(names,citta,locations);
+    socket.emit("luoghi_rispostaApi",{socketid,value:result,target:'Utility'})
+}
+async function getIntrattenimento(citta,socketid){
+    var URLrichiesta ='https://api.opentripmap.com/0.1/en/places/geoname?name='+citta+'&country=it&apikey='+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    const kinds = "cinemas,amusement_parks,water_parks";
+    const posizione = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var info = response.data
+                                    return {lat:info.lat,lon:info.lon}
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    URLrichiesta ="https://api.opentripmap.com/0.1/en/places/radius?radius="+distanza+"&lon="+posizione.lon+"&lat="+posizione.lat+"&src_geom=osm&src_attr=osm&kinds="+kinds+"&rate=1&format=json&limit=50&apikey="+process.env.OPENTRIP_KEY
+    URLrichiesta= decodeURI(URLrichiesta)
+    URLrichiesta = encodeURI(URLrichiesta);
+    var locations = []
+    const names = await axios.get(URLrichiesta)
+                                .then(function(response){
+                                    var names=[];
+                                    var info = response.data;
+                                    info.forEach(element => {
+                                        names.push(element.name)
+                                        locations.push({lat:element.point.lat,lon:element.point.lon})
+                                    });
+                                    return names;
+
+                                })
+                                .catch(function(err){
+                                    console.log(err)
+                                })
+    const result = await getSearch(names,citta,locations);
+    socket.emit("luoghi_rispostaApi",{socketid,value:result,target:'Intrattenimento'})
 }
 
-async function richiestaMusei(lat,lon,citta){
-    kinds = "art_galleries%2Carchaeological_museums%2Cnational_museums%2Cother_museums";
-    console.log('ho aspetto');
-        options ={
-            url: "https://api.opentripmap.com/0.1/en/places/radius?radius="+distanza+"&lon="+posizione[1]+"&lat="+posizione[0]+"&src_geom=wikidata&src_attr=wikidata&kinds=museums&rate=2&format=json&limit=10&apikey="+process.env.OPENTRIP_KEY,
-        };
-    
-}*/
+function getSearch(names,citta,locations){
+    var result = []
+    names.forEach((element,index)=>{ 
+        result.push({title:element,url:"https://google.com/search?q="+element+" "+citta,lat:locations[index].lat,lon:locations[index].lon})
+    })
+    return result
+}
+
+
 
 const port = 1515;
 const app = express();
@@ -151,3 +203,4 @@ const app = express();
 app.listen(port, () => {
     console.log(`Server in ascolto sull'indirizzo http://localhost:${port}`);
 });
+

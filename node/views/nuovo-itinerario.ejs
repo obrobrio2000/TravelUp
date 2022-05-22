@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!--
-    TODO:Connessione websocket
--->
 
 <head>
     <meta charset="UTF-8">
@@ -67,7 +64,7 @@
                             <form id="form">
                                 <label >Città</label>
                                 <input type="text" placeholder="Inserisci la città" autocomplete="off" id="citta">
-                                <button>Search</button>
+                                <button id="Search">Search</button>
                             </form>
                         </div>
                     </div>
@@ -77,7 +74,7 @@
                 <div class="row itinerari">
                     <div class="col-4 gestioneItinerari ps-3"> 
                         <div class="row tappeItinerario ">
-                           <label> Vista Itinerario </label>
+                           <label> Il Tuo Itinerario </label>
                            <div class="list-group scrollInfo">
                                 <ul id="Viewer">
 
@@ -85,62 +82,26 @@
                             </div>
                         </div>
                         <div class="row d-flex justify-content-between align-items-start">
-                            <button class="button">Scarica PDF</button>
-                            <button class="button">Salva</button>
+                            <button class="button" id="salva">Salva</button>
                         </div>
                     </div>
                     <div class="col interesse">
-                        <label>Punti di interesse</label>
+                        <label>Scopri luoghi d'interesse</label>
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <div class="container-fluid">
                                 <span class="navbar" data-bs-toggle="collapse" data-bs-traget="#ItinerarioAnalisi" aria-controls="ItinerarioAnalisi" aria-expanded="false"></span>
                                 <div class="collapse navbar-collapse" id="ItinerarioAnalisi">
                                     <div class="w-100 navbar-nav me-auto mb-2 mb-lg-0">
-                                        <button class="button nav-item nav-link active border" type="button" >Hotels</button>
-                                        <button class="button nav-item nav-link active border" type="button">Food</button>
-                                        <button class="button nav-item nav-link active border" type="button">Musei</button>
-                                        <button class="button nav-item nav-link active border" type="button">Intrattenimento</button>
-                                        <button class="button nav-item nav-link active border" type="button">Sport</button>
-                                        <button class="button nav-item nav-link active border" type="button">Trasporto</button>
+                                        <button class="button nav-item nav-link active border" type="button" id="Cultura">Cultura</button>
+                                        <button class="button nav-item nav-link active border" type="button" id="Utility" >Servizi</button>
+                                        <button class="button nav-item nav-link active border" type="button" id="Food">Food</button>
+                                        <button class="button nav-item nav-link active border" type="button" id="Intrattenimento">Intrattenimento</button>
                                     </dvi>
                                 </div>
                             </div>
                         </nav>
                         <div class="list-group scrollInfo">
                             <ul class="infotappe" id="infotappe">
-                                <li class="list-group-item d-flex justify-content-between align-items-start element-view">
-                                    <div class="ms-2 me-auto">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="fw-bold titoloTappa">
-                                                Luogo 1
-                                            </div>
-                                            <div id="button">
-                                                <button class="badge bg-primary rounded-pill" id="add">Add</button>
-                                            </div>
-                                        </div>
-                                            <div class="descriptionBox">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
-                                            </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-start element-view">
-                                    <div class="ms-2 me-auto">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="fw-bold titoloTappa">
-                                                Luogo 2
-                                            </div>
-                                            <div id="button">
-                                                <button class="badge bg-primary rounded-pill" id="add">Add</button>
-                                            </div>
-                                        </div>
-                                            <div class="descriptionBox">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolorum magni sequi nihil eum sunt aperiam deleniti saepe, qui eligendi, natus reiciendis enim corporis atque voluptates expedita? Fugit, est odio!
-                                            </div>
-                                            <div class="findmore">
-                                                <a href="">Scopri di piu...</a>
-                                            </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -178,58 +139,175 @@
         });
     </script>
     <script>
+        var citta = '';
+        var target = 'Cultura';
         const socket = io("http://localhost:1337")
         socket.on('connect',()=>{
             socket.emit('room', {room_name: 'clients'});
-        })
+        });
         var form = document.getElementById('form');
-        var citta = document.getElementById('citta');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (citta.value) {
-                socket.emit('Luoghi', '{"citta":'+'"'+citta.value+'"}');
+            if(!$('input#citta').val()){
+                alert('Inserire una citta');
+            }else{
+                citta = $('input#citta').val();
+                socket.emit('Luoghi',{citta,target})
             }
         });
-        socket.on('luoghi_rispostaClient', (musei)=>{
-            info = musei;
+
+        $('button#Cultura').on('click',()=>{
+            target = 'Cultura';
+            if(!$('input#citta').val()){
+                alert('Inserire una citta');
+            }else{
+                citta = $('input#citta').val();
+                socket.emit('Luoghi',{citta,target})
+                $('button').removeClass("selected").removeAttr('disabled');
+                $('button#Musei').addClass("selected").attr('disabled',true);
+            }
+        })
+
+        $('button#Utility').on('click',()=>{
+            target = 'Utility';
+            if(!$('input#citta').val()){
+                alert('Inserire una citta');
+            }else{
+                citta = $('input#citta').val();
+                socket.emit('Luoghi',{citta,target})
+                $('button').removeClass("selected").removeAttr('disabled');
+                $('button#Utility').addClass("selected").attr('disabled',true);
+            }
+        })
+
+        $('button#Food').on('click',()=>{
+            target = 'Food';
+            if(!$('input#citta').val()){
+                alert('Inserire una citta');
+            }else{
+                citta = $('input#citta').val();
+                socket.emit('Luoghi',{citta,target})
+                $('button').removeClass("selected").removeAttr('disabled');
+                $('button#Food').addClass("selected").attr('disabled',true);
+            }
+        })
+
+        $('button#Intrattenimento').on('click',()=>{
+            target = 'Intrattenimento';
+            if(!$('input#citta').val()){
+                alert('Inserire una citta');
+            }else{
+                citta = $('input#citta').val();
+                socket.emit('Luoghi',{citta,target})
+                $('button').removeClass("selected").removeAttr('disabled');
+                $('button#Intrattenimento').addClass("selected").attr('disabled',true);
+            }
+        })
+
+        function showInformation(informazione){
+            info = informazione;
             lista = document.getElementsByClassName('infotappe')
             $(lista).empty()
             for(let key in info){
                 titolo = info[key]['title']
                 desc = info[key]['desc']
                 if(typeof desc === 'undefined'){
-                    desc = 'Non è stato possibile trovare una descrizione per questo luogo'
+                    desc = "";
                 }
                 link = info[key]['url']
-                $(lista).append('<li class="list-group-item d-flex justify-content-between align-items-start element-view">      \
-                                                <div class="ms-2 me-auto">  \
+                $(lista).append(`<li class="list-group-item d-flex justify-content-between align-items-start element-view ">      \
+                                                <div class="ms-2 me-2 tappa">  \
                                         <div class="d-flex justify-content-between align-items-start">\
                                             <div class="fw-bold titoloTappa">\
-                                                '+titolo+'\
+                                                `+titolo+`\
                                             </div>\
                                             <div id="button">\
                                                 <button class="badge bg-primary rounded-pill" id="add">Add</button>\
                                             </div>\
                                         </div>\
                                             <div class="descriptionBox">\
-                                                '+desc+'\
+                                                `+desc+`\
                                             </div>\
                                             <div class="findmore">\
-                                                <a href='+link+' target="_blank" >Scopri di piu...</a>\
+                                                <a href="`+link+`" target="_blank" >Scopri di piu...</a>\
                                             </div>\
                                     </div>\
-                                </li>')
+                                </li>`)
             }
+            createList(lista);
+            
+        }
+
+        function createList(lista){
             $(lista).find('.rounded-pill').on('click', function(){
                     element = $(this).parents('.element-view').clone().find('div#button,div.descriptionBox,div.findmore').remove().end().html();
-                    element = $(element).children().append('<div><button id="remove" class="badge bg-primary rounded-pill">Rimuovi</button></div>')
+                    element = $(element).children().append('<div><button id="up" class="badge bg-primary rounded-pill">▲</button></div>\
+                                                            <div><button id="down" class="badge bg-primary rounded-pill">▼</button></div>\
+                                                            <div><button id="remove" class="badge bg-primary rounded-pill">Rimuovi</button></div>')
                     $(element).children().children("#remove").on('click', function(){
                         $(this).parentsUntil("ul").remove();
                     });
-                    element = element.wrap('<li class="list-group-item "></li>').parent();
+                    $(element).children().children("#up").on('click', function(){
+                        moveUp($(this).parent().parent().parent());
+                    });
+                    $(element).children().children("#down").on('click', function(){
+                        moveDown($(this).parent().parent().parent());
+                    });            
+                    element = element.wrap('<li class="list-group-item border-bottom border-start"></li>').parent();
+                    element = $(element).append('<div class="d-flex justify-content-between align-items-start"><label>Giorno :</label><input type="date" id="giorno" name="giorno"></div>')
                     $('#Viewer').append(element);
                 });
+
+        }
+        
+        function moveUp($item){
+            $before = $item.prev();
+            $item.insertBefore($before);
+        }
+
+        function moveDown($item){
+            $after = $item.next();
+            $item.insertAfter($after);
+        }
+        
+        function saveItinerario(){
+            var tappe = [];
+            $('#Viewer li').each(function(){
+                var html = $(this).html();
+                alert(html);
+            })
+        }
+
+        $('button#salva').on('click',()=>{
+            saveItinerario();
         })
+
+
+
+
+
+
+        socket.on('luoghi_rispostaClient', (data)=>{
+            switch (data.target){
+                case 'Cultura':{
+                    showInformation(data.value);
+                    break;
+                }
+                case 'Food':{
+                    showInformation(data.value);
+                    break;
+                }
+                case 'Intrattenimento':{
+                    showInformation(data.value);
+                    break;
+                };
+                case 'Utility':{
+                    showInformation(data.value);
+                    break;
+                };
+                }
+            })
+        
     </script>
 </body>
 

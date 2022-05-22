@@ -3,6 +3,7 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors:{origin : "*"} });
 const NodeCouchDb = require("node-couchdb");
+const { checkServerIdentity } = require("tls");
 var _uuid;
 
 
@@ -40,8 +41,34 @@ io.on('connection', (socket) => {
 		socket.join(data.room_name);
 		console.log('Socket: '+socket.id+' è entrato nella stanza: '+data.room_name)
 	})
-	socket.on('Luoghi', (msg) => {
-		var citta = JSON.parse(msg).citta;
+	socket.on('Luoghi', (data) => {
+		console.log('Richiesta ricevuta')
+		var citta = data.citta
+		var target = data.target
+		var socketid = socket.id
+		switch(target){
+			//inserire chaching and logging
+			case 'Cultura':{
+				socket.to('api').emit('Cultura',{socketid,citta});
+				break;
+			};
+			case 'Food' :{
+				socket.to('api').emit('Food',{socketid,citta});
+				break;
+			};
+			case 'Intrattenimento':{
+				socket.to('api').emit('Intrattenimento',{socketid,citta});
+				break;
+			};
+			case 'Utility':{
+				socket.to('api').emit('Utility',{socketid,citta});
+				break;
+			};
+			default:{
+				io.to(socketid).emit('Errore');
+				break;
+			}
+		}
 		/*var isPresent = false;
 		var id;
 		var count;
@@ -112,12 +139,13 @@ io.on('connection', (socket) => {
 		
 		JSON.stringify(msg);
 		*/
-		socket.to('api').emit('LuoghiApi',socket.id,citta);
+		
 	
 	});
-	socket.on('luoghi_rispostaApi',(socketid,musei)=>{
+
+	socket.on('luoghi_rispostaApi',(data)=>{
 		console.log('ricevuta risposta');
-		io.to(socketid).emit('luoghi_rispostaClient',musei);
+		io.to(data.socketid).emit('luoghi_rispostaClient',{value:data.value,target:data.target});
 	})
 });
 
