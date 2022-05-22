@@ -178,6 +178,10 @@ div .img-thumb{
   width: 20%;
 }
 
+div .informazioni{
+  display: none;
+}
+
 div .tappa{
   width: 100%;
 }
