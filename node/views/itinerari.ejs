@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main.css">
 
 </head>
 
@@ -22,7 +22,7 @@
 
     <!-- inizio sezione header -->
 
-    <header>
+    <header data-aos="fade-down">
 
         <div class="container">
 
@@ -100,25 +100,35 @@
                                 <% itin.forEach(function(itinerario) { %>
 
                                     <div class="box" data-aos="fade-up">
-                                        <img src="<%= itinerario.foto %>" alt="">
+                                        <!-- <img src="/assets/images/itinerari.svg" alt=""> -->
                                         <div class="content">
                                             <span>
-                                                <%= itinerario.dataInizio %> -> <%= itinerario.dataFine %>
+                                                <%= itinerario.tappe[0].data %> -> <%=
+                                                        itinerario.tappe[itinerario.tappe.length - 1].data %>
                                             </span>
                                             <a href="">
                                                 <h3>
                                                     <%= itinerario.nome %>
                                                 </h3>
                                             </a>
-                                            <p>
+                                            <!-- <p>
                                                 <%= itinerario.descrizione %>
-                                            </p>
+                                            </p> -->
                                             <a target="_blank" href="/itinerari/<%= itinerario._id %>"><button
                                                     class="button">Visualizza</button></a>
-                                        <!---<a href="/itinerari/<%= itinerario._id %>/modifica"><button
+                                            <!---<a href="/itinerari/<%= itinerario._id %>/modifica"><button
                                                     class="button">Modifica</button></a> --->
-                                            <p>Attenzione! Non ti verrà chiesta conferma! Premi il bottone rosso solo se
-                                                davvero sicuro!</p>
+                                            <!-- <script>
+                                                function confermaElimina() {
+                                                    let confirmAction = confirm("Sei sicuro di voler eliminare l'itinerario?");
+                                                    if (confirmAction) {
+                                                        alert("Itinerario eliminato con successo");
+                                                        location.href = '/itinerari/<%= itinerario._id %>/elimina';
+                                                    } else {
+                                                        return;
+                                                    }
+                                                }
+                                            </script> -->
                                             <a href="/itinerari/<%= itinerario._id %>/elimina"><button
                                                     class="buttonRed">Elimina</button></a>
                                         </div>
@@ -153,13 +163,6 @@
     <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
     <script src="/js/jquery.min.js"></script> <!-- jQuery -->
     <script src="/js/main.js"></script>
-
-    <script>
-        AOS.init({
-            duration: 1000,
-            delay: 10
-        });
-    </script>
 
 </body>
 

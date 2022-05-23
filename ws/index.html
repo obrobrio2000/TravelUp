@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,3 +35,42 @@
     <h1 id="test"></h1>
 </body>
 </html>
+||||||| merged common ancestors
+=======
+<!DOCTYPE html>
+<html>
+<head>
+ <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+</head>
+<body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><br>
+      <input id = "input2" autocomplete = "off"/><button>Send</button>
+    </form>
+    
+    <script>
+
+      const socket = io("http://localhost:1337")
+      
+
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+      var input2 = document.getElementById('input2');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+          if (input.value) {
+            socket.emit('Info', '{"citta":'+'"'+input.value+'"'+ ',"stato":'+ '"'+input2.value+'"}');
+            input.value = '';
+            input2.value = '';
+          }
+      });
+      
+      
+   
+      
+    </script>
+    <h1 id="test"></h1>
+</body>
+</html>
+>>>>>>> 59d7ff3d5d97ec0753b099ea716323208025fced

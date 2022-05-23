@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main.css">
 
 </head>
 
@@ -22,7 +22,7 @@
 
     <!-- inizio sezione header -->
 
-    <header>
+    <header data-aos="fade-down">
 
         <div class="container">
 
@@ -82,45 +82,6 @@
 
     <!-- fine sezione home -->
 
-    <!-- inizio sezione about  -->
-
-    <!-- <section class="about" id="about">
-
-        <div class="container">
-
-            <div class="row min-vh-100 align-items-center">
-
-                <div class="col-md-6 content" data-aos="fade-up-right">
-
-                    <div class="box">
-                        <h3> <i class="fas fa-globe"></i> da compilare se serve </h3>
-                        <p>da compilare se serve</p>
-                    </div>
-
-                    <div class="box">
-                        <h3> <i class="fas fa-compass"></i> da compilare se serve </h3>
-                        <p>da compilare se serve</p>
-                    </div>
-
-                    <div class="box">
-                        <h3> <i class="fas fa-car"></i> da compilare se serve </h3>
-                        <p>da compilare se serve</p>
-                    </div>
-
-                </div>
-
-                <div class="col-md-6 d-none d-md-block" data-aos="fade-up-left">
-                    <img src="/assets/images/home.svg" width="100%" alt="">
-                </div>
-
-            </div>
-
-        </div>
-
-    </section> -->
-
-    <!-- fine sezione about -->
-
     <!-- inizio sezione itinerari -->
 
     <section class="itinerari" id="itinerari">
@@ -140,7 +101,8 @@
                             <img src="<%= itinerario.foto %>" alt="">
                             <div class="content">
                                 <span>
-                                    <%= itinerario.dataInizio %> -> <%= itinerario.dataFine %>
+                                    <%= itinerario.tappe[0].data %> -> <%= itinerario.tappe[itinerario.tappe.length -
+                                            1].data %>
                                 </span>
                                 <a href="">
                                     <h3>
@@ -278,13 +240,6 @@
     <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
     <script src="/js/jquery.min.js"></script> <!-- jQuery -->
     <script src="/js/main.js"></script>
-
-    <script>
-        AOS.init({
-            duration: 1000,
-            delay: 10
-        });
-    </script>
 
 </body>
 

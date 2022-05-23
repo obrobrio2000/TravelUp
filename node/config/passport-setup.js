@@ -23,18 +23,21 @@ passport.use(new GoogleStrategy({
             console.log(profile);
         });
         async function createUser() {
+            var doc = "";
             try {
-                const doc = await utenti.get(profile.emails[0].value);
+                doc = await utenti.get(profile.emails[0].value);
+                var facebookId = "null";
                 try {
-                    const res = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: doc.facebookId, pippo: accessToken, metodo: "G", _rev: doc._rev }, profile.emails[0].value);
-                    return res;
+                    facebookId = doc.facebookId;
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, pippo: accessToken, metodo: "G", _rev: doc._rev }, profile.emails[0].value);
+                    return response;
                 } catch (err) {
-                    const res = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", pippo: accessToken, metodo: "G", _rev: doc._rev }, profile.emails[0].value);
-                    return res;
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, pippo: accessToken, metodo: "G", _rev: doc._rev }, profile.emails[0].value);
+                    return response;
                 }
             } catch (err) {
-                const res = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", pippo: accessToken, metodo: "G" }, profile.emails[0].value);
-                return res;
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", pippo: accessToken, metodo: "G" }, profile.emails[0].value);
+                return response;
             }
         }
         createUser().then(function (result) {
@@ -60,18 +63,21 @@ passport.use(new FacebookStrategy({
             console.log(profile);
         });
         async function createUser() {
+            var doc = "";
             try {
-                const doc = await utenti.get(profile.emails[0].value);
+                doc = await utenti.get(profile.emails[0].value);
+                var googleId = "null";
                 try {
-                    const res = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: doc.googleId, facebookId: profile.id, pippo: accessToken, metodo: "F", _rev: doc._rev }, profile.emails[0].value);
-                    return res;
+                    googleId = doc.googleId;
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, pippo: accessToken, metodo: "F", _rev: doc._rev }, profile.emails[0].value);
+                    return response;
                 } catch (err) {
-                    const res = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, pippo: accessToken, metodo: "F", _rev: doc._rev }, profile.emails[0].value);
-                    return res;
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, pippo: accessToken, metodo: "F", _rev: doc._rev }, profile.emails[0].value);
+                    return response;
                 }
             } catch (err) {
-                const res = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, pippo: accessToken, metodo: "F" }, profile.emails[0].value);
-                return res;
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, pippo: accessToken, metodo: "F" }, profile.emails[0].value);
+                return response;
             }
         }
         createUser().then(function (result) {

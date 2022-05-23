@@ -1,4 +1,3 @@
-version: "3.8"
 services:
     node:
         build: "./node"
@@ -65,7 +64,7 @@ services:
         env_file:
             - ./.env
         volumes:
-            - ./apiserver/server.js:/usr/src/app/server.js        
+            - ./apiserver/server.js:/usr/src/app/server.js
     ws:
         build: "./ws"
         container_name: ws
@@ -92,7 +91,6 @@ services:
         ports:
             - "80:80"
             - "443:443"
-            - "4984:4984"
         restart: unless-stopped
         depends_on:
             - node
@@ -111,11 +109,14 @@ services:
             - COUCHDB_USER=${COUCHDB_USER}
             - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
         ports:
-            - "5984:5984" # Management su http://localhost:5984/_utils/
+            - "5984:5984"
+            #- "6984:6984" # Management diretto (write) su https://localhost:6984/_utils/ e management cache (read) su https://localhost:4984/_utils/
         networks:
             - backend
         volumes:
             - ./couchdb:/opt/couchdb/data
+            #- ./couchdb/local.ini:/opt/couchdb/etc/local.ini
+            #- ./nginx/ssl:/opt/couchdb/ssl
         healthcheck:
             test: [ "CMD-SHELL", "curl -f http://localhost:5984/" ]
             interval: 5s

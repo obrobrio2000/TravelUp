@@ -1,6 +1,6 @@
-$(document).ready(function () {
+$(function () {
 
-  $('.fa-bars').click(function () {
+  $('.fa-bars').on('click', function () {
     $(this).toggleClass('fa-times');
     $('.nav').toggleClass('nav-toggle');
   });
@@ -26,3 +26,5 @@ $(document).ready(function () {
   });
 
 });
+
+AOS.init({ duration: 1000, delay: 10 });

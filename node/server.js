@@ -98,6 +98,16 @@ app.get('/css/all.min.css', function (req, res) {
     res.sendFile(__dirname + '/node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 });
 
+// socket.io
+app.get('/js/socket.io.min.js', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/socket.io-client/dist/socket.io.min.js');
+});
+
+// polyfill.io
+app.get('/js/polyfill.js', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/abort-controller/polyfill.js');
+});
+
 app.listen(port, () => {
     console.log(`Server in ascolto sull'indirizzo http://localhost:${port}`);
 });
