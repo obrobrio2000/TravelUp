@@ -58,23 +58,27 @@
     <section class="home" id="home">
         <div class="container pt-5">
             <div class="container-fluid min-vh-100 pt-5 mt-5 w-100">
-                <div class="row align-items-start w-100" data-aos="fade-right">
-                    <div class="col">
-                        <div>
-                            <form id="form">
-                                <label>Città: </label>
-                                <input type="text" placeholder="Inserisci città di destinazione" autocomplete="off"
-                                    id="citta" size="23">
-                                <button id="Search">Cerca</button>
-                            </form>
-                        </div>
-                    </div>
+                <div class="space">
+                </div>
+                <div class="border imgtravel" data-aos="fade-down">
+                    <img src="/assets/images/header_travel.png" style="max-width: 100%; height:20%"  alt="">
                 </div>
                 <div class="space">
                 </div>
                 <div class="row itinerari">
-                    <div class="col-4 gestioneItinerari ps-3" data-aos="fade-right">
-                        <div class="row tappeItinerario ">
+                    <div class="col-xs-7 col-sm-4 gestioneItinerari ps-3" data-aos="fade-right">
+                        <div class="row align-items-start w-100 mb-5 " data-aos="fade-right">
+                            <form id="form">
+                                <div class="d-flex justify-content-between">
+                                    <div class="border border-3 border-primary rounded-3 pt-2 px-4 citta">
+                                        <label>Città: </label>
+                                        <input  type="text" placeholder="Inserisci città di destinazione" autocomplete="off"
+                                            id="citta" size="23">                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row tappeItinerario border ">
                             <label> Il Tuo Itinerario </label>
                             <input type="text" placeholder="Inserisci il titolo del tuo itinerario" required="true"
                                 autocomplete="off" id="titoloItinerario">
@@ -84,30 +88,26 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row d-flex justify-content-between align-items-start">
+                        <div class="row d-flex justify-content-between align-items-start ">
                             <script>var userId = "<%=user.emails[0].value %>";</script>
                             <button class="button" id="salva" onclick="saveItinerario(userId)">Salva</button>
                         </div>
                     </div>
-                    <div class="col interesse" data-aos="fade-left">
+                    <div class="col-xs-7 col-sm-8 interesse " data-aos="fade-left">
                         <label>Scopri luoghi d'interesse</label>
-                        <nav class="navbar navbar-expand-lg navbar-light">
+                        <nav class="navbar navbar-expand navbar-light">
                             <div class="container-fluid">
-                                <span class="navbar" data-bs-toggle="collapse" data-bs-traget="#ItinerarioAnalisi"
-                                    aria-controls="ItinerarioAnalisi" aria-expanded="false"></span>
-                                <div class="collapse navbar-collapse" id="ItinerarioAnalisi">
-                                    <div class="w-100 navbar-nav me-auto mb-2 mb-lg-0">
-                                        <button class="button nav-item nav-link active border" type="button"
-                                            id="Cultura">Cultura</button>
-                                        <button class="button nav-item nav-link active border" type="button"
-                                            id="Utility">Servizi</button>
-                                        <button class="button nav-item nav-link active border" type="button"
-                                            id="Food">Ristorazione</button>
-                                        <button class="button nav-item nav-link active border" type="button"
-                                            id="Intrattenimento">Intrattenimento</button>
-                                        </dvi>
-                                    </div>
+                                <div class="w-100 navbar-nav me-auto mb-2 mb-lg-0">
+                                    <button class="button nav-item active border" type="button"
+                                        id="Cultura">Cultura</button>
+                                    <button class="button nav-item active border" type="button"
+                                        id="Utility">Servizi</button>
+                                    <button class="button nav-item active border" type="button"
+                                        id="Food">Ristorazione</button>
+                                    <button class="button nav-item active border" type="button"
+                                        id="Intrattenimento">Intrattenimento</button>
                                 </div>
+                            </div>
                         </nav>
                         <div class="list-group scrollInfo">
                             <ul class="infotappe" id="infotappe">
@@ -115,9 +115,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </section>
 
@@ -126,7 +124,7 @@
 
     <section class="footer">
 
-        <h1 class="credit text-center mx-auto homecredit">© Copyright 2022 TravelUp
+        <h1 class="credit text-center mx-auto homecredit" style="z-index: 1000;">© Copyright 2022 TravelUp
             ®<span></span><br>Tutti i diritti riservati.<br><a
                 href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
 

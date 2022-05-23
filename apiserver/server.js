@@ -1,7 +1,6 @@
 const express = require('express');
 const axios = require('axios');
 const { io } = require("socket.io-client");
-const { accessSync } = require('fs');
 const url = require('url').URL
 
 const distanza = 10000;

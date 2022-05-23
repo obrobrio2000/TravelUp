@@ -183,8 +183,8 @@ async function saveItinerario(userId) {
     titoloIt = $('input#titoloItinerario').val();
     if (titoloIt !== "" && !blocco) {
 
-        await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId });
-        location.href = '/itinerari';
+        await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
+                            .then(location.href = '/itinerari');
     } else {
         alert("Inserire il titolo dell'itinerario")
     }
