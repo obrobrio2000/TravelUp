@@ -3,7 +3,7 @@ const client = new Client({});
 require('dotenv').config();
 
 client
-  .distancematrix({
+  .distancematrix({ 
     params: {
       
       key: process.env.MAPS_API_KEY,
