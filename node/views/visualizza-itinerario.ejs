@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
-    <link rel="stylesheet" href="/css/style_itinerario.css">
+    <link rel="stylesheet" href="/css/visualizza-itinerario.css">
 
 </head>
 
@@ -27,32 +27,37 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <header class="no-mobile no-print header-active"><a href="/"><img src="/assets/images/logoleft.png"
-                class="logoFooter" style="max-width: 175px; height: auto;" alt=""></a>
+    <header class="no-mobile no-print header-active" data-aos="fade-down"><a href="/"><img
+                src="/assets/images/logoleft.png" class="logoFooter" style="max-width: 175px; height: auto;" alt=""></a>
     </header>
 
-    <div class="container">
-        <div class="timeline">
+    <div class="container text-center">
+        <div class="timeline" data-aos="fade-down">
             <% itinerario.tappe.forEach(function(tappa) { %>
                 <div class="timeline-row" data-aos="fade-up">
                     <div class="timeline-time">
-                        7:45<small>21/10/2022</small>
+                        <%= tappa.data %>
+                            <!-- <small>21/10/2022</small> -->
                     </div>
-                    <div class="timeline-content">
+                    <div class="timeline-content text-center">
                         <i class="icon-attachment"></i>
                         <h4>
-                            <%= tappa.nome %>
+                            <%= tappa.url.replace("https://google.com/search?q=", "") %>
                         </h4>
-                        <p>
-                            <%= tappa.via %>
-                        </p>
-                        <div class="thumbs">
+                        <p class=" text-center">
+                                <a class="text-center" target="_blank" href="<%= tappa.url %>"><button
+                                        class="buttonScopri no-print">Scopri di più</button></a>
+                                <a class="text-center" target="_blank"
+                                    href="https://maps.google.com/?q=<%= tappa.lat %>,<%= tappa.lon %>"><button
+                                        class="buttonScopri no-print">Apri su Maps</button></a>
+                                </p>
+                                <!-- <div class="thumbs">
                             <img class="img-fluid" src="<%= tappa.foto %>" alt="">
-                        </div>
-                        <div class="">
-                            <span class="badge badge-pill">Tag 1</span>
-                            <span class="badge badge-pill">Tag 2</span>
-                        </div>
+                        </div> -->
+                                <div class="text-center">
+                                    <span class="badge badge-pill">Lat: <%= tappa.lat %></span>
+                                    <span class="badge badge-pill">Lon: <%= tappa.lon %></span>
+                                </div>
                     </div>
                 </div>
                 <% }); %>
@@ -61,7 +66,7 @@
 
     <!-- inizio sezione footer  -->
 
-    <section class="footer">
+    <section class="footer" data-aos="fade-up">
 
         <div class="container text-center no-print">
             <a><button class="button" onclick="window.print();return false;">Stampa/scarica PDF</button></a>
@@ -90,13 +95,7 @@
     <script src="/js/aos.js"></script> <!-- AOS JS -->
     <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
     <script src="/js/jquery.min.js"></script> <!-- jQuery -->
-
-    <script>
-        AOS.init({
-            duration: 1000,
-            delay: 10
-        });
-    </script>
+    <script>AOS.init({ duration: 1000, delay: 10 });</script>
 
 </body>
 

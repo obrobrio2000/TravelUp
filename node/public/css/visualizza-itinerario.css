@@ -361,6 +361,20 @@ header .fa-bars {
   margin: 1rem 0;
 }
 
+.buttonScopri {
+  height: 2.75rem;
+  width: 10rem;
+  background: #0c8de0;
+  color: #fff;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
 @media print {
 
   .no-print,
