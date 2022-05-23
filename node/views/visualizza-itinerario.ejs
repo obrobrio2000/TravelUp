@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,3 +102,108 @@
 </body>
 
 </html>
+||||||| merged common ancestors
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelUp: Visualizza itinerario</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+
+    <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="/css/visualizza-itinerario.css">
+
+</head>
+
+<body>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v13.0&appId=516293156710461&autoLogAppEvents=1"
+        nonce="bIDk1MgX"></script>
+
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <header class="no-mobile no-print header-active" data-aos="fade-down"><a href="/"><img
+                src="/assets/images/logoleft.png" class="logoFooter" style="max-width: 175px; height: auto;" alt=""></a>
+    </header>
+
+    <div class="container text-center">
+        <div class="timeline" data-aos="fade-down">
+            <% itinerario.tappe.forEach(function(tappa) { %>
+                <div class="timeline-row" data-aos="fade-up">
+                    <div class="timeline-time">
+                        <%= tappa.data %>
+                            <!-- <small>21/10/2022</small> -->
+                    </div>
+                    <div class="timeline-content text-center">
+                        <i class="icon-attachment"></i>
+                        <h4>
+                            <%= tappa.url.replace("https://google.com/search?q=", "") %>
+                        </h4>
+                        <p class=" text-center">
+                                <a class="text-center" target="_blank" href="<%= tappa.url %>"><button
+                                        class="buttonScopri no-print">Scopri di più</button></a>
+                                <a class="text-center" target="_blank"
+                                    href="https://maps.google.com/?q=<%= tappa.lat %>,<%= tappa.lon %>"><button
+                                        class="buttonScopri no-print">Apri su Maps</button></a>
+                                </p>
+                                <!-- <div class="thumbs">
+                            <img class="img-fluid" src="<%= tappa.foto %>" alt="">
+                        </div> -->
+                                <div class="text-center">
+                                    <span class="badge badge-pill">Lat: <%= tappa.lat %></span>
+                                    <span class="badge badge-pill">Lon: <%= tappa.lon %></span>
+                                </div>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </div>
+
+    <!-- inizio sezione footer  -->
+
+    <section class="footer" data-aos="fade-up">
+
+        <div class="container text-center no-print">
+            <a><button class="button" onclick="window.print();return false;">Stampa/scarica PDF</button></a>
+            <a href="/itinerari/<%= itinerario._id %>/addToCalendar"><button class="button">Inserisci su Google
+                    Calendar</button></a>
+            <div class="container facebookShareButton text-center">
+                <div class="fb-share-button" data-href="https://127.0.0.1/itinerari/<%= itinerario._id %>"
+                    data-layout="button" data-size="large"><a target="_blank" class="fb-xfbml-parse-ignore">Condividi su
+                        Facebook</a>
+                </div>
+            </div>
+            <div class="container twitterShareButton">
+                <a class="twitter-share-button" data-size="large"
+                    data-text="Guarda l&#39;itinerario di viaggio che ho appena creato su TravelUp!"
+                    data-hashtags="travelup" data-dnt="true" data-show-count="false">Condividi su Twitter</a>
+            </div>
+        </div>
+
+        <h4 class="credit text-center mx-auto homecredit">© Copyright 2022 TravelUp
+            ®<span></span><br>Tutti i diritti riservati.</h4>
+
+    </section>
+
+    <!-- fine sezione footer -->
+
+    <script src="/js/aos.js"></script> <!-- AOS JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+    <script src="/js/jquery.min.js"></script> <!-- jQuery -->
+    <script>AOS.init({ duration: 1000, delay: 10 });</script>
+
+</body>
+
+</html>
+>>>>>>> 59d7ff3d5d97ec0753b099ea716323208025fced

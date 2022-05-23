@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -164,3 +165,175 @@
 </body>
 
 </html>
+||||||| merged common ancestors
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelUp: Itinerari</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+
+    <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+<body>
+
+    <!-- inizio sezione header -->
+
+    <header data-aos="fade-down">
+
+        <div class="container">
+
+            <a class="navbar-brand logo" href="/">
+                <img src="/assets/images/logoleft.png" style="max-width: 175px; height: auto;" alt="">
+            </a>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="/logout">Esci</a></li>
+                </ul>
+            </nav>
+
+            <div class="fas fa-bars"></div>
+
+        </div>
+
+    </header>
+
+    <!-- fine sezione header -->
+
+    <!-- inizio sezione home -->
+
+    <section class="home" id="home">
+
+        <div class="container">
+
+            <div class="row min-vh-100 align-items-center text-center text-md-left">
+
+                <div class="col-md-6 pr-md-5" data-aos="fade-right">
+                    <img class="imgRound" src="/assets/images/itinerari.svg" width="100%" alt="">
+                </div>
+                <div class="col-md-6 pl-md-5 content" data-aos="fade-left">
+                    <div class="container"><img class="imgRound" src="<%= user.photos[0].value %>" width="25%" alt="">
+                    </div>
+                    <h1>Benvenuto, <span>
+                            <%= user.name.givenName %>
+                        </span><span></span>
+                    </h1>
+                    <% if (itin.length>0) { %>
+                        <a href="#itinerari"><button class="button">I tuoi itinerari</button></a>
+                        <% } else { %>
+                            <h3>Non hai ancora creato alcun itinerario</h3>
+                            <% } %>
+                                <a href="/itinerari/nuovo"><button class="button">Crea nuovo</button></a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione home -->
+
+    <!-- inizio sezione itinerari -->
+
+    <section class="itinerari" id="itinerari">
+
+        <div class="container min-vh-100">
+
+            <h1 class="heading" data-aos="fade-up"><span></span> I tuoi itinerari <span></span></h1>
+
+            <% if (itin.length>0) { %>
+                <h2 class="heading-description text-center" data-aos="fade-up">Tutti gli itinerari
+                    creati finora!</h2>
+                <% } else { %>
+                    <h2 class="heading-description text-center" data-aos="fade-up">Non hai ancora creato alcun
+                        itinerario</h2>
+                    <% } %>
+
+                        <div class="box-container">
+
+                            <% if (itin.length>0) { %>
+                                <% itin.forEach(function(itinerario) { %>
+
+                                    <div class="box" data-aos="fade-up">
+                                        <img src="/assets/images/itinerari.svg" alt=""> <!-- poi scarico un po' di immagini stock e vedo di farle apparire random -->
+                                        <div class="content">
+                                            <span>
+                                                <%= itinerario.tappe[0].data %> -> <%=
+                                                        itinerario.tappe[itinerario.tappe.length - 1].data %>
+                                            </span>
+                                            <a href="">
+                                                <h3>
+                                                    <%= itinerario.nome %>
+                                                </h3>
+                                            </a>
+                                            <!-- <p>
+                                                <%= itinerario.descrizione %>
+                                            </p> -->
+                                            <a target="_blank" href="/itinerari/<%= itinerario._id %>"><button
+                                                    class="button">Visualizza</button></a>
+                                            <!---<a href="/itinerari/<%= itinerario._id %>/modifica"><button
+                                                    class="button">Modifica</button></a> --->
+                                            <!-- <script>
+                                                function confermaElimina() {
+                                                    let confirmAction = confirm("Sei sicuro di voler eliminare l'itinerario?");
+                                                    if (confirmAction) {
+                                                        alert("Itinerario eliminato con successo");
+                                                        location.href = '/itinerari/<%= itinerario._id %>/elimina';
+                                                    } else {
+                                                        return;
+                                                    }
+                                                }
+                                            </script> -->
+                                            <a href="/itinerari/<%= itinerario._id %>/elimina"><button
+                                                    class="buttonRed">Elimina</button></a>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <a href="/itinerari/nuovo" data-aos="fade-up"><button class="button">Crea
+                                                    nuovo</button></a>
+                                            <% } %>
+
+                        </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione itinerari -->
+
+    <!-- inizio sezione footer  -->
+
+    <section class="footer">
+
+        <h1 class="credit text-center mx-auto homecredit">© Copyright 2022 TravelUp
+            ®<span></span><br>Tutti i diritti riservati.<br><a
+                href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
+
+    </section>
+
+    <!-- fine sezione footer -->
+
+    <script src="/js/aos.js"></script> <!-- AOS JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+    <script src="/js/jquery.min.js"></script> <!-- jQuery -->
+    <script src="/js/main.js"></script>
+
+</body>
+
+</html>
+>>>>>>> 59d7ff3d5d97ec0753b099ea716323208025fced
