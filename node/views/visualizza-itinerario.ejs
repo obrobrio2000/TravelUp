@@ -22,7 +22,7 @@
             var n = ("<%= itinerario.tappe.length%>")
             var tappe = <%-JSON.stringify(itinerario.tappe)%>;
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 9,
+                zoom: 12,
                 center: { lat: parseFloat(tappe[0].lat), lng: parseFloat(tappe[0].lon) },
             });
 
@@ -83,6 +83,10 @@
                     </div>
                 </div>
                 <% }); %>
+                
+        </div>
+        <div class="map">
+            <div  id = "map" data-aos="fade-up" style="height:450px;border-radius: 1rem;"></div> 
         </div>
     </div>
 
