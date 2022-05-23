@@ -1,0 +1,43 @@
+{
+  "name": "travelup_serverreq",
+  "version": "1.0.0",
+  "description": "Server che si occupa di gestire le richeste alle APIs di terze parti",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TUEngineers/TravelUp.git"
+  },
+  "keywords": [
+    "travelup",
+    "tuengineers",
+    "travel",
+    "trip",
+    "itinerary",
+    "journey"
+  ],
+  "author": "TravelUp",
+  "contributors": [
+    "Filippo Serafini",
+    "Stefano Mazziotta",
+    "Giovanni Magliocchetti"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TUEngineers/TravelUp/issues"
+  },
+  "homepage": "https://github.com/TUEngineers/TravelUp#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "socket.io-client": "4.5.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.16"
+  }
+}

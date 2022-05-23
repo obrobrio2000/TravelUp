@@ -1,6 +1,6 @@
-$(document).ready(function () {
+$(function () {
 
-  $('.fa-bars').click(function () {
+  $('.fa-bars').on('click', function () {
     $(this).toggleClass('fa-times');
     $('.nav').toggleClass('nav-toggle');
   });
@@ -25,4 +25,17 @@ $(document).ready(function () {
 
   });
 
+<<<<<<< HEAD
 });
+||||||| merged common ancestors
+});
+
+AOS.init({
+  duration: 1000,
+  delay: 10
+});
+=======
+});
+
+AOS.init({ duration: 1000, delay: 10 });
+>>>>>>> 59d7ff3d5d97ec0753b099ea716323208025fced

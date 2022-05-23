@@ -43,7 +43,32 @@ services:
         #     - backend
         volumes:
             - ./mail/server.js:/usr/src/app/server.js
+<<<<<<< HEAD
             - ./mail/.env:/usr/src/app/.env
+||||||| 2b575d6
+=======
+    apirequest:
+        build: "./apiserver"
+        container_name: apirequest
+        hostname: apirequest
+        ports:
+            - '1515:1515'
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        depends_on:
+            - node
+            - ws
+        links:
+            - node
+            - ws
+        networks:
+            - backend
+        env_file:
+            - ./.env
+        volumes:
+            - ./apiserver/server.js:/usr/src/app/server.js        
+>>>>>>> Sviluppo
     ws:
         build: "./ws"
         container_name: ws
