@@ -81,7 +81,7 @@ function showInformation(informazione) {
                                     <div class="ms-2 me-2 tappa">  \
                                         <div class="d-flex justify-content-between align-items-start">\
                                             <div class="fw-bold titoloTappa">\
-                                                `+ titolo + `\
+                                                <label class="fw-bold" id="nomeTappa">`+ titolo + `</label>\
                                             </div>\
                                             <div id="button">\
                                                 <button class="badge bg-primary rounded-pill" id="add">+</button>\
@@ -105,7 +105,7 @@ function showInformation(informazione) {
 
 function createList(lista) {
     $(lista).find('.rounded-pill').on('click', function () {
-        var nome = $(this).parents('.tappa').find('div#titolotappa').html()
+        var nome = $(this).parents('.tappa').find('label#nomeTappa').html();
         var lat = $(this).parents('.tappa').find('label#lat').html();
         var lon = $(this).parents('.tappa').find('label#lon').html();
         var url = $(this).parents('.tappa').find('a#link').attr('href');
@@ -171,28 +171,31 @@ async function saveItinerario(userId) {
     var blocco = false;
     $('#Viewer li').each(function () {
         var index = $(this).index();
-        var data = $(this).find('input#giorno').val();
-        if (data !== "") {
-            tappe[index].data = data;
+        var date = $(this).find('input#giorno').val();
+        if (date !== "") {
+            $(this).removeClass("border border-danger");
+            tappe[index].data = date;
+            blocco = false
         } else {
-            if (!blocco) {
-                alert('Controllare i valori dei giorni');
-            }
             blocco = true;
+            $(this).addClass("border border-danger");
         }
     })
     titoloIt = $('input#titoloItinerario').val();
-    if (blocco) {
-        if (titoloIt === "") {
-            alert("Inserire un titolo per l'itinerario");
-        }
-        else if (titoloIt === "" && arrInfo.length === 0) {
-            alert("Inserire un titolo per l'itinerario");
-            alert('Inserire almeno una tappa');
-        }
-    } else {
-        await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
-            .then(delay(1000).then(() => location.href = '/itinerari'));
+    if (titoloIt === "") {
+        blocco = true;
+        $('input#titoloItinerario').addClass("border border-danger");
+    }
+    else if (titoloIt === "" && arrInfo.length === 0) {
+        blocco = true;
+        $('input#titoloItinerario').addClass("border border-danger");
+        alert('Inserire almeno una tappa');
+    }
+    if(!blocco){
+    await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
+        .then(delay(1000).then(() => location.href = '/itinerari'));
+    }else{
+        alert('Inserire correttamente le informazioni')
     }
 }
 

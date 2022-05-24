@@ -20,7 +20,7 @@
     <script type="text/javascript">
         function initMap() {
             var n = ("<%= itinerario.tappe.length%>")
-            var tappe = <% -JSON.stringify(itinerario.tappe) %>;
+            var tappe = ("<% -JSON.stringify(itinerario.tappe) %>");
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 12,
                 center: { lat: parseFloat(tappe[0].lat), lng: parseFloat(tappe[0].lon) },
@@ -64,7 +64,7 @@
                     <div class="timeline-content text-center">
                         <i class="icon-attachment"></i>
                         <h4>
-                            <%= tappa.url.replace("https://google.com/search?q=", "") %>
+                            <%= tappa.nome %>
                         </h4>
                         <p class=" text-center">
                                 <a class="text-center" target="_blank" href="<%= tappa.url %>"><button
@@ -76,10 +76,6 @@
                                 <!-- <div class="thumbs">
                             <img class="img-fluid" src="<%= tappa.foto %>" alt="">
                         </div> -->
-                                <div class="text-center">
-                                    <span class="badge badge-pill">Lat: <%= tappa.lat %></span>
-                                    <span class="badge badge-pill">Lon: <%= tappa.lon %></span>
-                                </div>
                     </div>
                 </div>
                 <% }); %>
