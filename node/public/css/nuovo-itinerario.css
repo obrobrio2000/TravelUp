@@ -1,30 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap');
 
 :root {
-    --blue: #0c8de0;
-    --black: hsl(204, 98%, 23%);
-    --selected: hsl(205, 100%, 27%);
+  --bluChiaro: #0c8de0;
+  --bluScuro: hsl(204, 98%, 23%);
+  --selected: hsl(205, 100%, 27%);
 }
 
 
 html {
-    font-size: 62.5%;
-    overflow-x: hidden;
-  }
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
 
 * {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: none !important;
-    outline: none !important;
-    text-decoration: none !important;
-    font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  text-decoration: none !important;
+  font-weight: 400;
 }
 
 .home {
-    font-size: 2em;
+  font-size: 2em;
 
 }
 
@@ -33,7 +33,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 2rem 1rem;
+  padding: 1rem .5rem;
   z-index: 1000;
 
 }
@@ -51,11 +51,11 @@ header .container {
 }
 
 header a {
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
 header a:hover {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 header .container .logo {
@@ -63,7 +63,7 @@ header .container .logo {
 }
 
 header .container .logo span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 header .nav ul {
@@ -85,18 +85,18 @@ header .nav ul li a {
 
 header .fa-bars {
   font-size: 3.5rem;
-  color: var(--blue);
+  color: var(--bluChiaro);
   cursor: pointer;
   display: none;
 }
 
-footer{
-    font-size: 62.5%;
-    overflow-x: hidden;
+footer {
+  font-size: 62.5%;
+  overflow-x: hidden;
 }
 
 .footer {
-  background: var(--black);
+  background: var(--bluScuro);
   margin-top: -0.1rem;
 }
 
@@ -116,7 +116,7 @@ footer{
 }
 
 .footer .col-md-4:nth-child(1) a span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .footer a {
@@ -131,7 +131,7 @@ footer{
 }
 
 .footer a:hover {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .footer .credit {
@@ -140,131 +140,134 @@ footer{
   margin: 0;
   padding: 2rem 0;
   padding-bottom: 4rem;
-  border-top: .1rem solid #ccc !important;
+  border-top: .1rem solid #ccc;
 }
 
 .footer .credit span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 div .space {
-    height: 2.5rem;
+  height: 2.5rem;
 }
 
 div .itinerari {
-    display: flex;
-    height: 80rem;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  height: 80rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 div .itinerari .gestioneItinerari {
-    width: 35%;
-    height: 100%;
+  width: 35%;
+  height: 100%;
 }
 
-div .itinerari .gestioneItinerari .tappeItinerario{
-    height: 75%;
+div .itinerari .gestioneItinerari .tappeItinerario {
+  height: 75%;
 }
 
 div .itinerari .interesse {
-    width: 65%;
-    height: 92.5%;
+  width: 65%;
+  height: 92.5%;
 }
-div .img-thumb{
+
+div .img-thumb {
   background-color: aquamarine;
   height: 100%;
   width: 20%;
 }
 
-div .informazioni{
+div .informazioni {
   display: none;
 }
 
-div .tappa{
+div .tappa {
   width: 100%;
 }
 
-ul .infotappe{
+ul .infotappe {
   height: 100%;
 }
 
-li .element-view{
+li .element-view {
   height: 10%;
 }
 
-@media (max-width: 992px){
-    div .itinerari .gestioneItinerari {
-        width: 100%;
-        height: 50%;
-        padding-bottom: 2cm;
-    }
-    div .itinerari .interesse {
-        width: 100%;
-        height: 50%;
-        padding-bottom: 1.5cm;
-    }
-    .descriptionBox{
-      width: 100%;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 5;
-      -webkit-box-orient: vertical;
-    }
-    
-    .titoloTappa{
-      width: 80%;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
+@media (max-width: 992px) {
+  div .itinerari .gestioneItinerari {
+    width: 100%;
+    height: 50%;
+    padding-bottom: 2cm;
+  }
+
+  div .itinerari .interesse {
+    width: 100%;
+    height: 50%;
+    padding-bottom: 1.5cm;
+  }
+
+  .descriptionBox {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+  }
+
+  .titoloTappa {
+    width: 80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }
 
 
 .button {
-    height: 3.5rem;
-    width: 100%;
-    background: var(--blue);
-    color: #fff;
-    font-size: 1.7rem;
-    border-radius: .5rem;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    overflow: hidden;
-    margin: 1rem 0;
-  }
+  height: 3.5rem;
+  width: 100%;
+  background: var(--bluChiaro);
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
 
 .button::before {
-    content: '';
-    position: absolute;
-    top: -100%;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: var(--black);
-    z-index: -1;
-    transition: .2s linear;
-  }
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--bluScuro);
+  z-index: -1;
+  transition: .2s linear;
+}
 
 .selected {
   background-color: var(--selected);
 }
 
 .scrollInfo {
-    width: 100%;
-    height: 85%;
-    overflow-y: scroll;
-    scrollbar-color: var(--blue);
-    scrollbar-width: thin;
-    background-color: white;
+  width: 100%;
+  height: 85%;
+  overflow-y: scroll;
+  scrollbar-color: var(--bluChiaro);
+  scrollbar-width: thin;
+  background-color: white;
 }
 
-.descriptionBox{
+.descriptionBox {
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -273,7 +276,7 @@ li .element-view{
   -webkit-box-orient: vertical;
 }
 
-.titoloTappa{
+.titoloTappa {
   width: 80%;
   text-overflow: ellipsis;
   overflow: hidden;

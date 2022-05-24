@@ -1,10 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap');
 
 :root {
-  /* --blue: #0188DF; */
-  --blue: #0c8de0;
-  /* --black: #354046; */
-  --black: #014775;
+  --bluChiaro: #0c8de0;
+  --bluScuro: #014775;
 }
 
 * {
@@ -12,16 +10,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: none !important;
-  outline: none !important;
+  border: none;
+  outline: none;
   text-decoration: none !important;
   font-weight: 400;
-  /* transition: all .2s linear; */
-}
-
-*::selection {
-  background: var(--black);
-  color: #fff;
 }
 
 html {
@@ -30,17 +22,13 @@ html {
 }
 
 body {
-  overflow-x: hidden;
-}
-
-section {
   overflow: hidden;
 }
 
 .button {
   height: 3.5rem;
   width: 20rem;
-  background: var(--blue);
+  background: var(--bluChiaro);
   color: #fff;
   font-size: 1.7rem;
   border-radius: .5rem;
@@ -54,7 +42,7 @@ section {
 .buttonGoogle {
   height: 3.5rem;
   width: 22.5rem;
-  background: var(--blue);
+  background: var(--bluChiaro);
   color: #fff;
   font-size: 1.7rem;
   border-radius: .5rem;
@@ -68,7 +56,7 @@ section {
 .buttonFacebook {
   height: 3.5rem;
   width: 22.5rem;
-  background: var(--black);
+  background: var(--bluScuro);
   color: #fff;
   font-size: 1.7rem;
   border-radius: .5rem;
@@ -100,7 +88,7 @@ section {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: var(--black);
+  background-color: var(--bluScuro);
   z-index: -1;
   transition: .2s linear;
 }
@@ -110,8 +98,7 @@ section {
 }
 
 .button:hover {
-  box-shadow: .1rem .5rem var(--blue),
-    0 .3rem .5rem rgba(0, 0, 0, .3);
+  box-shadow: .1rem .5rem var(--bluChiaro), 0 .3rem .5rem rgba(0, 0, 0, .3);
 }
 
 .heading {
@@ -119,11 +106,11 @@ section {
   font-size: 4rem;
   padding: 1rem;
   padding-top: 8rem;
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
 .heading span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 header {
@@ -131,7 +118,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 2rem 1rem;
+  padding: 1rem .5rem;
   z-index: 1000;
 }
 
@@ -148,11 +135,11 @@ header .container {
 }
 
 header a {
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
 header a:hover {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 header .container .logo {
@@ -160,7 +147,7 @@ header .container .logo {
 }
 
 header .container .logo span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 header .nav ul {
@@ -182,39 +169,39 @@ header .nav ul li a {
 
 header .fa-bars {
   font-size: 3.5rem;
-  color: var(--blue);
+  color: var(--bluChiaro);
   cursor: pointer;
   display: none;
 }
 
 .home .content h1 {
   font-size: 4rem;
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
 .home .content h1 span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .home .content h3 {
   font-size: 2rem;
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
-.review {
-  background: var(--black);
+.recens {
+  background: var(--bluScuro);
 }
 
-.review .heading {
+.recens .heading {
   color: #fff;
 }
 
-.review .heading-description {
+.recens .heading-description {
   color: #fff;
   text-align: center;
 }
 
-.review .box-container {
+.recens .box-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -222,7 +209,7 @@ header .fa-bars {
   padding-bottom: 5rem;
 }
 
-.review .box-container .box {
+.recens .box-container .box {
   background: #fff;
   width: 30rem;
   margin: 5rem 1rem;
@@ -230,7 +217,7 @@ header .fa-bars {
   position: relative;
 }
 
-.review .box-container .box img {
+.recens .box-container .box img {
   position: absolute;
   bottom: -7.5rem;
   left: -1rem;
@@ -240,24 +227,24 @@ header .fa-bars {
   object-fit: cover;
 }
 
-.review .box-container .box p {
+.recens .box-container .box p {
   font-size: 1.4rem;
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
-.review .box-container .box h3 {
+.recens .box-container .box h3 {
   text-align: end;
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
-.review .box-container .box span {
+.recens .box-container .box span {
   text-align: end;
-  color: var(--black);
+  color: var(--bluScuro);
   display: block;
   font-size: 1.5rem;
 }
 
-.review .box-container .box::before {
+.recens .box-container .box::before {
   content: '';
   position: absolute;
   bottom: -1rem;
@@ -268,43 +255,43 @@ header .fa-bars {
   transform: rotate(45deg);
 }
 
-.contact {
-  background: var(--black);
+.contatti {
+  background: var(--bluScuro);
   margin-top: -0.1rem;
 }
 
-.contact .heading {
+.contatti .heading {
   color: #fff;
 }
 
-.contact .heading-description {
+.contatti .heading-description {
   color: #fff;
   text-align: center;
   padding-bottom: 1.5rem;
 }
 
-.contact form {
+.contatti form {
   text-align: center;
 }
 
-.contact form .inputBox {
+.contatti form .inputBox {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.contact form .inputBox input,
+.contatti form .inputBox input,
 select {
   height: 4rem;
   width: 49%;
   padding: 0 1rem;
   margin: 1rem 0;
   font-size: 1.7rem;
-  color: var(--black);
+  color: var(--bluScuro);
   border-radius: 5px;
 }
 
-.contact form textarea {
+.contatti form textarea {
   height: 20rem;
   resize: none;
   padding: 1rem;
@@ -314,18 +301,18 @@ select {
   border-radius: 5px;
 }
 
-.contact form input[type="submit"] {
+.contatti form input[type="submit"] {
   width: 20rem;
   border-radius: 5px;
 }
 
-.contact form input[type="submit"]:hover {
-  background: var(--black);
+.contatti form input[type="submit"]:hover {
+  background: var(--bluScuro);
   border-radius: 5px;
 }
 
 .itinerari .heading-description {
-  color: var(--black);
+  color: var(--bluScuro);
   text-align: center;
 }
 
@@ -362,20 +349,20 @@ select {
 
 .itinerari .box-container .box .content h3 {
   font-size: 2rem;
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
 .itinerari .box-container .box .content:hover h3 {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .itinerari .box-container .box .content p {
   font-size: 1.3rem;
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
 .footer {
-  background: var(--black);
+  background: var(--bluScuro);
   margin-top: -0.1rem;
 }
 
@@ -395,7 +382,7 @@ select {
 }
 
 .footer .col-md-4:nth-child(1) a span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .footer a {
@@ -410,7 +397,7 @@ select {
 }
 
 .footer a:hover {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .footer .credit {
@@ -419,27 +406,11 @@ select {
   margin: 0;
   padding: 2rem 0;
   padding-bottom: 4rem;
-  border-top: .1rem solid #ccc !important;
+  border-top: .1rem solid #ccc;
 }
 
 .footer .credit span {
-  color: var(--blue);
-}
-
-.g-signin2 {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-}
-
-.fb-login-button {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-}
-
-.oauthBtns {
-  font-size: 3rem;
+  color: var(--bluChiaro);
 }
 
 .loginLink {

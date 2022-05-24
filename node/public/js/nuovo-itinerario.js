@@ -91,7 +91,7 @@ function showInformation(informazione) {
                                             `+ desc + `\
                                         </div>\
                                         <div class="findmore">\
-                                            <a id="link" href="`+ link + `" target="_blank" >Scopri di piu...</a>\
+                                            <a id="link" href="`+ link + `" target="_blank" >Scopri di più...</a>\
                                             <div class="informazioni">\
                                             <label id="lat">`+ lat + `</label> <label id="lon"> ` + lon + `</label>
                                             </div>   \

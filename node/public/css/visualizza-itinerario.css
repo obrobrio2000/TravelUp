@@ -249,11 +249,11 @@ header .container {
 }
 
 header a {
-  color: var(--black);
+  color: var(--bluScuro);
 }
 
 header a:hover {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 header .container .logo {
@@ -261,7 +261,7 @@ header .container .logo {
 }
 
 header .container .logo span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 header .nav ul {
@@ -283,13 +283,13 @@ header .nav ul li a {
 
 header .fa-bars {
   font-size: 3.5rem;
-  color: var(--blue);
+  color: var(--bluChiaro);
   cursor: pointer;
   display: none;
 }
 
 .footer {
-  background: var(--black);
+  background: var(--bluScuro);
   margin-top: -0.1rem;
 }
 
@@ -309,7 +309,7 @@ header .fa-bars {
 }
 
 .footer .col-md-4:nth-child(1) a span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .footer a {
@@ -324,7 +324,7 @@ header .fa-bars {
 }
 
 .footer a:hover {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .footer .credit {
@@ -333,11 +333,11 @@ header .fa-bars {
   margin: 0;
   padding: 2rem 0;
   padding-bottom: 4rem;
-  border-top: .1rem solid #ccc !important;
+  border-top: .1rem solid #ccc;
 }
 
 .footer .credit span {
-  color: var(--blue);
+  color: var(--bluChiaro);
 }
 
 .logoFooter {
@@ -379,7 +379,7 @@ header .fa-bars {
 
   .no-print,
   .no-print * {
-    display: none !important;
+    display: none;
   }
 }
 

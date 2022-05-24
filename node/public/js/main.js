@@ -1,14 +1,6 @@
 $(function () {
 
-  $('.fa-bars').on('click', function () {
-    $(this).toggleClass('fa-times');
-    $('.nav').toggleClass('nav-toggle');
-  });
-
   $(window).on('load scroll', function () {
-
-    $('.fa-bars').removeClass('fa-times');
-    $('.nav').removeClass('nav-toggle');
 
     if ($(window).scrollTop() > 10) {
       $('header').addClass('header-active');
