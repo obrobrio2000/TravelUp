@@ -20,7 +20,7 @@
     <script type="text/javascript">
         function initMap() {
             var n = ("<%= itinerario.tappe.length%>")
-            var tappe = ("<% -JSON.stringify(itinerario.tappe) %>");
+            var tappe = <%-JSON.stringify(itinerario.tappe) %>;
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 12,
                 center: { lat: parseFloat(tappe[0].lat), lng: parseFloat(tappe[0].lon) },
