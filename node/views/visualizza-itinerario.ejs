@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelUp: Visualizza itinerario</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="/assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
 
 
     <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
@@ -22,7 +22,7 @@
             var n = ("<%= itinerario.tappe.length%>")
             var tappe = <%-JSON.stringify(itinerario.tappe) %>;
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 12,
+                zoom: 13,
                 center: { lat: parseFloat(tappe[0].lat), lng: parseFloat(tappe[0].lon) },
             });
 
