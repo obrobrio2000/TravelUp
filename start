@@ -2,4 +2,4 @@
 # Usage: ./start
 # To start in detached mode, use ./startd
 docker-compose down --remove-orphans
-docker-compose up --build 
+docker-compose up --build --remove-orphans

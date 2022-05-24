@@ -142,22 +142,26 @@ io.on('connection', (socket) => {
 	
 	});
 
-	socket.on('NuovoItinerario',(data)=>{
+	async function nuovoItinerario(data) {
 		var _uuid;
-		console.log('itinerario ricevuto');
-		couch.uniqid().then(ids => {
+		await couch.uniqid().then(ids => {
 			ids[0], _uuid = ids[0]
 		});
-		couch.insert('itinerari', {
-			_id : _uuid,
+		await couch.insert('itinerari', {
+			_id: _uuid,
 			nome: data.titolo,
 			creatore: data.creatore,
 			tappe: data.tappe
-		}).then(({data,headers,status})=>{
+		}).then(({ data, headers, status }) => {
 			console.log('Inserito con successo');
-		},err=>{
+		}, err => {
 			console.log(err);
 		})
+	}
+
+	socket.on('NuovoItinerario',(data)=>{
+		console.log('itinerario ricevuto');
+		nuovoItinerario(data);
 	})
 
 	socket.on('luoghi_rispostaApi',(data)=>{

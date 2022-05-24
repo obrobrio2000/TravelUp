@@ -16,15 +16,6 @@ form.addEventListener('submit', function (e) {
     }
 });
 
-var firstSearch = true;
-$('button#Search').on('click', () => {
-    if (firstSearch) {
-        $('button').removeClass("selected").removeAttr('disabled');
-        $('button#Cultura').addClass("selected").attr('disabled', true);
-        firstSearch = false;
-    }
-})
-
 $('button#Cultura').on('click', () => {
     target = 'Cultura';
     if (!$('input#citta').val()) {
@@ -93,7 +84,7 @@ function showInformation(informazione) {
                                                 `+ titolo + `\
                                             </div>\
                                             <div id="button">\
-                                                <button class="badge bg-primary rounded-pill" id="add">Add</button>\
+                                                <button class="badge bg-primary rounded-pill" id="add">+</button>\
                                             </div>\
                                         </div>\
                                         <div class="descriptionBox">\
@@ -121,7 +112,7 @@ function createList(lista) {
         element = $(this).parents('.element-view').clone().find('div#button,div.descriptionBox,div.findmore').remove().end().html();
         element = $(element).children().append('<div><button id="up" class="badge bg-primary rounded-pill">▲</button></div>\
                                                             <div><button id="down" class="badge bg-primary rounded-pill">▼</button></div>\
-                                                            <div><button id="remove" class="badge bg-primary rounded-pill">Rimuovi</button></div>')
+                                                            <div><button id="remove" class="badge bg-primary rounded-pill">−</button></div>')
         $(element).children().children("#remove").on('click', function () {
             var index = $(this).parent().parent().parent().index()
             arrInfo.splice(index, 1);
@@ -167,6 +158,10 @@ function moveDown($item) {
     }
 }
 
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
 async function saveItinerario(userId) {
     var tappe = arrInfo;
     var blocco = false;
@@ -176,24 +171,29 @@ async function saveItinerario(userId) {
         if (data !== "") {
             tappe[index].data = data;
         } else {
-            alert('Controllare i valori dei giorni');
+            if (!blocco) {
+                alert('Controllare i valori dei giorni');
+            }
             blocco = true;
         }
     })
     titoloIt = $('input#titoloItinerario').val();
-    if (titoloIt !== "" && !blocco) {
-
-        await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
-                            .then(location.href = '/itinerari');
+    if (blocco) {
+        if (arrInfo.length === 0) {
+            alert('Inserire almeno una tappa');
+        }
+        if (titoloIt === "") {
+            alert("Inserire un titolo per l'itinerario");
+        }
+        if (titoloIt === "" && arrInfo.length === 0) {
+            alert("Inserire un titolo per l'itinerario");
+            alert('Inserire almeno una tappa');
+        }
     } else {
-        alert("Inserire il titolo dell'itinerario")
+        await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
+            .then(delay(1000).then(() => location.href = '/itinerari'));
     }
 }
-
-// $('button#salva').on('click', () => {
-//     saveItinerario();
-// })
-
 
 socket.on('luoghi_rispostaClient', (data) => {
     switch (data.target) {

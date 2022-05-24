@@ -120,15 +120,19 @@ router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
 
                 const event = {
                     summary: itin.docs[0].nome,
-                    location: itin.docs[0].citta,
-                    description: itin.docs[0].descrizione,
+                    // location: itin.docs[0].tappe[0].url.replace("https://google.com/search?q=", ""),
+                    location: "https://localhost/itinerari/" + req.params.itinerario,
+                    // description: itin.docs[0].descrizione,
+                    description: "Itinerario creato da " + utente.docs[0].nomeCompleto + " con TravelUp!",
                     colorId: 7,
                     start: {
-                        dateTime: itin.docs[0].dataInizio,
+                        // date: itin.docs[0].tappe[0].data,
+                        dateTime: itin.docs[0].tappe[0].data + "T00:00:00",
                         timeZone: 'Europe/Rome',
                     },
                     end: {
-                        dateTime: itin.docs[0].dataFine,
+                        // date: itin.docs[0].tappe[itin.docs[0].tappe.length - 1].data,
+                        dateTime: itin.docs[0].tappe[itin.docs[0].tappe.length - 1].data + "T23:59:59",
                         timeZone: 'Europe/Rome',
                     },
                 }
