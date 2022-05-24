@@ -164,6 +164,10 @@ function delay(time) {
 
 async function saveItinerario(userId) {
     var tappe = arrInfo;
+    if (arrInfo.length === 0) {
+        alert('Inserire almeno una tappa');
+        return;
+    }
     var blocco = false;
     $('#Viewer li').each(function () {
         var index = $(this).index();
@@ -179,13 +183,10 @@ async function saveItinerario(userId) {
     })
     titoloIt = $('input#titoloItinerario').val();
     if (blocco) {
-        if (arrInfo.length === 0) {
-            alert('Inserire almeno una tappa');
-        }
         if (titoloIt === "") {
             alert("Inserire un titolo per l'itinerario");
         }
-        if (titoloIt === "" && arrInfo.length === 0) {
+        else if (titoloIt === "" && arrInfo.length === 0) {
             alert("Inserire un titolo per l'itinerario");
             alert('Inserire almeno una tappa');
         }

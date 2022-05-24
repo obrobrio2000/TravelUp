@@ -39,7 +39,8 @@ router.get('/nuovo', authCheck, async (req, res) => {
 });
 
 router.get('/:itinerario/modifica', authCheck, async (req, res) => {
-    res.render('modifica-itinerario', { user: req.user });
+    // res.render('modifica-itinerario', { user: req.user });
+    res.send("Lavori in corso...");
 });
 
 router.get('/:itinerario/elimina', authCheck, async (req, res) => {
