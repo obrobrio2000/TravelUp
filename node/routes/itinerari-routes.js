@@ -63,7 +63,7 @@ router.get('/:itinerario/elimina', authCheck, async (req, res) => {
     }
 });
 
-router.get('/:itinerario', authCheck, async (req, res) => {
+router.get('/:itinerario', async (req, res) => {
     try {
         const q = {
             selector: {
