@@ -66,11 +66,10 @@ app.get('/logout', (req, res) => {
 }
 );
 
-app.get('/errore', (req, res) => {
+// handling errori in caso di pagine non esistenti
+app.get('/:qualcosaDiInesistente', (req, res) => {
     res.render('errore');
 });
-
-
 
 // bootstrap
 app.get('/css/bootstrap.min.css', function (req, res) {
