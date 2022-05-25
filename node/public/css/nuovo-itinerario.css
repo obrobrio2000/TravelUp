@@ -33,7 +33,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 1rem .5rem;
+  padding: 1rem 1rem;
   z-index: 1000;
 
 }
@@ -58,14 +58,6 @@ header a:hover {
   color: var(--bluChiaro);
 }
 
-header .container .logo {
-  font-size: 3rem;
-}
-
-header .container .logo span {
-  color: var(--bluChiaro);
-}
-
 header .nav ul {
   margin: 0;
   padding: 0;
@@ -83,13 +75,6 @@ header .nav ul li a {
   font-size: 2rem;
 }
 
-header .fa-bars {
-  font-size: 3.5rem;
-  color: var(--bluChiaro);
-  cursor: pointer;
-  display: none;
-}
-
 footer {
   font-size: 62.5%;
   overflow-x: hidden;
@@ -104,19 +89,6 @@ footer {
   font-size: 1.5rem;
   color: #eee;
   padding: 1rem 0;
-}
-
-.footer .col-md-4 {
-  padding: 1.3rem;
-}
-
-.footer .col-md-4:nth-child(1) a {
-  font-size: 3rem;
-  color: #fff;
-}
-
-.footer .col-md-4:nth-child(1) a span {
-  color: var(--bluChiaro);
 }
 
 .footer a {

@@ -25,7 +25,6 @@
                 zoom: 13,
                 center: { lat: parseFloat(tappe[0].lat), lng: parseFloat(tappe[0].lon) },
             });
-
             for (let i = 0; i < n; i++) {
                 const pos = { lat: parseFloat(tappe[i].lat), lng: parseFloat(tappe[i].lon) };
                 const marker = new google.maps.Marker({
@@ -34,7 +33,6 @@
                 });
             }
         }
-
         window.initMap = initMap;
     </script>
 
@@ -50,7 +48,7 @@
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     <header class="no-mobile no-print header-active" data-aos="fade-down"><a href="/"><img
-                src="/assets/images/logoleft.png" class="logoFooter" style="max-width: 175px; height: auto;" alt=""></a>
+                src="/assets/images/logoleft.png" class="logoHeader" style="max-width: 175px; height: auto;" alt=""></a>
     </header>
 
     <div class="container text-center">
@@ -67,13 +65,13 @@
                             <%= tappa.nome %>
                         </h4>
                         <p class=" text-center">
-                                <a class="text-center" target="_blank" href="<%= tappa.url %>"><button
-                                        class="buttonScopri no-print">Scopri di più</button></a>
-                                <a class="text-center" target="_blank"
-                                    href="https://maps.google.com/?q=<%= tappa.lat %>,<%= tappa.lon %>"><button
-                                        class="buttonScopri no-print">Apri su Maps</button></a>
-                                </p>
-                                <!-- <div class="thumbs">
+                            <a class="text-center" target="_blank" href="<%= tappa.url %>"><button
+                                    class="buttonScopri no-print">Scopri di più</button></a>
+                            <a class="text-center" target="_blank"
+                                href="https://maps.google.com/?q=<%= tappa.lat %>,<%= tappa.lon %>"><button
+                                    class="buttonScopri no-print">Apri su Maps</button></a>
+                        </p>
+                        <!-- <div class="thumbs">
                             <img class="img-fluid" src="<%= tappa.foto %>" alt="">
                         </div> -->
                     </div>
@@ -107,7 +105,7 @@
             </div>
         </div>
 
-        <h4 class="credit text-center mx-auto homecredit">© 2022 TravelUp ®<span></span><br>Tutti i diritti riservati.
+        <h4 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti riservati.
         </h4>
 
     </section>

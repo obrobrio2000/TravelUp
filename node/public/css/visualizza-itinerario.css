@@ -232,7 +232,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   z-index: 1000;
 }
 
@@ -256,14 +256,6 @@ header a:hover {
   color: var(--bluChiaro);
 }
 
-header .container .logo {
-  font-size: 3rem;
-}
-
-header .container .logo span {
-  color: var(--bluChiaro);
-}
-
 header .nav ul {
   margin: 0;
   padding: 0;
@@ -281,13 +273,6 @@ header .nav ul li a {
   font-size: 2rem;
 }
 
-header .fa-bars {
-  font-size: 3.5rem;
-  color: var(--bluChiaro);
-  cursor: pointer;
-  display: none;
-}
-
 .footer {
   background: var(--bluScuro);
   margin-top: -0.1rem;
@@ -297,19 +282,6 @@ header .fa-bars {
   font-size: 1.5rem;
   color: #eee;
   padding: 1rem 0;
-}
-
-.footer .col-md-4 {
-  padding: 1.3rem;
-}
-
-.footer .col-md-4:nth-child(1) a {
-  font-size: 3rem;
-  color: #fff;
-}
-
-.footer .col-md-4:nth-child(1) a span {
-  color: var(--bluChiaro);
 }
 
 .footer a {
@@ -336,11 +308,7 @@ header .fa-bars {
   border-top: .1rem solid #ccc;
 }
 
-.footer .credit span {
-  color: var(--bluChiaro);
-}
-
-.logoFooter {
+.logoHeader {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -392,11 +360,6 @@ header .fa-bars {
     width: 28%;
     display: none;
   }
-}
-
-.shareText {
-  font-size: 1.25rem;
-  color: #014775;
 }
 
 .facebookShareButton {

@@ -118,7 +118,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 1rem .5rem;
+  padding: 1rem 1rem;
   z-index: 1000;
 }
 
@@ -142,14 +142,6 @@ header a:hover {
   color: var(--bluChiaro);
 }
 
-header .container .logo {
-  font-size: 3rem;
-}
-
-header .container .logo span {
-  color: var(--bluChiaro);
-}
-
 header .nav ul {
   margin: 0;
   padding: 0;
@@ -165,13 +157,6 @@ header .nav ul li {
 
 header .nav ul li a {
   font-size: 2rem;
-}
-
-header .fa-bars {
-  font-size: 3.5rem;
-  color: var(--bluChiaro);
-  cursor: pointer;
-  display: none;
 }
 
 .home .content h1 {
@@ -309,6 +294,7 @@ select {
 .contatti form input[type="submit"]:hover {
   background: var(--bluScuro);
   border-radius: 5px;
+  transition: .2s linear;
 }
 
 .itinerari .heading-description {
@@ -366,34 +352,10 @@ select {
   margin-top: -0.1rem;
 }
 
-.footer p {
-  font-size: 1.5rem;
-  color: #eee;
-  padding: 1rem 0;
-}
-
-.footer .col-md-4 {
-  padding: 1.3rem;
-}
-
-.footer .col-md-4:nth-child(1) a {
-  font-size: 3rem;
-  color: #fff;
-}
-
-.footer .col-md-4:nth-child(1) a span {
-  color: var(--bluChiaro);
-}
-
 .footer a {
   font-size: 2rem;
   color: #ccc;
   display: block;
-}
-
-.footer h3 {
-  color: #fff;
-  font-size: 3rem;
 }
 
 .footer a:hover {
@@ -409,14 +371,10 @@ select {
   border-top: .1rem solid #ccc;
 }
 
-.footer .credit span {
-  color: var(--bluChiaro);
-}
-
 .loginLink {
   display: none;
 }
 
-.imgRound {
+.propic {
   border-radius: 50%;
 }

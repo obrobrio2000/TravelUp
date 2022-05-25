@@ -36,8 +36,6 @@
                 </ul>
             </nav>
 
-            <div class="fas fa-bars"></div>
-
         </div>
 
     </header>
@@ -53,14 +51,14 @@
             <div class="row min-vh-100 align-items-center text-center text-md-left">
 
                 <div class="col-md-6 pr-md-5" data-aos="fade-right">
-                    <img class="imgRound" src="/assets/images/itinerari.svg" width="100%" alt="">
+                    <img src="/assets/images/itinerari.svg" width="100%" alt="">
                 </div>
                 <div class="col-md-6 pl-md-5 content" data-aos="fade-left">
-                    <div class="container"><img class="imgRound" src="<%= user.photos[0].value %>" width="25%" alt="">
+                    <div class="container"><img class="propic" src="<%= user.photos[0].value %>" width="25%" alt="">
                     </div>
                     <h1>Benvenuto, <span>
                             <%= user.name.givenName %>
-                        </span><span></span>
+                        </span>
                     </h1>
                     <% if (itin.length>0) { %>
                         <a href="#itinerari"><button class="button">I tuoi itinerari</button></a>
@@ -84,7 +82,7 @@
 
         <div class="container min-vh-100">
 
-            <h1 class="heading" data-aos="fade-up"><span></span> I tuoi itinerari <span></span></h1>
+            <h1 class="heading" data-aos="fade-up"> I tuoi itinerari </h1>
 
             <% if (itin.length>0) { %>
                 <h2 class="heading-description text-center" data-aos="fade-up">Tutti gli itinerari
@@ -151,7 +149,7 @@
 
     <section class="footer">
 
-        <h1 class="credit text-center mx-auto homecredit">© 2022 TravelUp ®<span></span><br>Tutti i diritti
+        <h1 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti
             riservati.<br><a href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
 
     </section>
