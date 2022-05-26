@@ -34,8 +34,8 @@ app.get('/', async (req, res) => {
             }
         };
         const itin = await itinerari.find(q);
-        console.log(itin.docs);
-        console.log(itin.docs.length);
+        // console.log(itin.docs);
+        // console.log(itin.docs.length);
         res.render('index', { itin: itin.docs, user: req.user });
     } catch (err) {
         console.log(err);
@@ -108,5 +108,5 @@ app.get('/js/polyfill.js', function (req, res) {
 });
 
 app.listen(port, () => {
-    console.log(`Server in ascolto sull'indirizzo http://localhost:${port}`);
+    console.log(`Server principale in ascolto sull'indirizzo http://localhost:${port}`);
 });

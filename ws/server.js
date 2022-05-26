@@ -4,7 +4,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors:{origin : "*"} });
 const NodeCouchDb = require("node-couchdb");
 const { checkServerIdentity } = require("tls");
-
+const port = 1337;
 
 //Connessione al db
 const couch = new NodeCouchDb({
@@ -31,8 +31,8 @@ const mangoQuery = {
 
 const parameters ={}; 
 
-server.listen(1337, () =>{
-	console.log("Server running on port 1337 ...")
+server.listen(port, () =>{
+	console.log(`Server WebSocket in ascolto sull'indirizzo http://localhost:${port}`);
 });
 
 io.on('connection', (socket) => {
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 		var target = data.target
 		var socketid = socket.id
 		switch(target){
-			//inserire chaching and logging
+			//inserire caching and logging
 			case 'Cultura':{
 				socket.to('api').emit('Cultura',{socketid,citta});
 				break;

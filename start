@@ -1,5 +1,5 @@
-# This script closes all, rebuilds and starts. Useful for both starting and re-starting (e.g. after a change).
-# Usage: ./start
-# To start in detached mode, use ./startd
+# Questo script chiude tutti i container, ricostruisce ed avvia. Utile sia per l'avvio che per il riavvio (ad es. dopo una modifica).
+# Utilizzo: ./start
+# Per avviare in modalità detached (= tiene il terminale libero), utilizzare: ./startd
 docker-compose down --remove-orphans
 docker-compose up --build --remove-orphans

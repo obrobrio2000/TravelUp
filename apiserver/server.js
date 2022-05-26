@@ -200,6 +200,6 @@ const port = 1515;
 const app = express();
 
 app.listen(port, () => {
-    console.log(`Server in ascolto sull'indirizzo http://localhost:${port}`);
+    console.log(`Server API in ascolto sull'indirizzo http://localhost:${port}`);
 });
 

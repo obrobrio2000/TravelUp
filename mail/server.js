@@ -33,5 +33,5 @@ async function sendMail() {
 sendMail().catch(console.error);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Server mail in ascolto sull'indirizzo http://localhost:${port}`);
 });

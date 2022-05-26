@@ -25,8 +25,8 @@ router.get('/', authCheck, async (req, res) => {
             }
         };
         const itin = await itinerari.find(q);
-        console.log(itin.docs);
-        console.log(itin.docs.length);
+        // console.log(itin.docs);
+        // console.log(itin.docs.length);
         res.render('itinerari', { itin: itin.docs, user: req.user });
     } catch (err) {
         console.log(err);
@@ -70,9 +70,9 @@ router.get('/:itinerario', async (req, res) => {
                 _id: { "$eq": req.params.itinerario }
             }
         };
-        console.log(q);
+        // console.log(q);
         const itin = await itinerari.find(q);
-        console.log(itin.docs[0]);
+        // console.log(itin.docs[0]);
         if (itin.docs.length == 0) {
             res.render('errore');
         } else {
@@ -91,9 +91,9 @@ router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
                 _id: { "$eq": req.params.itinerario }
             }
         };
-        console.log(q1);
+        // console.log(q1);
         const itin = await itinerari.find(q1);
-        console.log(itin.docs[0]);
+        // console.log(itin.docs[0]);
         if (itin.docs.length == 0) {
             res.render('errore');
         } else {
@@ -103,7 +103,7 @@ router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
                 }
             };
             const utente = await utenti.find(q2);
-            console.log(utente.docs);
+            // console.log(utente.docs);
 
             if (utente.docs[0].metodo == 'F') {
                 res.render('erroreCalendar');

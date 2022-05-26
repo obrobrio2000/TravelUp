@@ -1,0 +1,3 @@
+# Questo script risolve problemi di permessi che potrebbero capitare (ad esempio con la cartella di CouchDB) quando si fa git push/pull.
+# Utilizzo: ./fixrights
+sudo chown -hR $USER:$USER * .

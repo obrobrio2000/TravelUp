@@ -15,13 +15,13 @@ passport.deserializeUser(function (user, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/auth/google/callback",
+    callbackURL: process.env.HOSTING_URL+"/auth/google/callback",
     scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid', 'https://www.googleapis.com/auth/calendar.events']
 },
     function (accessToken, refreshToken, profile, cb) {
-        process.nextTick(function () {
-            console.log(profile);
-        });
+        // process.nextTick(function () {
+        //     console.log(profile);
+        // });
         async function createUser() {
             var doc = "";
             try {
@@ -41,7 +41,7 @@ passport.use(new GoogleStrategy({
             }
         }
         createUser().then(function (result) {
-            console.log(result);
+            // console.log(result);
             return cb(null, profile);
         }
         ).catch(function (err) {
@@ -55,13 +55,13 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "/auth/facebook/callback",
+    callbackURL: process.env.HOSTING_URL+"/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'picture.type(large)', 'emails', 'first_name', 'middle_name', 'last_name', 'birthday'],
 },
     function (accessToken, refreshToken, profile, cb) {
-        process.nextTick(function () {
-            console.log(profile);
-        });
+        // process.nextTick(function () {
+        //     console.log(profile);
+        // });
         async function createUser() {
             var doc = "";
             try {
@@ -81,7 +81,7 @@ passport.use(new FacebookStrategy({
             }
         }
         createUser().then(function (result) {
-            console.log(result);
+            // console.log(result);
             return cb(null, profile);
         }
         ).catch(function (err) {

@@ -1,4 +1,4 @@
-# Same as the "start" script but starts in detached mode.
-# Usage: ./startd
+# Uguale allo script "start" ma si avvia in modalità detached (= tiene il terminale libero).
+# Utilizzo: ./startd
 docker-compose down --remove-orphans
 docker-compose up -d --build --remove-orphans
