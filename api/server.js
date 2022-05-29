@@ -40,15 +40,16 @@ socket.on("Utility",(data)=>{
 
 
     
-function Musuem(title,desc,url){
-    this.title = title;
-    if(desc != ""){
-        this.desc = desc;
-    }else{
-        this.desc = undefined;
-    }
-    this.url = 'https://it.wikipedia.org/?curid='+url;
-}
+// function Musuem(title,desc,url){
+//     this.title = title;
+//     if(desc != ""){
+//         this.desc = desc;
+//     }else{
+//         this.desc = undefined;
+//     }
+//     this.url = 'https://it.wikipedia.org/?curid='+url;
+// }
+
 async function getCultura(citta,socketid){
     var URLrichiesta ='https://api.opentripmap.com/0.1/en/places/geoname?name='+citta+'&country=it&apikey='+process.env.OPENTRIP_KEY
     URLrichiesta= decodeURI(URLrichiesta)

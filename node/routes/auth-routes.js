@@ -25,7 +25,7 @@ router.get('/facebook/callback',
 );
 
 // handling errori in caso di pagine non esistenti
-router.get('/:qualcosaDiInesistente', (req, res) => {
+router.get('/:sconosciuto', (req, res) => {
     res.render('errore');
 });
 

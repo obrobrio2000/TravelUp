@@ -44,10 +44,10 @@ services:
             - ${DOTFILES}/.env
         volumes:
             - ./mail/server.js:/usr/src/app/server.js
-    apirequest:
-        build: "./apiserver"
-        container_name: apirequest
-        hostname: apirequest
+    api:
+        build: "./api"
+        container_name: api
+        hostname: api
         ports:
             - '1515:1515'
         restart: unless-stopped
@@ -64,7 +64,7 @@ services:
         env_file:
             - ${DOTFILES}/.env
         volumes:
-            - ./apiserver/server.js:/usr/src/app/server.js
+            - ./api/server.js:/usr/src/app/server.js
     ws:
         build: "./ws"
         container_name: ws

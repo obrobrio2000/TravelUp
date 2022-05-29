@@ -155,15 +155,15 @@ router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
 });
 
 // handling errori in caso di pagine non esistenti
-router.get('/:qualcosaDiInesistente', (req, res) => {
+router.get('/:sconosciuto', (req, res) => {
     res.render('errore');
 });
 
-router.get('/nuovo/:qualcosaDiInesistente', (req, res) => {
+router.get('/nuovo/:sconosciuto', (req, res) => {
     res.render('errore');
 });
 
-router.get('/:itinerario/:qualcosaDiInesistente', (req, res) => {
+router.get('/:itinerario/:sconosciuto', (req, res) => {
     res.render('errore');
 });
 
