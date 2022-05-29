@@ -114,7 +114,7 @@ router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
                 )
 
                 oAuth2Client.setCredentials({
-                    access_token: utente.docs[0].pippo,
+                    access_token: utente.docs[0].accessToken,
                 })
 
                 const calendar = google.calendar({ version: 'v3', auth: oAuth2Client })
