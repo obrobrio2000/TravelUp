@@ -53,7 +53,7 @@ router.get('/:itinerario/elimina', authCheck, async (req, res) => {
         const itin = await itinerari.find(q);
         if (req.user.emails[0].value === itin.docs[0].creatore) {
             await itinerari.destroy(itin.docs[0]._id, itin.docs[0]._rev);
-            res.redirect('/itinerari');
+            res.redirect('/itinerari#itinerari');
         } else {
             res.render('errore');
         }

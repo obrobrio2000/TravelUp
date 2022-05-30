@@ -3,11 +3,10 @@ services:
         build: "./main"
         container_name: main
         hostname: main
-        ports:
-            - "8080:8080"
         restart: unless-stopped
         environment:
             - NODE_ENV=production
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
             couchdb:
                 condition: service_healthy
@@ -29,8 +28,6 @@ services:
         build: "./mail"
         container_name: mail
         hostname: mail
-        ports:
-            - "465:465"
         restart: unless-stopped
         environment:
             - NODE_ENV=production
@@ -48,8 +45,6 @@ services:
         build: "./api"
         container_name: api
         hostname: api
-        ports:
-            - '1515:1515'
         restart: unless-stopped
         environment:
             - NODE_ENV=production
@@ -74,6 +69,7 @@ services:
         restart: unless-stopped
         environment:
             - NODE_ENV=production
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
             - main
         links:
@@ -109,8 +105,7 @@ services:
         container_name: couchdb
         hostname: couchdb
         ports:
-            - "5984:5984"
-            - "6984:6984" # Management diretto (write) su https://localhost:6984/_utils/ e management cache (read) su https://localhost:4984/_utils/
+            - "6984:6984" # Management diretto (write) su https://localhost:6984/_utils/ e cache (read) su https://localhost:4984/
         networks:
             - backend
         env_file:

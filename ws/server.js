@@ -9,8 +9,8 @@ const port = 1337;
 //Connessione al db
 const couch = new NodeCouchDb({
 	host: 'couchdb',
-	protocol:'http',
-	port:5984,
+	protocol:'https',
+	port:6984,
 	auth:{
 		user:'admin',
 		pass:'admin'

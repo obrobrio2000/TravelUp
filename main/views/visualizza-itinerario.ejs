@@ -19,8 +19,8 @@
 
     <script type="text/javascript">
         function initMap() {
-            var n = ("<%= itinerario.tappe.length%>")
-            var tappe = <%-JSON.stringify(itinerario.tappe) %>;
+            var n = <%= itinerario.tappe.length%>;
+            var tappe = <%- JSON.stringify(itinerario.tappe) %>;
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 13,
                 center: { lat: parseFloat(tappe[0].lat), lng: parseFloat(tappe[0].lon) },
@@ -93,8 +93,8 @@
             <a href="/itinerari/<%= itinerario._id %>/addToCalendar"><button class="button">Inserisci su Google
                     Calendar</button></a>
             <div class="container facebookShareButton text-center">
-                <div class="fb-share-button" data-href="https://127.0.0.1/itinerari/<%= itinerario._id %>"
-                    data-layout="button" data-size="large"><a target="_blank" class="fb-xfbml-parse-ignore">Condividi su
+                <div class="fb-share-button" data-layout="button" data-size="large"><a target="_blank"
+                        class="fb-xfbml-parse-ignore">Condividi su
                         Facebook</a>
                 </div>
             </div>
@@ -105,7 +105,8 @@
             </div>
         </div>
 
-        <h4 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti riservati.<br>Immagini da: Storyset, Google Images
+        <h4 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti riservati.<br>Immagini da: Storyset,
+            Google Images
         </h4>
 
     </section>
