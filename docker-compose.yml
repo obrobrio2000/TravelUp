@@ -1,8 +1,8 @@
 services:
-    node:
-        build: "./node"
-        container_name: node
-        hostname: node
+    main:
+        build: "./main"
+        container_name: main
+        hostname: main
         ports:
             - "8080:8080"
         restart: unless-stopped
@@ -19,12 +19,12 @@ services:
         env_file:
             - ${DOTFILES}/.env
         volumes:
-            - ./node/public:/usr/src/app/public
-            - ./node/config:/usr/src/app/config
-            - ./node/models:/usr/src/app/models
-            - ./node/routes:/usr/src/app/routes
-            - ./node/views:/usr/src/app/views
-            - ./node/server.js:/usr/src/app/server.js
+            - ./main/public:/usr/src/app/public
+            - ./main/config:/usr/src/app/config
+            - ./main/models:/usr/src/app/models
+            - ./main/routes:/usr/src/app/routes
+            - ./main/views:/usr/src/app/views
+            - ./main/server.js:/usr/src/app/server.js
     mail:
         build: "./mail"
         container_name: mail
@@ -35,9 +35,9 @@ services:
         environment:
             - NODE_ENV=production
         depends_on:
-            - node
+            - main
         links:
-            - node
+            - main
         networks:
             - backend
         env_file:
@@ -54,10 +54,10 @@ services:
         environment:
             - NODE_ENV=production
         depends_on:
-            - node
+            - main
             - ws
         links:
-            - node
+            - main
             - ws
         networks:
             - backend
@@ -75,9 +75,9 @@ services:
         environment:
             - NODE_ENV=production
         depends_on:
-            - node
+            - main
         links:
-            - node
+            - main
         networks:
             - backend
         env_file:
@@ -93,7 +93,7 @@ services:
             - "443:443"
         restart: unless-stopped
         depends_on:
-            - node
+            - main
         networks:
             - frontend
             - backend

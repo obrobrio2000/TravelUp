@@ -37,4 +37,9 @@ router.get('/js/polyfill.js', function (req, res) {
     res.sendFile('/usr/src/app/node_modules/abort-controller/polyfill.js');
 });
 
+// prism
+router.get('/css/prism.min.css', function (req, res) {
+    res.sendFile('/usr/src/app/node_modules/prismjs/themes/prism.min.css');
+});
+
 module.exports = router;
