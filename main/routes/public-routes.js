@@ -5,6 +5,9 @@ const router = express.Router();
 router.get('/css/bootstrap.min.css', function (req, res) {
     res.sendFile('/usr/src/app/node_modules/bootstrap/dist/css/bootstrap.min.css');
 });
+router.get('/css/bootstrap.min.css.map', function (req, res) {
+    res.sendFile('/usr/src/app/node_modules/bootstrap/dist/css/bootstrap.min.css.map');
+});
 router.get('/js/bootstrap.bundle.min.js', function (req, res) {
     res.sendFile('/usr/src/app/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
 });

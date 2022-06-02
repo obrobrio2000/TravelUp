@@ -25,8 +25,6 @@ router.get('/', authCheck, async (req, res) => {
             }
         };
         const itin = await itinerari.find(q);
-        // console.log(itin.docs);
-        // console.log(itin.docs.length);
         res.render('itinerari', { itin: itin.docs, user: req.user });
     } catch (err) {
         console.log(err);
@@ -70,9 +68,7 @@ router.get('/:itinerario', async (req, res) => {
                 _id: { "$eq": req.params.itinerario }
             }
         };
-        // console.log(q);
         const itin = await itinerari.find(q);
-        // console.log(itin.docs[0]);
         if (itin.docs.length == 0) {
             res.render('errore');
         } else {
@@ -84,16 +80,14 @@ router.get('/:itinerario', async (req, res) => {
     }
 });
 
-router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
+router.get('/:itinerario/aggiungiACalendar', authCheck, async (req, res) => {
     try {
         const q1 = {
             selector: {
                 _id: { "$eq": req.params.itinerario }
             }
         };
-        // console.log(q1);
         const itin = await itinerari.find(q1);
-        // console.log(itin.docs[0]);
         if (itin.docs.length == 0) {
             res.render('errore');
         } else {
@@ -103,68 +97,60 @@ router.get('/:itinerario/addToCalendar', authCheck, async (req, res) => {
                 }
             };
             const utente = await utenti.find(q2);
-            // console.log(utente.docs);
-
-            if (utente.docs[0].metodo == 'F') {
-                res.render('erroreCalendar');
-            } else if (utente.docs[0].metodo == 'G') {
-                const oAuth2Client = new OAuth2(
-                    process.env.GOOGLE_CLIENT_ID,
-                    process.env.GOOGLE_CLIENT_SECRET,
-                )
-
-                oAuth2Client.setCredentials({
-                    access_token: utente.docs[0].accessToken,
-                })
-
-                const calendar = google.calendar({ version: 'v3', auth: oAuth2Client })
-
-                const event = {
-                    summary: itin.docs[0].nome,
-                    // location: itin.docs[0].tappe[0].url.replace("https://google.com/search?q=", ""),
-                    location: "https://localhost/itinerari/" + req.params.itinerario,
-                    // description: itin.docs[0].descrizione,
-                    description: "Itinerario creato da " + utente.docs[0].nomeCompleto + " con TravelUp!",
-                    colorId: 7,
-                    start: {
-                        // date: itin.docs[0].tappe[0].data,
-                        dateTime: itin.docs[0].tappe[0].data + "T00:00:00",
-                        timeZone: 'Europe/Rome',
-                    },
-                    end: {
-                        // date: itin.docs[0].tappe[itin.docs[0].tappe.length - 1].data,
-                        dateTime: itin.docs[0].tappe[itin.docs[0].tappe.length - 1].data + "T23:59:59",
-                        timeZone: 'Europe/Rome',
-                    },
-                }
-
-                calendar.events.insert(
-                    { calendarId: 'primary', resource: event },
-                    err => {
-                        if (err) return console.error('Errore creazione evento nel calendario: ', err)
-                        return console.log('Evento creato con successo')
-                    }
-                )
-                res.redirect('/itinerari/' + req.params.itinerario);
+            if (utente.docs[0].metodo == 'Facebook') {
+                req.session.returnTo = req.originalUrl;
+                res.redirect('/auth/google');
             }
+            const oAuth2Client = new OAuth2(
+                process.env.GOOGLE_CLIENT_ID,
+                process.env.GOOGLE_CLIENT_SECRET,
+            )
+
+            oAuth2Client.setCredentials({
+                access_token: utente.docs[0].accessToken,
+            })
+
+            const calendar = google.calendar({ version: 'v3', auth: oAuth2Client })
+
+            var counterTappe = 1;
+            var descrizione = "Itinerario creato da " + utente.docs[0].nomeCompleto + " con TravelUp! 😃\n\nLuoghi da visitare:\n";
+            itin.docs[0].tappe.forEach(tappa => {
+                if (counterTappe == itin.docs[0].tappe.length) {
+                    descrizione += counterTappe + ") " + tappa.nome;
+                    return;
+                }
+                descrizione += counterTappe + ") " + tappa.nome + "\n";
+                counterTappe += 1;
+            });
+
+            const event = {
+                summary: itin.docs[0].nome,
+                location: "https://localhost/itinerari/" + req.params.itinerario,
+                description: descrizione,
+                colorId: 7,
+                start: {
+                    dateTime: itin.docs[0].tappe[0].data + "T00:00:00",
+                    timeZone: 'Europe/Rome',
+                },
+                end: {
+                    dateTime: itin.docs[0].tappe[itin.docs[0].tappe.length - 1].data + "T23:59:59",
+                    timeZone: 'Europe/Rome',
+                },
+            }
+
+            calendar.events.insert(
+                { calendarId: 'primary', resource: event },
+                err => {
+                    if (err) return console.error('Errore creazione evento nel calendario: ', err)
+                    return console.log('Evento creato con successo')
+                }
+            )
+            res.redirect('/itinerari/' + req.params.itinerario);
         }
     } catch (err) {
         console.log(err);
         res.render('errore');
     }
-});
-
-// handling errori in caso di pagine non esistenti
-router.get('/:sconosciuto', (req, res) => {
-    res.render('errore');
-});
-
-router.get('/nuovo/:sconosciuto', (req, res) => {
-    res.render('errore');
-});
-
-router.get('/:itinerario/:sconosciuto', (req, res) => {
-    res.render('errore');
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const utenti = require('../models/utenti-model');
-const itinerari = require('../models/itinerari-model');
+const utentiCache = require('../models/utenti-model-cache');
+const itinerariCache = require('../models/itinerari-model-cache');
 
 // Documentazione API (con Apidoc)
 router.get('/', function (req, res) {
@@ -57,7 +57,7 @@ router.get('/utenti/:utente', async (req, res) => {
                 _id: { "$eq": req.params.utente }
             }
         };
-        const user = await utenti.find(q1);
+        const user = await utentiCache.find(q1);
         console.log(user.docs[0]);
         const q2 = {
             selector: {
@@ -68,7 +68,7 @@ router.get('/utenti/:utente', async (req, res) => {
             res.status(404).send({ userData: [], itinData: [], success: false, info: "Utente non trovato" });
             return;
         }
-        const itin = await itinerari.find(q2);
+        const itin = await itinerariCache.find(q2);
         console.log(itin.docs);
         if (itin.docs.length == 0) {
             res.status(404).send({ userData: user.docs[0], itinData: [], success: true, info: "Utente senza itinerari" });
@@ -119,7 +119,7 @@ router.get('/itinerari/:itinerario', async (req, res) => {
                 _id: { "$eq": req.params.itinerario }
             }
         };
-        const itin = await itinerari.find(q);
+        const itin = await itinerariCache.find(q);
         console.log(itin.docs[0]);
         if (itin.docs.length == 0) {
             res.status(404).send({ itinData: [], success: false, info: "Itinerario non trovato" });
@@ -130,11 +130,6 @@ router.get('/itinerari/:itinerario', async (req, res) => {
         console.log(err);
         res.render('errore');
     }
-});
-
-// handling errori in caso di pagine non esistenti
-router.get('/:sconosciuto', (req, res) => {
-    res.render('errore');
 });
 
 module.exports = router;

@@ -8,7 +8,7 @@ router.get('/google',
 
 router.get('/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/itinerari',
+        successReturnToOrRedirect: '/itinerari',
         failureRedirect: '/errore'
     })
 );
@@ -19,14 +19,9 @@ router.get('/facebook',
 
 router.get('/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/itinerari',
+        successReturnToOrRedirect: '/itinerari',
         failureRedirect: '/errore'
     })
 );
-
-// handling errori in caso di pagine non esistenti
-router.get('/:sconosciuto', (req, res) => {
-    res.render('errore');
-});
 
 module.exports = router;
