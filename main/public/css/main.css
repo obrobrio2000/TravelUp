@@ -402,3 +402,10 @@ select {
   /* padding-left: 6rem; */
   color: #666;
 }
+
+@media (max-width: 992px) {
+  .gestisciAccount .content .box {
+    align-items: center;
+    text-align: center;
+    }
+}

@@ -160,11 +160,6 @@
                     <div class="row align-items-center">
                         <div class="col-md-6 content" data-aos="fade-up">
                             <div class="box">
-                                <h3>❌ Elimina account</h3>
-                                <p>Attenzione! L'eliminazione sarà definitiva e coinvolgerà anche i tuoi itinerari!</p>
-                                <a><button class="buttonRed" onclick="eliminaAccount()">Elimina</button></a>
-                            </div>
-                            <div class="box">
                                 <% if (utente.nlConsent=="no" ) { %>
                                     <h3>📧 Iscriviti alla newsletter</h3>
                                     <p>Riceverai delle email periodiche con degli itinerari che potrebbero interessarti!
@@ -193,6 +188,11 @@
                                         <a href="/utente/recensione"><button class="button">Modifica</button></a>
                                         <a href="/utente/recensione/elimina"><button class="button">Elimina</button></a>
                                         <% } %>
+                            </div>
+                            <div class="box">
+                                <h3>❌ Elimina account</h3>
+                                <p>Saranno eliminati tutti i tuoi dati presenti sui nostri server, tra cui gli itinerari creati!</p>
+                                <a><button class="buttonRed" onclick="eliminaAccount()">Elimina</button></a>
                             </div>
                         </div>
                         <div class="col-md-6 d-none d-md-block" data-aos="fade-up">

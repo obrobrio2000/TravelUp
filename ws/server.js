@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, { cors:{origin : "*"} });
+const io = require('socket.io')(server, { cors: { origin: "*" } });
+const nano = require('nano')(process.env.COUCHDB_URL);
+const itinerari = nano.use('itinerari');
 const NodeCouchDb = require("node-couchdb");
 const { checkServerIdentity } = require("tls");
 const port = 1337;
@@ -9,11 +11,11 @@ const port = 1337;
 //Connessione al db
 const couch = new NodeCouchDb({
 	host: 'couchdb',
-	protocol:'https',
-	port:6984,
-	auth:{
-		user:'admin',
-		pass:'admin'
+	protocol: 'https',
+	port: 6984,
+	auth: {
+		user: 'admin',
+		pass: 'admin'
 	}
 });
 
@@ -23,47 +25,47 @@ const logging = "logging_cities";
 
 const mangoQuery = {
 	"selector": {
-		 "_id": { 
-				"$gt": null
-		 }
+		"_id": {
+			"$gt": null
+		}
 	}
 }
 
-const parameters ={}; 
+const parameters = {};
 
-server.listen(port, () =>{
+server.listen(port, () => {
 	console.log(`Server WebSocket in ascolto sull'indirizzo http://localhost:${port}`);
 });
 
 io.on('connection', (socket) => {
-	socket.on('room',(data)=>{
+	socket.on('room', (data) => {
 		socket.join(data.room_name);
-		console.log('Socket: '+socket.id+' è entrato nella stanza: '+data.room_name)
+		console.log('Socket: ' + socket.id + ' è entrato nella stanza: ' + data.room_name)
 	})
 	socket.on('Luoghi', (data) => {
 		console.log('Richiesta ricevuta')
 		var citta = data.citta
 		var target = data.target
 		var socketid = socket.id
-		switch(target){
+		switch (target) {
 			//inserire caching and logging
-			case 'Cultura':{
-				socket.to('api').emit('Cultura',{socketid,citta});
+			case 'Cultura': {
+				socket.to('api').emit('Cultura', { socketid, citta });
 				break;
 			};
-			case 'Food' :{
-				socket.to('api').emit('Food',{socketid,citta});
+			case 'Food': {
+				socket.to('api').emit('Food', { socketid, citta });
 				break;
 			};
-			case 'Intrattenimento':{
-				socket.to('api').emit('Intrattenimento',{socketid,citta});
+			case 'Intrattenimento': {
+				socket.to('api').emit('Intrattenimento', { socketid, citta });
 				break;
 			};
-			case 'Utility':{
-				socket.to('api').emit('Utility',{socketid,citta});
+			case 'Utility': {
+				socket.to('api').emit('Utility', { socketid, citta });
 				break;
 			};
-			default:{
+			default: {
 				io.to(socketid).emit('Errore');
 				break;
 			}
@@ -138,35 +140,20 @@ io.on('connection', (socket) => {
 		
 		JSON.stringify(msg);
 		*/
-		
-	
+
+
 	});
 
-	async function nuovoItinerario(data) {
-		var _uuid;
-		await couch.uniqid().then(ids => {
-			ids[0], _uuid = ids[0]
-		});
-		await couch.insert('itinerari', {
-			_id: _uuid,
-			nome: data.titolo,
-			creatore: data.creatore,
-			tappe: data.tappe
-		}).then(({ data, headers, status }) => {
-			console.log('Inserito con successo');
-		}, err => {
-			console.log(err);
-		})
-	}
-
-	socket.on('NuovoItinerario',(data)=>{
+	socket.on('NuovoItinerario', async (data) => {
 		console.log('itinerario ricevuto');
-		nuovoItinerario(data);
+		const uuid = await nano.uuids();
+		await itinerari.insert({ nome: data.titolo, creatore: data.creatore, tappe: data.tappe }, uuid.uuids[0]);
+		console.log('Inserito con successo');
 	})
 
-	socket.on('luoghi_rispostaApi',(data)=>{
+	socket.on('luoghi_rispostaApi', (data) => {
 		console.log('ricevuta risposta');
-		io.to(data.socketid).emit('luoghi_rispostaClient',{value:data.value,target:data.target});
+		io.to(data.socketid).emit('luoghi_rispostaClient', { value: data.value, target: data.target });
 	})
 });
 

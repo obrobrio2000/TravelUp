@@ -191,10 +191,11 @@ async function saveItinerario(userId) {
         $('input#titoloItinerario').addClass("border border-danger");
         alert('Inserire almeno una tappa');
     }
-    if(!blocco){
-    await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
-        .then(delay(1000).then(() => location.href = '/itinerari'));
-    }else{
+    if (!blocco) {
+        await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
+            // .then(delay(1000).then(() => location.href = '/itinerari'));
+        location.href = '/itinerari';
+    } else {
         alert('Inserire correttamente le informazioni')
     }
 }
