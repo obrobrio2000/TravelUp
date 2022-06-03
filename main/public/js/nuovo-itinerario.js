@@ -5,6 +5,7 @@ const socket = io("http://localhost:1337")
 socket.on('connect', () => {
     socket.emit('room', { room_name: 'clients' });
 });
+
 var form = document.getElementById('form');
 form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -193,8 +194,7 @@ async function saveItinerario(userId) {
     }
     if (!blocco) {
         await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
-            // .then(delay(1000).then(() => location.href = '/itinerari'));
-        location.href = '/itinerari';
+            .then(delay(1000).then(() => location.href = '/itinerari'));
     } else {
         alert('Inserire correttamente le informazioni')
     }

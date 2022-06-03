@@ -4,20 +4,19 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
 const nano = require('nano')(process.env.COUCHDB_URL);
 const itinerari = nano.use('itinerari');
-const NodeCouchDb = require("node-couchdb");
+// const NodeCouchDb = require("node-couchdb");
 const { checkServerIdentity } = require("tls");
 const port = 1337;
 
-//Connessione al db
-const couch = new NodeCouchDb({
-	host: 'couchdb',
-	protocol: 'https',
-	port: 6984,
-	auth: {
-		user: 'admin',
-		pass: 'admin'
-	}
-});
+// const couch = new NodeCouchDb({
+// 	host: 'couchdb',
+// 	protocol: 'https',
+// 	port: 6984,
+// 	auth: {
+// 		user: 'admin',
+// 		pass: 'admin'
+// 	}
+// });
 
 
 
@@ -155,6 +154,36 @@ io.on('connection', (socket) => {
 		console.log('ricevuta risposta');
 		io.to(data.socketid).emit('luoghi_rispostaClient', { value: data.value, target: data.target });
 	})
+
+	socket.on('mail', async (data) => {
+		console.log('Richiesta ricevuta')
+		var emailUtente = data.emailUtente
+		var target = data.target
+		var socketid = socket.id
+		switch (target) {
+			case 'benvenuto': {
+				socket.to('mail').emit('benvenuto', { socketid, emailUtente });
+				break;
+			};
+			case 'accesso': {
+				socket.to('mail').emit('accesso', { socketid, emailUtente });
+				break;
+			};
+			case 'newsletterYes': {
+				socket.to('mail').emit('newsletterYes', { socketid, emailUtente });
+				break;
+			};
+			case 'newsletterNo': {
+				socket.to('mail').emit('newsletterNo', { socketid, emailUtente });
+				break;
+			};
+			default: {
+				io.to(socketid).emit('Errore');
+				break;
+			}
+		}
+
+	});
 });
 
 

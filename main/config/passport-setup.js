@@ -3,6 +3,11 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const utenti = require('../models/utenti-model');
+const { io } = require("socket.io-client");
+const socket = io("http://ws:1337");
+socket.on('connect', () => {
+    socket.emit('room', { room_name: 'clients' });
+});
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -27,13 +32,16 @@ passport.use(new GoogleStrategy({
                 var doc = await utenti.get(profile.emails[0].value);
                 try {
                     const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: doc.facebookId, accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
+                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 } catch (err) {
                     const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
+                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 }
             } catch (err) {
                 const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: "no", hasReviewed: "no", newUser: "yes", }, profile.emails[0].value);
+                socket.emit('mail', { emailUtente: profile.emails[0].value, target: "benvenuto" });
                 return response;
             }
         }
@@ -63,13 +71,16 @@ passport.use(new FacebookStrategy({
                 var doc = await utenti.get(profile.emails[0].value);
                 try {
                     const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: doc.googleId, facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
+                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 } catch (err) {
                     const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
+                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 }
             } catch (err) {
                 const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: "no", hasReviewed: "no", newUser: "yes", }, profile.emails[0].value);
+                socket.emit('mail', { emailUtente: profile.emails[0].value, target: "benvenuto" });
                 return response;
             }
         }
