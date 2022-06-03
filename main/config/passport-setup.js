@@ -15,7 +15,7 @@ passport.deserializeUser(function (user, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.HOSTING_URL+"/auth/google/callback",
+    callbackURL: process.env.HOSTING_URL + "/auth/google/callback",
     scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid', 'https://www.googleapis.com/auth/calendar.events']
 },
     function (accessToken, refreshToken, profile, cb) {
@@ -23,20 +23,17 @@ passport.use(new GoogleStrategy({
         //     console.log(profile);
         // });
         async function createUser() {
-            var doc = "";
             try {
-                doc = await utenti.get(profile.emails[0].value);
-                var facebookId = "null";
+                var doc = await utenti.get(profile.emails[0].value);
                 try {
-                    facebookId = doc.facebookId;
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, accessToken: accessToken, metodo: "Google", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: doc.facebookId, accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 } catch (err) {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: facebookId, accessToken: accessToken, metodo: "Google", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 }
             } catch (err) {
-                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google" }, profile.emails[0].value);
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: "no", hasReviewed: "no", newUser: "yes", }, profile.emails[0].value);
                 return response;
             }
         }
@@ -54,7 +51,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: process.env.HOSTING_URL+"/auth/facebook/callback",
+    callbackURL: process.env.HOSTING_URL + "/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'picture.type(large)', 'emails', 'first_name', 'middle_name', 'last_name', 'birthday'],
 },
     function (accessToken, refreshToken, profile, cb) {
@@ -62,20 +59,17 @@ passport.use(new FacebookStrategy({
         //     console.log(profile);
         // });
         async function createUser() {
-            var doc = "";
             try {
-                doc = await utenti.get(profile.emails[0].value);
-                var googleId = "null";
+                var doc = await utenti.get(profile.emails[0].value);
                 try {
-                    googleId = doc.googleId;
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: doc.googleId, facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 } catch (err) {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: googleId, facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", _rev: doc._rev }, profile.emails[0].value);
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
                     return response;
                 }
             } catch (err) {
-                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook" }, profile.emails[0].value);
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: "no", hasReviewed: "no", newUser: "yes", }, profile.emails[0].value);
                 return response;
             }
         }

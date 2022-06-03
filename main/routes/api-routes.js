@@ -50,7 +50,7 @@ router.get('/', function (req, res) {
  *     HTTP/1.1 404 Not Found
  *     {"userData":[],"itinData":[],"success":false,"info":"Utente non trovato"}
  */
-router.get('/utenti/:utente', async (req, res) => {
+router.get('/utente/:utente', async (req, res) => {
     try {
         const q1 = {
             selector: {

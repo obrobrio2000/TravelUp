@@ -54,18 +54,28 @@
                     <img src="/assets/images/itinerari.svg" width="100%" alt="">
                 </div>
                 <div class="col-md-6 pl-md-5 content" data-aos="fade-left">
-                    <div class="container"><img class="propic" src="<%= user.photos[0].value %>" width="25%" alt="">
+                    <div class="container"><img class="propic" src="<%= utente.foto %>" width="25%" alt="">
                     </div>
-                    <h1>Benvenuto, <span>
-                            <%= user.name.givenName %>
-                        </span>
-                    </h1>
-                    <% if (itin.length>0) { %>
-                        <a href="#itinerari"><button class="button">I tuoi itinerari</button></a>
+                    <% if (utente.newUser=="yes" ) { %>
+                        <h1>Benvenuto, <span>
+                                <%= utente.nome %>
+                            </span>
+                        </h1>
                         <% } else { %>
-                            <h3>Non hai ancora creato alcun itinerario</h3>
+                            <h1>Bentornato, <span>
+                                    <%= utente.nome %>
+                                </span>
+                            </h1>
                             <% } %>
-                                <a href="/itinerari/nuovo"><button class="button">Crea nuovo</button></a>
+                                <% if (itin.length>0) { %>
+                                    <a href="#itinerari"><button class="button">I tuoi itinerari</button></a>
+                                    <% } else { %>
+                                        <h3>Non hai ancora creato alcun itinerario</h3>
+                                        <% } %>
+                                            <a href="/itinerari/nuovo"><button class="button">Crea
+                                                    itinerario</button></a>
+                                            <a href="#gestisciAccount"><button class="button">Gestisci
+                                                    account</button></a>
                 </div>
 
             </div>
@@ -78,88 +88,139 @@
 
     <!-- inizio sezione itinerari -->
 
-    <section class="itinerari" id="itinerari">
+    <% if (itin.length>0) { %>
 
-        <div class="container min-vh-100">
+        <section class="itinerari" id="itinerari">
 
-            <h1 class="heading" data-aos="fade-up"> I tuoi itinerari </h1>
+            <div class="container min-vh-100">
 
-            <% if (itin.length>0) { %>
-                <h2 class="heading-description text-center" data-aos="fade-up">Tutti gli itinerari
-                    creati finora!</h2>
-                <% } else { %>
-                    <h2 class="heading-description text-center" data-aos="fade-up">Non hai ancora creato alcun
-                        itinerario</h2>
-                    <% } %>
+                <h1 class="heading" data-aos="fade-up"> I tuoi itinerari </h1>
 
-                        <div class="box-container">
+                <% if (itin.length>0) { %>
+                    <h2 class="heading-description text-center" data-aos="fade-up">Tutti gli itinerari
+                        creati finora!</h2>
+                    <% } else { %>
+                        <h2 class="heading-description text-center" data-aos="fade-up">Non hai ancora creato alcun
+                            itinerario</h2>
+                        <% } %>
 
-                            <% if (itin.length>0) { %>
-                                <% itin.forEach(function(itinerario) { %>
+                            <div class="box-container align-items-center text-center">
 
-                                    <div class="box" data-aos="fade-up">
-                                        <!-- <img src="/assets/images/itinerari.svg" alt=""> -->
-                                        <div class="content">
-                                            <span>
-                                                <%= itinerario.tappe[0].data %> -> <%=
-                                                        itinerario.tappe[itinerario.tappe.length - 1].data %>
-                                            </span>
-                                            <a href="">
-                                                <h3>
-                                                    <%= itinerario.nome %>
-                                                </h3>
-                                            </a>
-                                            <!-- <p>
+                                <% if (itin.length>0) { %>
+                                    <% itin.forEach(function(itinerario) { %>
+
+                                        <div class="box" data-aos="fade-up">
+                                            <!-- <img src="/assets/images/itinerari.svg" alt=""> -->
+                                            <div class="content">
+                                                <span>
+                                                    <%= itinerario.tappe[0].data %> -> <%=
+                                                            itinerario.tappe[itinerario.tappe.length - 1].data %>
+                                                </span>
+                                                <a href="">
+                                                    <h3>
+                                                        <%= itinerario.nome %>
+                                                    </h3>
+                                                </a>
+                                                <!-- <p>
                                                 <%= itinerario.descrizione %>
                                             </p> -->
-                                            <a target="_blank" href="/itinerari/<%= itinerario._id %>"><button
-                                                    class="button">Visualizza</button></a>
-                                            <!---<a href="/itinerari/<%= itinerario._id %>/modifica"><button
-                                                    class="button">Modifica</button></a> --->
-                                            <!-- <script>
-                                                function confermaElimina() {
-                                                    let confirmAction = confirm("Sei sicuro di voler eliminare l'itinerario?");
-                                                    if (confirmAction) {
-                                                        alert("Itinerario eliminato con successo");
-                                                        location.href = '/itinerari/<%= itinerario._id %>/elimina';
-                                                    } else {
-                                                        return;
-                                                    }
-                                                }
-                                            </script> -->
-                                            <a href="/itinerari/<%= itinerario._id %>/elimina"><button
-                                                    class="buttonRed">Elimina</button></a>
+                                                <a target="_blank" href="/itinerari/<%= itinerario._id %>"><button
+                                                        class="button">Visualizza</button></a>
+                                                <!-- <a href="/itinerari/<%= itinerario._id %>/modifica"><button
+                                                    class="button">Modifica</button></a> -->
+                                                <a
+                                                    onclick="alert('La possibilità di modificare un itinerario sarà disponibile a breve! 😉');"><button
+                                                        class="button">Modifica</button></a>
+                                                <a><button class="buttonRed"
+                                                        onclick="eliminaItinerario('<%= itinerario._id %>')">Elimina</button></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <% }); %>
-                                        <% } else { %>
-                                            <a href="/itinerari/nuovo" data-aos="fade-up"><button class="button">Crea
-                                                    nuovo</button></a>
-                                            <% } %>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <a href="/itinerari/nuovo" data-aos="fade-up"><button
+                                                        class="button">Crea
+                                                        nuovo</button></a>
+                                                <% } %>
 
+                            </div>
+
+            </div>
+
+        </section>
+
+        <% } %>
+
+            <!-- fine sezione itinerari -->
+
+            <!-- inizio sezione gestisciAccount  -->
+
+            <section class="gestisciAccount" id="gestisciAccount">
+                <div class="container">
+                    <h1 class="heading" data-aos="fade-up"> Gestisci account </h1>
+                    <div class="row align-items-center">
+                        <div class="col-md-6 content" data-aos="fade-up">
+                            <div class="box">
+                                <h3>❌ Elimina account</h3>
+                                <p>Attenzione! L'eliminazione sarà definitiva e coinvolgerà anche i tuoi itinerari!</p>
+                                <a><button class="buttonRed" onclick="eliminaAccount()">Elimina</button></a>
+                            </div>
+                            <div class="box">
+                                <% if (utente.nlConsent=="no" ) { %>
+                                    <h3>📧 Iscriviti alla newsletter</h3>
+                                    <p>Riceverai delle email periodiche con degli itinerari che potrebbero interessarti!
+                                    </p>
+                                    <a href="/utente/newsletter"
+                                        onclick="alert('Ti sei iscritto alla newsletter, grazie!');"><button
+                                            class="button">Iscriviti</button></a>
+                                    <% } else { %>
+                                        <h3>📧 Disiscriviti dalla newsletter</h3>
+                                        <p>Continuerai comunque a ricevere email importanti sui tuoi itinerari!</p>
+                                        <a href="/utente/newsletter"
+                                            onclick="alert('Ti sei disiscritto dalla newsletter, ci mancherai...');"><button
+                                                class="button">Disiscriviti</button></a>
+                                        <% } %>
+                            </div>
+                            <div class="box">
+                                <% if (utente.hasReviewed=="no" ) { %>
+                                    <h3>✍️ Scrivi una recensione</h3>
+                                    <p>Dicci la tua opinione su TravelUp e verrà pubblicata sulla homepage!</p>
+                                    <!-- <a href="/utente/recensione"><button class="button">Scrivi</button></a> -->
+                                    <a><button class="button"
+                                            onclick="alert('La possibilità di lasciare una recensione sarà disponibile a breve! 😉');">Scrivi</button></a>
+                                    <% } else { %>
+                                        <h3>✍️ Modifica o elimina recensione</h3>
+                                        <p>Puoi aggiornare o cancellare la tua recensione!</p>
+                                        <a href="/utente/recensione"><button class="button">Modifica</button></a>
+                                        <a href="/utente/recensione/elimina"><button class="button">Elimina</button></a>
+                                        <% } %>
+                            </div>
                         </div>
+                        <div class="col-md-6 d-none d-md-block" data-aos="fade-up">
+                            <img src="/assets/images/gestisciAccount.svg" width="100%" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        </div>
+            <!-- fine sezione gestisciAccount -->
 
-    </section>
 
-    <!-- fine sezione itinerari -->
+            <!-- inizio sezione footer  -->
 
-    <!-- inizio sezione footer  -->
+            <section class="footer">
 
-    <section class="footer">
+                <h1 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti
+                    riservati.<br>Immagini da: Storyset, Google Images<br><a
+                        href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
 
-        <h1 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti
-            riservati.<br>Immagini da: Storyset, Google Images<br><a href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
+            </section>
 
-    </section>
+            <!-- fine sezione footer -->
 
-    <!-- fine sezione footer -->
-
-    <script src="/js/aos.js"></script> <!-- AOS JS -->
-    <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
-    <script src="/js/jquery.min.js"></script> <!-- jQuery -->
-    <script src="/js/main.js"></script>
+            <script src="/js/aos.js"></script> <!-- AOS JS -->
+            <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+            <script src="/js/jquery.min.js"></script> <!-- jQuery -->
+            <script src="/js/main.js"></script>
 
 </body>
 

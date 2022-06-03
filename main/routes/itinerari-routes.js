@@ -19,13 +19,20 @@ const authCheck = (req, res, next) => {
 
 router.get('/', authCheck, async (req, res) => {
     try {
-        const q = {
+        const q1 = {
+            selector: {
+                _id: { "$eq": req.user.emails[0].value }
+            }
+        };
+        const utente = await utenti.find(q1);
+        const q2 = {
             selector: {
                 creatore: { "$eq": req.user.emails[0].value }
             }
         };
-        const itin = await itinerari.find(q);
-        res.render('itinerari', { itin: itin.docs, user: req.user });
+        const itin = await itinerari.find(q2);
+        console.log(utente.docs[0]);
+        res.render('itinerari', { itin: itin.docs, utente: utente.docs[0] });
     } catch (err) {
         console.log(err);
         res.render('errore');
