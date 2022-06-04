@@ -36,6 +36,11 @@ app.use('/itinerari', itinerariRoutes);
 app.use('/api', apiRoutes);
 app.use(mainRoutes);
 
+if ((process.env.NODE_ENV || '').trim() !== 'test') {
 app.listen(port, () => {
     console.log(`Server principale in ascolto sull'indirizzo http://localhost:${port}`);
 });
+}
+
+
+module.exports = app;

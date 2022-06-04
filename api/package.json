@@ -4,8 +4,9 @@
   "description": "Server che si occupa di gestire le richeste alle APIs di terze parti",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "node server.js"
+    "start": "node server.js",
+    "startDev": "nodemon server.js",
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,9 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.0",
-    "nodemon": "^2.0.16"
+    "jest": "^28.1.0",
+    "mock-couch": "^0.1.11",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
   }
 }

@@ -5,7 +5,8 @@ services:
         hostname: main
         restart: unless-stopped
         environment:
-            - NODE_ENV=production
+            # - NODE_ENV=production
+            - NODE_NO_WARNINGS=1
             - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
             couchdb:
@@ -24,13 +25,16 @@ services:
             - ./main/routes:/usr/src/app/routes
             - ./main/views:/usr/src/app/views
             - ./main/server.js:/usr/src/app/server.js
+            - ./main/server.test.js:/usr/src/app/server.test.js
     mail:
         build: "./mail"
         container_name: mail
         hostname: mail
         restart: unless-stopped
         environment:
-            - NODE_ENV=production
+            # - NODE_ENV=production
+            - NODE_NO_WARNINGS=1
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
             - main
         links:
@@ -41,13 +45,16 @@ services:
             - ${DOTFILES}/.env
         volumes:
             - ./mail/server.js:/usr/src/app/server.js
+            - ./mail/server.test.js:/usr/src/app/server.test.js
     api:
         build: "./api"
         container_name: api
         hostname: api
         restart: unless-stopped
         environment:
-            - NODE_ENV=production
+            # - NODE_ENV=production
+            - NODE_NO_WARNINGS=1
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
             - main
             - ws
@@ -60,6 +67,7 @@ services:
             - ${DOTFILES}/.env
         volumes:
             - ./api/server.js:/usr/src/app/server.js
+            - ./api/server.test.js:/usr/src/app/server.test.js
     ws:
         build: "./ws"
         container_name: ws
@@ -68,7 +76,8 @@ services:
             - '1337:1337'
         restart: unless-stopped
         environment:
-            - NODE_ENV=production
+            # - NODE_ENV=production
+            - NODE_NO_WARNINGS=1
             - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
             - main
@@ -80,6 +89,7 @@ services:
             - ${DOTFILES}/.env
         volumes:
             - ./ws/server.js:/usr/src/app/server.js
+            - ./ws/server.test.js:/usr/src/app/server.test.js
     nginx:
         build: "./nginx"
         container_name: nginx

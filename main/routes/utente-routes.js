@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const utenti = require('../models/utenti-model');
 const itinerari = require('../models/itinerari-model');
-const { io } = require("socket.io-client");
-const socket = io("http://ws:1337");
-socket.on('connect', () => {
-    socket.emit('room', { room_name: 'clients' });
-});
+
+if ((process.env.NODE_ENV || '').trim() !== 'test') {
+    var { io } = require("socket.io-client");
+    var socket = io("http://ws:1337");
+    socket.on('connect', () => {
+        socket.emit('room', { room_name: 'clients' });
+    });
+}
 
 const app = express();
 
@@ -26,7 +29,7 @@ router.get('/', authCheck, async (req, res) => {
 
 router.get('/elimina', authCheck, async (req, res) => {
     try {
-        const q1= {
+        const q1 = {
             selector: {
                 _id: { "$eq": req.user.emails[0].value }
             }
@@ -59,10 +62,14 @@ router.get('/newsletter', authCheck, async (req, res) => {
         const utente = await utenti.find(q);
         if (utente.docs[0].nlConsent == "no") {
             await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: "yes", hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, _rev: utente.docs[0]._rev }, utente.docs[0]._id);
-            socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "newsletterYes" });
+            if ((process.env.NODE_ENV || '').trim() !== 'test') {
+                socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "newsletterYes" });
+            }
         } else {
             await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: "no", hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, _rev: utente.docs[0]._rev }, utente.docs[0]._id);
-            socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "newsletterNo" });
+            if ((process.env.NODE_ENV || '').trim() !== 'test') {
+                socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "newsletterNo" });
+            }
         }
         res.redirect('/itinerari#gestisciAccount');
     } catch (err) {

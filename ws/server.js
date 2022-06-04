@@ -32,9 +32,6 @@ const mangoQuery = {
 
 const parameters = {};
 
-server.listen(port, () => {
-	console.log(`Server WebSocket in ascolto sull'indirizzo http://localhost:${port}`);
-});
 
 io.on('connection', (socket) => {
 	socket.on('room', (data) => {
@@ -92,10 +89,10 @@ io.on('connection', (socket) => {
 			
 			//Se non è presente,viene inserito nel db con un _id unico
 			if(!isPresent){
-
+	
 				couch.uniqid().then(ids => {
 						ids[0],	_uuid = ids[0]});
-
+	
 				couch.insert(logging, {
 					_id: _uuid,
 					citta: JSON.parse(msg).citta,
@@ -187,3 +184,10 @@ io.on('connection', (socket) => {
 });
 
 
+if ((process.env.NODE_ENV || '').trim() !== 'test') {
+	server.listen(port, () => {
+		console.log(`Server WebSocket in ascolto sull'indirizzo http://localhost:${port}`);
+	});
+}
+
+module.exports = app;

@@ -7,8 +7,9 @@
     "url": "^0.11.0"
   },
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "node server.js"
+    "start": "node server.js",
+    "startDev": "nodemon server.js",
+    "test": "npx jest"
   },
   "name": "travelup_mail",
   "version": "1.0.0",
@@ -39,7 +40,10 @@
   "homepage": "https://github.com/TUEngineers/TravelUp#readme",
   "devDependencies": {
     "dotenv": "^16.0.0",
-    "nodemon": "^2.0.16"
+    "jest": "^28.1.0",
+    "mock-couch": "^0.1.11",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
   },
   "nodemonConfig": {
     "ext": "."

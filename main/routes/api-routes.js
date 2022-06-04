@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const utentiCache = require('../models/utenti-model-cache');
+const itinerari = require('../models/itinerari-model');
 const itinerariCache = require('../models/itinerari-model-cache');
 
 // Documentazione API (con Apidoc)
@@ -83,7 +84,7 @@ router.get('/utente/:utente', async (req, res) => {
 
 // Richiesta API TravelUp itinerario
 /**
- * @api {get} /user/:id Richiesta info itinerario
+ * @api {get} /api/itinerari/:id Richiesta info itinerario
  * @apiDescription Richiesta informazioni di un singolo itinerario
  * @apiName GetItinerario
  * @apiGroup Itinerario
@@ -125,6 +126,99 @@ router.get('/itinerari/:itinerario', async (req, res) => {
             res.status(404).send({ itinData: [], success: false, info: "Itinerario non trovato" });
         } else {
             res.status(200).send({ itinData: itin.docs[0], success: true, info: "Itinerario trovato" });
+        }
+    } catch (err) {
+        console.log(err);
+        res.render('errore');
+    }
+});
+
+// Richiesta API TravelUp creazione itinerario
+/**
+ * @api {post} /api/itinerari/:id Creazione itinerario
+ * @apiDescription Creazione di un nuovo itinerario
+ * @apiName CreateItinerario
+ * @apiGroup Itinerario
+ *
+ * @apiParam {String} id ID dell'itinerario.
+ *
+ * @apiSuccess {Object[]} itinData Dati dell'itinerario.
+ * @apiSuccess {String} _id ID dell'itinerario.
+ * @apiSuccess {String} nome Nome dell'itinerario.
+ * @apiSuccess {String} creatore ID dell'utente creatore dell'itinerario.
+ * @apiSuccess {Object[]} tappe Tappe dell'itinerario.
+ * @apiSuccess {String} tappe.nome Nome della tappa.
+ * @apiSuccess {String} tappe.data Data della tappa.
+ * @apiSuccess {String} tappe.url URL Google Search della tappa.
+ * @apiSuccess {String} tappe.lat Latitudine della tappa.
+ * @apiSuccess {String} tappe.lon Longitudine della tappa.
+ * @apiSuccess {Boolean} success <code>true</code> se l'itinerario è stato creato, <code>false</code> altrimenti.
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {"itinData":{"_id":"fd494e8c9041d53928b0801fe9003205","_rev":"1-1dd209d3a6a23efb75483dba555319ed","nome":"Itinerario bellissimo","creatore":"utente@gmail.com","tappe":[{"nome":"Historical museum of infantry","data":"2022-05-27","url":"https://google.com/search?q=Historical museum of infantry roma","lat":"41.88888931274414","lon":" 12.514721870422363"},{"nome":"St Bibiana","data":"2022-05-29","url":"https://google.com/search?q=St Bibiana roma","lat":"41.89555358886719","lon":" 12.509188652038574"}]},"success":true,"info":"Itinerario creato"}
+ *
+ * @apiError Itinerario non creato L'itinerario non è stato creato.
+ * 
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {"itinData":[],"success":false,"info":"Itinerario non creato"}
+ */
+router.post('/itinerari/:itinerario', async (req, res) => {
+    try {
+        await itinerari.insert({ nome: req.body.nome, creatore: req.body.creatore, tappe: req.body.tappe }, req.params.itinerario);
+        try {
+            var doc = await itinerari.get(req.params.itinerario);
+            res.status(200).send({ itinData: doc, success: true, info: "Itinerario creato" });
+        } catch {
+            res.status(404).send({ itinData: [], success: false, info: "Itinerario non creato" });
+        }
+    } catch (err) {
+        console.log(err);
+        res.render('errore');
+    }
+});
+
+// Richiesta API TravelUp eliminazione itinerario
+/**
+ * @api {delete} /api/itinerari/:id Eliminazione itinerario
+ * @apiDescription Eliminazione di un itinerario
+ * @apiName DeleteItinerario
+ * @apiGroup Itinerario
+ *
+ * @apiParam {String} id ID dell'itinerario.
+ *
+ * @apiSuccess {Object[]} itinData Dati dell'itinerario.
+ * @apiSuccess {String} _id ID dell'itinerario.
+ * @apiSuccess {String} nome Nome dell'itinerario.
+ * @apiSuccess {String} creatore ID dell'utente creatore dell'itinerario.
+ * @apiSuccess {Object[]} tappe Tappe dell'itinerario.
+ * @apiSuccess {String} tappe.nome Nome della tappa.
+ * @apiSuccess {String} tappe.data Data della tappa.
+ * @apiSuccess {String} tappe.url URL Google Search della tappa.
+ * @apiSuccess {String} tappe.lat Latitudine della tappa.
+ * @apiSuccess {String} tappe.lon Longitudine della tappa.
+ * @apiSuccess {Boolean} success <code>true</code> se l'itinerario è stato eliminato, <code>false</code> altrimenti.
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {"itinData":[],"success":true,"info":"Itinerario eliminato"}
+ *
+ * @apiError Itinerario non eliminato L'itinerario non è stato eliminato.
+ * 
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {"itinData":{"_id":"fd494e8c9041d53928b0801fe9003205","_rev":"1-1dd209d3a6a23efb75483dba555319ed","nome":"Itinerario bellissimo","creatore":"utente@gmail.com","tappe":[{"nome":"Historical museum of infantry","data":"2022-05-27","url":"https://google.com/search?q=Historical museum of infantry roma","lat":"41.88888931274414","lon":" 12.514721870422363"},{"nome":"St Bibiana","data":"2022-05-29","url":"https://google.com/search?q=St Bibiana roma","lat":"41.89555358886719","lon":" 12.509188652038574"}]},"success":false,"info":"Itinerario eliminato"}
+ * 
+ */
+router.delete('/itinerari/:itinerario', async (req, res) => {
+    try {
+        try {
+            var doc = await itinerari.get(req.params.itinerario);
+            await itinerari.destroy(req.params.itinerario, doc._rev);
+            res.status(200).send({ itinData: [], success: true, info: "Itinerario eliminato" });
+        } catch {
+            res.status(404).send({ itinData: doc, success: false, info: "Itinerario non eliminato" });
         }
     } catch (err) {
         console.log(err);

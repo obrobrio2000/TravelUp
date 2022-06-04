@@ -2,44 +2,46 @@ require('dotenv').config();
 const express = require('express');
 const nodemailer = require("nodemailer");
 const axios = require('axios');
-const { io } = require("socket.io-client");
-const url = require('url').URL
+const url = require('url').URL;
 
-const socket = io("http://ws:1337");
+if ((process.env.NODE_ENV || '').trim() !== 'test') {
+  var { io } = require("socket.io-client");
+  var socket = io("http://ws:1337");
 
-socket.on("connect", () => {
-  socket.emit('room', { room_name: 'mail' });
-})
+  socket.on("connect", () => {
+    socket.emit('room', { room_name: 'mail' });
+  })
 
-socket.on("benvenuto", (data) => {
-  console.log('richiesta ricevuta dal server per benvenuto')
-  emailUtente = data.emailUtente;
-  socketid = data.socketid;
-  sendMail(emailUtente, "benvenuto", socketid);
-});
+  socket.on("benvenuto", (data) => {
+    console.log('richiesta ricevuta dal server per benvenuto')
+    emailUtente = data.emailUtente;
+    socketid = data.socketid;
+    sendMail(emailUtente, "benvenuto", socketid);
+  });
 
-socket.on("accesso", (data) => {
-  console.log('richiesta ricevuta dal server per accesso')
-  emailUtente = data.emailUtente;
-  socketid = data.socketid;
-  sendMail(emailUtente, "accesso", socketid);
-});
+  socket.on("accesso", (data) => {
+    console.log('richiesta ricevuta dal server per accesso')
+    emailUtente = data.emailUtente;
+    socketid = data.socketid;
+    sendMail(emailUtente, "accesso", socketid);
+  });
 
-socket.on("newsletterYes", (data) => {
-  console.log('richiesta ricevuta dal server per newsletterYes')
-  emailUtente = data.emailUtente;
-  socketid = data.socketid;
-  sendMail(emailUtente, "newsletterYes", socketid);
-});
+  socket.on("newsletterYes", (data) => {
+    console.log('richiesta ricevuta dal server per newsletterYes')
+    emailUtente = data.emailUtente;
+    socketid = data.socketid;
+    sendMail(emailUtente, "newsletterYes", socketid);
+  });
 
-socket.on("newsletterNo", (data) => {
-  console.log('richiesta ricevuta dal server per newsletterNo')
-  emailUtente = data.emailUtente;
-  socketid = data.socketid;
-  sendMail(emailUtente, "newsletterNo", socketid);
-});
+  socket.on("newsletterNo", (data) => {
+    console.log('richiesta ricevuta dal server per newsletterNo')
+    emailUtente = data.emailUtente;
+    socketid = data.socketid;
+    sendMail(emailUtente, "newsletterNo", socketid);
+  });
+}
 
-async function sendMail(emailUtente, tipo, socketid) {
+var sendMail = async function sendMail(emailUtente, tipo, socketid) {
   try {
     let transporter = nodemailer.createTransport({
       port: 465,
@@ -99,9 +101,11 @@ async function sendMail(emailUtente, tipo, socketid) {
         break;
       }
       default: {
-        io.to(socketid).emit('Errore');
-        break;
+        if ((process.env.NODE_ENV || '').trim() !== 'test') {
+          io.to(socketid).emit('Errore');
+        }
       }
+        break;
     }
   } catch (error) {
     console.log(error);
@@ -111,6 +115,12 @@ async function sendMail(emailUtente, tipo, socketid) {
 const port = 465;
 const app = express();
 
-app.listen(port, () => {
-  console.log(`Server mail in ascolto sull'indirizzo http://localhost:${port}`);
-});
+if ((process.env.NODE_ENV || '').trim() !== 'test') {
+  app.listen(port, () => {
+    console.log(`Server mail in ascolto sull'indirizzo http://localhost:${port}`);
+  });
+}
+
+module.exports = {
+    sendMail
+}

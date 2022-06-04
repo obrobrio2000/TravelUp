@@ -3,11 +3,14 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const utenti = require('../models/utenti-model');
-const { io } = require("socket.io-client");
-const socket = io("http://ws:1337");
-socket.on('connect', () => {
-    socket.emit('room', { room_name: 'clients' });
-});
+
+if ((process.env.NODE_ENV || '').trim() !== 'test') {
+    var { io } = require("socket.io-client");
+    var socket = io("http://ws:1337");
+    socket.on('connect', () => {
+        socket.emit('room', { room_name: 'clients' });
+    });
+}
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -80,7 +83,9 @@ passport.use(new FacebookStrategy({
                 }
             } catch (err) {
                 const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: "no", hasReviewed: "no", newUser: "yes", }, profile.emails[0].value);
-                socket.emit('mail', { emailUtente: profile.emails[0].value, target: "benvenuto" });
+                if ((process.env.NODE_ENV || '').trim() !== 'test') {
+                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "benvenuto" });
+                }
                 return response;
             }
         }

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const itinerari = require('../models/itinerari-model');
 
 const authCheck = (req, res, next) => {
