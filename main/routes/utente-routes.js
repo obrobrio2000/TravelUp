@@ -45,6 +45,9 @@ router.get('/elimina', authCheck, async (req, res) => {
         itin.docs.forEach(async itinerario => {
             await itinerari.destroy(itinerario._id, itinerario._rev);
         });
+        if ((process.env.NODE_ENV || '').trim() !== 'test') {
+            socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "addio" });
+        }
         res.redirect('/logout');
     } catch (err) {
         console.log(err);

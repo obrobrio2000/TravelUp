@@ -1,18 +1,18 @@
 services:
     main:
-        build: "./main"
+        build:
+            context: ./main
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
         container_name: main
         hostname: main
-        restart: unless-stopped
         environment:
-            # - NODE_ENV=production
             - NODE_NO_WARNINGS=1
             - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
             couchdb:
                 condition: service_healthy
-        links:
-            - couchdb
         networks:
             - frontend
             - backend
@@ -27,18 +27,18 @@ services:
             - ./main/server.js:/usr/src/app/server.js
             - ./main/server.test.js:/usr/src/app/server.test.js
     mail:
-        build: "./mail"
+        build:
+            context: ./mail
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
         container_name: mail
         hostname: mail
-        restart: unless-stopped
         environment:
-            # - NODE_ENV=production
             - NODE_NO_WARNINGS=1
             - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
-            - main
-        links:
-            - main
+            - ws
         networks:
             - backend
         env_file:
@@ -47,19 +47,17 @@ services:
             - ./mail/server.js:/usr/src/app/server.js
             - ./mail/server.test.js:/usr/src/app/server.test.js
     api:
-        build: "./api"
+        build:
+            context: ./api
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
         container_name: api
         hostname: api
-        restart: unless-stopped
         environment:
-            # - NODE_ENV=production
             - NODE_NO_WARNINGS=1
             - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
-            - main
-            - ws
-        links:
-            - main
             - ws
         networks:
             - backend
@@ -69,20 +67,18 @@ services:
             - ./api/server.js:/usr/src/app/server.js
             - ./api/server.test.js:/usr/src/app/server.test.js
     ws:
-        build: "./ws"
+        build:
+            context: ./ws
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
         container_name: ws
         hostname: ws
         ports:
             - '1337:1337'
-        restart: unless-stopped
         environment:
-            # - NODE_ENV=production
             - NODE_NO_WARNINGS=1
             - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
-        depends_on:
-            - main
-        links:
-            - main
         networks:
             - backend
         env_file:
@@ -94,10 +90,10 @@ services:
         build: "./nginx"
         container_name: nginx
         hostname: nginx
+        restart: always
         ports:
             - "80:80"
             - "443:443"
-        restart: unless-stopped
         depends_on:
             - main
         networks:
@@ -111,9 +107,9 @@ services:
             - ${DOTFILES}/nginx/ssl/travelup_key.pem:/etc/nginx/ssl/travelup_key.pem
     couchdb:
         image: couchdb
-        restart: always
         container_name: couchdb
         hostname: couchdb
+        restart: always
         ports:
             - "6984:6984" # Management diretto (write) su https://localhost:6984/_utils/ e cache (read) su https://localhost:4984/
         networks:

@@ -142,8 +142,7 @@ io.on('connection', (socket) => {
 
 	socket.on('NuovoItinerario', async (data) => {
 		console.log('itinerario ricevuto');
-		const uuid = await nano.uuids();
-		await itinerari.insert({ nome: data.titolo, creatore: data.creatore, tappe: data.tappe }, uuid.uuids[0]);
+		await itinerari.insert({ nome: data.titolo, creatore: data.creatore, tappe: data.tappe }, (await nano.uuids()).uuids[0]);
 		console.log('Inserito con successo');
 	})
 
@@ -172,6 +171,10 @@ io.on('connection', (socket) => {
 			};
 			case 'newsletterNo': {
 				socket.to('mail').emit('newsletterNo', { socketid, emailUtente });
+				break;
+			};
+			case 'addio': {
+				socket.to('mail').emit('addio', { socketid, emailUtente });
 				break;
 			};
 			default: {

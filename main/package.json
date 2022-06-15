@@ -20,9 +20,9 @@
         "vue": "^3.2.33"
     },
     "scripts": {
-        "start": "node server.js",
-        "startDev": "nodemon server.js",
-        "test": "npx jest"
+        "production": "node server.js",
+        "development": "nodemon server.js",
+        "test": "node server.js & npx jest"
     },
     "name": "travelup_node",
     "version": "1.0.0",
@@ -54,11 +54,13 @@
     "devDependencies": {
         "dotenv": "^16.0.0",
         "jest": "^28.1.0",
-        "mock-couch": "^0.1.11",
         "nodemon": "^2.0.16",
         "supertest": "^6.2.3"
     },
     "nodemonConfig": {
-        "ext": "."
+        "ext": ".",
+        "ignore": [
+            "*.test.js"
+        ]
     }
 }

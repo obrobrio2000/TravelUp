@@ -210,6 +210,7 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
 }
 
 module.exports = {
+    app,
     getCultura,
     getFood,
     getUtilities,

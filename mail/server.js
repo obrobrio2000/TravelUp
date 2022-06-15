@@ -39,6 +39,13 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
     socketid = data.socketid;
     sendMail(emailUtente, "newsletterNo", socketid);
   });
+
+  socket.on("addio", (data) => {
+    console.log('richiesta ricevuta dal server per addio')
+    emailUtente = data.emailUtente;
+    socketid = data.socketid;
+    sendMail(emailUtente, "addio", socketid);
+  });
 }
 
 var sendMail = async function sendMail(emailUtente, tipo, socketid) {
@@ -100,6 +107,17 @@ var sendMail = async function sendMail(emailUtente, tipo, socketid) {
         console.log("Messaggio di disiscrizione dalla newsletter inviato: %s", info.messageId);
         break;
       }
+      case "addio": {
+        let info = await transporter.sendMail({
+          from: process.env.GMAIL_EMAIL,
+          to: emailUtente,
+          subject: "Ci mancherai...",
+          // text: "Grazie per esserti iscritto alla newsletter di TravelUp!\n\nD'ora in poi riceverai delle email periodiche riguardanti itinerari che ti potrebbero interessare e novità varie di TravelUp.\n\nCordiali saluti,\n\nTravelUp",
+          html: "Hai eliminato il tuo account di TravelUp.<br><br>Tutti i tuoi dati sono stati eliminati dai nostri server, nel rispetto del Diritto all'oblio (Art. 17 del GDPR).<br><br>Speriamo non sia una scelta definitiva e contiamo di rivederti presto... 😭<br><br>Se non sei stato tu, contatta lo staff di TravelUp <a href='https://localhost#contatti'>qui</a> o all'indirizzo <a href='mailto:travelupinc@gmail.com'>travelupinc@gmail.com</a>.<br><br>Cordiali saluti,<br><br>TravelUp",
+        });
+        console.log("Messaggio di addio inviato: %s", info.messageId);
+        break;
+      }
       default: {
         if ((process.env.NODE_ENV || '').trim() !== 'test') {
           io.to(socketid).emit('Errore');
@@ -122,5 +140,6 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
 }
 
 module.exports = {
-    sendMail
+  app,
+  sendMail
 }

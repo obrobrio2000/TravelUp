@@ -128,9 +128,9 @@
                                                         class="button">Visualizza</button></a>
                                                 <!-- <a href="/itinerari/<%= itinerario._id %>/modifica"><button
                                                     class="button">Modifica</button></a> -->
-                                                <a
+                                                <!-- <a
                                                     onclick="alert('La possibilità di modificare un itinerario sarà disponibile a breve! 😉');"><button
-                                                        class="button">Modifica</button></a>
+                                                        class="button">Modifica</button></a> -->
                                                 <a><button class="buttonRed"
                                                         onclick="eliminaItinerario('<%= itinerario._id %>')">Elimina</button></a>
                                             </div>
@@ -175,11 +175,10 @@
                                                 class="button">Disiscriviti</button></a>
                                         <% } %>
                             </div>
-                            <div class="box">
+                            <!-- <div class="box">
                                 <% if (utente.hasReviewed=="no" ) { %>
                                     <h3>✍️ Scrivi una recensione</h3>
                                     <p>Dicci la tua opinione su TravelUp e verrà pubblicata sulla homepage!</p>
-                                    <!-- <a href="/utente/recensione"><button class="button">Scrivi</button></a> -->
                                     <a><button class="button"
                                             onclick="alert('La possibilità di lasciare una recensione sarà disponibile a breve! 😉');">Scrivi</button></a>
                                     <% } else { %>
@@ -188,10 +187,16 @@
                                         <a href="/utente/recensione"><button class="button">Modifica</button></a>
                                         <a href="/utente/recensione/elimina"><button class="button">Elimina</button></a>
                                         <% } %>
+                            </div> -->
+                            <div class="box">
+                                <h3>🔑 La tua chiave API</h3>
+                                <p>Questa è la tua chiave personale per fare chiamate alle nostre API!</p>
+                                <h4><%= utente.apiKey %></h4>
                             </div>
                             <div class="box">
                                 <h3>❌ Elimina account</h3>
-                                <p>Saranno eliminati tutti i tuoi dati presenti sui nostri server, tra cui gli itinerari creati!</p>
+                                <p>Saranno eliminati tutti i tuoi dati presenti sui nostri server, tra cui gli itinerari
+                                    creati!</p>
                                 <a><button class="buttonRed" onclick="eliminaAccount()">Elimina</button></a>
                             </div>
                         </div>

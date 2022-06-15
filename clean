@@ -7,10 +7,3 @@ printf "Aggiornamento dei package-lock.json ...\n"
 (cd api && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
 (cd ws && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
 # rm -rf ./*/node_modules
-if [[ "$1" == "development" ]] || [[ "$1" == "test" ]] || [[ "$1" == "production" ]]; then
-    printf "Avvio dei container in ambiente $1 ...\n"
-    NODE_ENV="$1" docker-compose --log-level ERROR up --build --remove-orphans
-else
-    printf "Utilizzo: ./start development|test|production\n"
-    exit 1
-fi

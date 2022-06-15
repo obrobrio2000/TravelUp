@@ -2,6 +2,7 @@ require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const nano = require('nano')(process.env.COUCHDB_URL);
 const utenti = require('../models/utenti-model');
 
 if ((process.env.NODE_ENV || '').trim() !== 'test') {
@@ -43,7 +44,7 @@ passport.use(new GoogleStrategy({
                     return response;
                 }
             } catch (err) {
-                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: "no", hasReviewed: "no", newUser: "yes", }, profile.emails[0].value);
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: "no", hasReviewed: "no", newUser: "yes", apiKey: (await nano.uuids()).uuids[0] }, profile.emails[0].value);
                 socket.emit('mail', { emailUtente: profile.emails[0].value, target: "benvenuto" });
                 return response;
             }
@@ -82,7 +83,7 @@ passport.use(new FacebookStrategy({
                     return response;
                 }
             } catch (err) {
-                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: "no", hasReviewed: "no", newUser: "yes", }, profile.emails[0].value);
+                const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: "no", hasReviewed: "no", newUser: "yes", apiKey: (await nano.uuids()).uuids[0] }, profile.emails[0].value);
                 if ((process.env.NODE_ENV || '').trim() !== 'test') {
                     socket.emit('mail', { emailUtente: profile.emails[0].value, target: "benvenuto" });
                 }
