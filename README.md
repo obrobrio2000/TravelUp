@@ -1,10 +1,10 @@
 <h1 align="center">TravelUp</h1>
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62136803/173881903-6421bb46-f17c-4309-aa37-1e2d01ce5205.png" alt="TravelUp: logo">
+  <img width="100%" src="https://user-images.githubusercontent.com/62136803/173881903-6421bb46-f17c-4309-aa37-1e2d01ce5205.png" alt="TravelUp: logo">
 </p>
 
-<p align="center">TravelUp è un'utile applicazione web per organizzare il tuo itinerario di viaggio.<br><br>Progetto per i Corsi di "Linguaggi e Tecnologie per il Web" e "Reti di Calcolatori", tenuti rispettivamente dai Proff. Riccardo Rosati ed Andrea Vitaletti nel corso del secondo semestre del terzo anno dell'Anno Accademico 2021/2022 presso Sapienza Università di Roma.</p>
+<p align="center">TravelUp è un'utile applicazione web per organizzare il tuo itinerario di viaggio.<br><br>Progetto per i Corsi di "Linguaggi e Tecnologie per il Web" e "Reti di Calcolatori", tenuti rispettivamente dai Proff. Riccardo Rosati ed Andrea Vitaletti nel 2° semestre del 3° anno del CdL in Ingegneria Informatica e Automatica (A.A. 2021/2022) presso Sapienza Università di Roma.</p>
 
 <p align="center">
   <a href="https://github.com/TUEngineers/TravelUp/actions/workflows/docker-node.yml">
@@ -43,18 +43,17 @@ Quante volte abbiamo deciso di farci una bella vacanza e, una volta giunti a des
 
 <h2 align="center">Architetture di riferimento e tecnologie usate</h2>
 
-Schema architetture e tecnologie:
+- Architetture e tecnologie (diagramma creato con [diagrams.net](https://www.diagrams.net/)):
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62136803/174192853-c5a1ca4e-f4a1-4ee3-ad9e-86753cb921a9.jpg" alt="TravelUp: schema architetture e tecnologie">
+  <img width="100%" src="https://user-images.githubusercontent.com/62136803/174328858-710496a4-d086-45d3-964b-5930eb09a90f.png">
 </p>
 
-Schema docker-compose.yml:
+- docker-compose.yml (diagramma creato con [docker-compose-viz](https://github.com/pmsipilot/docker-compose-viz)):
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62136803/174195519-b59ed68a-e8ef-4459-91b1-57a384142622.png" alt="TravelUp: schema docker-compose.yml">
+  <img width="100%" src="https://user-images.githubusercontent.com/62136803/174195519-b59ed68a-e8ef-4459-91b1-57a384142622.png" alt="TravelUp: schema docker-compose.yml">
 </p>
-
 
 <h2 align="center">Documentazione delle API</h2>
 
