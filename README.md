@@ -57,12 +57,12 @@ Quante volte abbiamo deciso di farci una bella vacanza e, una volta giunti a des
 
 <h2 align="center">Documentazione delle API</h2>
 
-E' possibile leggere la documentazione delle API visitando https://localhost/api e si può provare velocemente a fare qualche richiesta con cURL;
+E' possibile leggere la documentazione delle API visitando https://localhost/api e si può provare a fare qualche richiesta API con cURL o Postman;
 
 <h2 align="center">Forme di CI/CD</h2>
 
 Il progetto prevede 3 workflows CI/CD con GitHub Actions:
-- docker-node.yml inizializza i containers, installa node/npm, esegue npm ci --only=production, prova a lanciare script di build e test (se esistenti nel package.json) ed infine ferma i containers;
+- docker-node.yml installa node/npm in locale, esegue una clean install destinata alla produzione, inizializza i containers in ambiente di testing (e dunque esegue i test previsti), ed infine ferma i containers e pulisce tutto;
 - codeql.yml esegue semantic code analysis per eventuali vulnerabilità di sicurezza di Javascript;
 - super-linter.yml è una semplice combinazione di vari linter, scritti in bash, per aiutare a convalidare il codice sorgente, impedendo che del codice non funzionante venga caricato nel main branch;
 

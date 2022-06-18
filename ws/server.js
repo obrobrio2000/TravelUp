@@ -177,6 +177,10 @@ io.on('connection', (socket) => {
 				socket.to('mail').emit('addio', { socketid, emailUtente });
 				break;
 			};
+			case 'test': {
+				socket.to('mail').emit('test', { socketid, emailUtente });
+				break;
+			};
 			default: {
 				io.to(socketid).emit('Errore');
 				break;

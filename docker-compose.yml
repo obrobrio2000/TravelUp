@@ -26,6 +26,9 @@ services:
             - ./main/views:/usr/src/app/views
             - ./main/server.js:/usr/src/app/server.js
             - ./main/server.test.js:/usr/src/app/server.test.js
+            - ./mail/server.js:/usr/src/app/server-mail.js
+            - ./api/server.js:/usr/src/app/server-api.js
+            - ./ws/server.js:/usr/src/app/server-ws.js
     mail:
         build:
             context: ./mail
@@ -45,7 +48,6 @@ services:
             - ${DOTFILES}/.env
         volumes:
             - ./mail/server.js:/usr/src/app/server.js
-            - ./mail/server.test.js:/usr/src/app/server.test.js
     api:
         build:
             context: ./api
@@ -65,7 +67,6 @@ services:
             - ${DOTFILES}/.env
         volumes:
             - ./api/server.js:/usr/src/app/server.js
-            - ./api/server.test.js:/usr/src/app/server.test.js
     ws:
         build:
             context: ./ws
@@ -85,7 +86,6 @@ services:
             - ${DOTFILES}/.env
         volumes:
             - ./ws/server.js:/usr/src/app/server.js
-            - ./ws/server.test.js:/usr/src/app/server.test.js
     nginx:
         build: "./nginx"
         container_name: nginx
@@ -117,11 +117,11 @@ services:
         env_file:
             - ${DOTFILES}/.env
         volumes:
-            - ./couchdb:/opt/couchdb/data
-            - ./couchdb/local.ini:/opt/couchdb/etc/local.ini
+            - ./couchdb/data:/opt/couchdb/data
+            - ./couchdb/etc/local.ini:/opt/couchdb/etc/local.ini
             - ./nginx/ssl:/opt/couchdb/ssl
         healthcheck:
-            test: [ "CMD-SHELL", "curl -f http://localhost:5984/" ]
+            test: [ "CMD-SHELL", "curl -k -f https://localhost:6984/" ]
             interval: 5s
             timeout: 5s
             retries: 5

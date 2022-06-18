@@ -9,7 +9,7 @@
   "scripts": {
     "production": "node server.js",
     "development": "nodemon server.js",
-    "test": "node server.js & npx jest"
+    "test": "node server.js"
   },
   "name": "travelup_mail",
   "version": "1.0.0",

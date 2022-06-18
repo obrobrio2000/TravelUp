@@ -38,7 +38,7 @@ router.get('/logout', (req, res) => {
 
 // handling errori in caso di pagine non esistenti
 router.get('*', (req, res) => {
-    res.render('errore');
+    res.status(404).render('errore');
 });
 
 module.exports = router;

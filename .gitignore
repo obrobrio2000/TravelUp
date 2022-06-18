@@ -8,3 +8,4 @@ travelup_key.pem
 fiveserver.config.js
 .env
 utenti.*.couch
+.cache
