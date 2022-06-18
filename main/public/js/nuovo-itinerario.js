@@ -1,7 +1,7 @@
 var citta = '';
 var target = 'Cultura';
 var arrInfo = [];
-const socket = io("http://localhost:1337")
+const socket = io(wsFrontendUrl);
 socket.on('connect', () => {
     socket.emit('room', { room_name: 'clients' });
 });
@@ -159,11 +159,7 @@ function moveDown($item) {
     }
 }
 
-function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-}
-
-async function saveItinerario(userId) {
+function saveItinerario(userId) {
     var tappe = arrInfo;
     if (arrInfo.length === 0) {
         alert('Inserire almeno una tappa');
@@ -193,14 +189,22 @@ async function saveItinerario(userId) {
         alert('Inserire almeno una tappa');
     }
     if (!blocco) {
-        await socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId })
-            .then(delay(1000).then(() => location.href = '/itinerari'));
+        socket.emit('NuovoItinerario', { titolo: titoloIt, tappe: tappe, creatore: userId });
     } else {
         alert('Inserire correttamente le informazioni')
     }
 }
 
+socket.on('nuovoItinerario_rispostaClient', function (data) {
+    if (data.value === "Inserito con successo") {
+        window.location.href = "/itinerari";
+    } else {
+        alert("Errore nell'inserimento dell'itinerario nel database, riprovare");
+    }
+})
+
 socket.on('luoghi_rispostaClient', (data) => {
+    console.log("questo funge");
     switch (data.target) {
         case 'Cultura': {
             showInformation(data.value);

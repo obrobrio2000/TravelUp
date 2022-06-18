@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const utenti = require('../models/utenti-model');
@@ -5,7 +6,7 @@ const itinerari = require('../models/itinerari-model');
 
 if ((process.env.NODE_ENV || '').trim() !== 'test') {
     var { io } = require("socket.io-client");
-    var socket = io("http://ws:1337");
+    var socket = io(process.env.WS_BACKEND_URL);
     socket.on('connect', () => {
         socket.emit('room', { room_name: 'clients' });
     });
@@ -48,7 +49,9 @@ router.get('/elimina', authCheck, async (req, res) => {
         if ((process.env.NODE_ENV || '').trim() !== 'test') {
             socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "addio" });
         }
-        res.redirect('/logout');
+        req.logout();
+        req.session = null;
+        res.redirect('/');
     } catch (err) {
         console.log(err);
         res.render('errore');

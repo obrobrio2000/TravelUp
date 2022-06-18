@@ -31,7 +31,6 @@ router.get('/', authCheck, async (req, res) => {
             }
         };
         const itin = await itinerari.find(q2);
-        console.log(utente.docs[0]);
         res.render('itinerari', { itin: itin.docs, utente: utente.docs[0] });
     } catch (err) {
         console.log(err);
@@ -156,7 +155,9 @@ router.get('/:itinerario/aggiungiACalendar', authCheck, async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        req.session.returnTo = req.originalUrl;
+        res.redirect('/auth/google');
+        // res.render('errore');
     }
 });
 

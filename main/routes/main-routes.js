@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const itinerari = require('../models/itinerari-model');
+const utenti = require('../models/utenti-model');
 
 const authCheck = (req, res, next) => {
     if (!req.user) {
@@ -29,7 +30,11 @@ router.get('/login', authCheck, (req, res) => {
     res.render('login');
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', async (req, res) => {
+    if ((process.env.NODE_ENV || '').trim() !== 'test') {
+    var doc = await utenti.get(req.user.emails[0].value);
+        await utenti.insert({ nomeCompleto: doc.nomeCompleto, nome: doc.nome, cognome: doc.cognome, email: doc.email, foto: doc.foto, googleId: doc.id, facebookId: doc.facebookId, accessToken: "deleted", metodo: doc.metodo, nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: doc.newUser, _rev: doc._rev }, doc._id);
+    }
     req.logout();
     req.session = null;
     res.redirect('/');

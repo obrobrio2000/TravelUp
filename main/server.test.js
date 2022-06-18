@@ -7,7 +7,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const Client = require("socket.io-client");
 const { sendMail } = require('./server-mail');
-const { getCultura, getFood, getUtilities, getIntrattenimento, getSearch } = require('./server-api');
+const { getCultura, getFood, getUtilities, getIntrattenimento, getSearch, getImmagini } = require('./server-api');
 
 describe("Server principale", function () {
     describe("Raggiungibilità", function () {
@@ -78,7 +78,7 @@ describe("Server mail", function () {
         })
     }
     );
-    describe("Funzionamento funzione sendMail", function () {
+    describe("Funzionamento invio e-mail", function () {
         const emailAddress = process.env.GMAIL_EMAIL;
         it("Deve inviare una email a " + emailAddress, function (done) {
             request = supertest(sendMail);
@@ -109,8 +109,8 @@ describe("Server API esterne", function () {
         });
     }
     );
-    describe("Funzionamento funzione getCultura", function () {
-        it("Deve richiedere i luoghi della categoria cultura", function (done) {
+    describe("Funzionamento chiamate OpenTripMap API", function () {
+        it("Deve richiedere i luoghi della categoria Cultura", function (done) {
             request = supertest(getCultura);
             getCultura("roma", "123456789").then(() => {
                 done();
@@ -121,9 +121,7 @@ describe("Server API esterne", function () {
             );
         }
         );
-    });
-    describe("Funzionamento funzione getFood", function () {
-        it("Deve richiedere i luoghi della categoria ristoro", function (done) {
+        it("Deve richiedere i luoghi della categoria Ristoro", function (done) {
             request = supertest(getFood);
             getFood("roma", "123456789").then(() => {
                 done();
@@ -134,9 +132,7 @@ describe("Server API esterne", function () {
             );
         }
         );
-    });
-    describe("Funzionamento funzione getUtilities", function () {
-        it("Deve richiedere i luoghi della categoria servizi", function (done) {
+        it("Deve richiedere i luoghi della categoria Servizi", function (done) {
             request = supertest(getUtilities);
             getUtilities("roma", "123456789").then(() => {
                 done();
@@ -147,9 +143,7 @@ describe("Server API esterne", function () {
             );
         }
         );
-    });
-    describe("Funzionamento funzione getIntrattenimento", function () {
-        it("Deve richiedere i luoghi della categoria svago", function (done) {
+        it("Deve richiedere i luoghi della categoria Svago", function (done) {
             request = supertest(getIntrattenimento);
             getIntrattenimento("roma", "123456789").then(() => {
                 done();
@@ -160,11 +154,17 @@ describe("Server API esterne", function () {
             );
         }
         );
-    });
-    describe("Funzionamento funzione getSearch", function () {
         it("Deve richiedere i risultati della ricerca", function (done) {
             request = supertest(getSearch);
             getSearch(["Colosseo", "Fontana di Trevi"], "roma", "123456789")
+            done();
+        }
+        );
+    });
+    describe("Funzionamento chiamate Google Custom Search API", function () {
+        it("Deve richiedere le immagini per le tappe dell'itinerario", function (done) {
+            request = supertest(getImmagini);
+            getImmagini("Itinerario di test", "test@test.com", [{ nome: "parco di Villa Trabia", data: "2022-06-04", url: "https://google.com/search?q=parco di Villa Trabia Palermo", lat: "38.12824630737305", lon: " 13.346321105957031" }, { nome: "Villa Zito", data: "2022-06-04", url: "https://google.com/search?q=Villa Zito Palermo", lat: "38.13447570800781", lon: " 13.349108695983887" }, { nome: "Antica Focacceria San Francesco", data: "2022-06-04", url: "https://google.com/search?q=Antica Focacceria San Francesco Palermo", lat: "38.1163330078125", lon: " 13.366144180297852" }], "123456789")
             done();
         }
         );

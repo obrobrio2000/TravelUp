@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
     <link rel="stylesheet" href="/css/visualizza-itinerario.css">
 
-    <script type="text/javascript">
+    <script>
         function initMap() {
-            var n = <%= itinerario.tappe.length%>;
+            var n = "<%= itinerario.tappe.length %>";
             var tappe = <%- JSON.stringify(itinerario.tappe) %>;
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 13,
@@ -71,9 +71,9 @@
                                 href="https://maps.google.com/?q=<%= tappa.lat %>,<%= tappa.lon %>"><button
                                     class="buttonScopri no-print">Apri su Maps</button></a>
                         </p>
-                        <!-- <div class="thumbs">
+                        <div class="thumbs">
                             <img class="img-fluid" src="<%= tappa.foto %>" alt="">
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <% }); %>
@@ -120,7 +120,7 @@
     <script>AOS.init({ duration: 1000, delay: 10 });</script>
 
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoRszIy52K7seK3lkdeU-2FlMWxfXKIek&callback=initMap&v=weekly"
+        src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_API_KEY %>&callback=initMap&v=weekly"
         defer></script>
 
 </body>

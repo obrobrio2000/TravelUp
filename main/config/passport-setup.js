@@ -7,7 +7,7 @@ const utenti = require('../models/utenti-model');
 
 if ((process.env.NODE_ENV || '').trim() !== 'test') {
     var { io } = require("socket.io-client");
-    var socket = io("http://ws:1337");
+    var socket = io(process.env.WS_BACKEND_URL);
     socket.on('connect', () => {
         socket.emit('room', { room_name: 'clients' });
     });

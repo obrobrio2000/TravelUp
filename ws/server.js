@@ -1,12 +1,15 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
 const nano = require('nano')(process.env.COUCHDB_URL);
 const itinerari = nano.use('itinerari');
-// const NodeCouchDb = require("node-couchdb");
 const { checkServerIdentity } = require("tls");
 const port = 1337;
+const GoogleImages = require('google-images');
+const client = new GoogleImages(process.env.GOOGLE_CSE_ID, process.env.GOOGLE_API_KEY);
+// const NodeCouchDb = require("node-couchdb");
 
 // const couch = new NodeCouchDb({
 // 	host: 'couchdb',
@@ -17,8 +20,6 @@ const port = 1337;
 // 		pass: 'admin'
 // 	}
 // });
-
-
 
 const logging = "logging_cities";
 
@@ -31,7 +32,6 @@ const mangoQuery = {
 }
 
 const parameters = {};
-
 
 io.on('connection', (socket) => {
 	socket.on('room', (data) => {
@@ -140,15 +140,22 @@ io.on('connection', (socket) => {
 
 	});
 
-	socket.on('NuovoItinerario', async (data) => {
-		console.log('itinerario ricevuto');
-		await itinerari.insert({ nome: data.titolo, creatore: data.creatore, tappe: data.tappe }, (await nano.uuids()).uuids[0]);
-		console.log('Inserito con successo');
-	})
-
 	socket.on('luoghi_rispostaApi', (data) => {
 		console.log('ricevuta risposta');
 		io.to(data.socketid).emit('luoghi_rispostaClient', { value: data.value, target: data.target });
+	})
+
+	socket.on('immagini_rispostaApi', async (data) => {
+		console.log('ricevuta risposta');
+		await itinerari.insert({ nome: data.nome, creatore: data.creatore, tappe: data.tappe }, (await nano.uuids()).uuids[0]);
+		console.log('Inserito con successo');
+		io.to(data.socketid).emit('nuovoItinerario_rispostaClient', { value: 'Inserito con successo' });
+	})
+
+	socket.on('NuovoItinerario', async (data) => {
+		console.log('itinerario ricevuto');
+		var socketid = socket.id;
+		socket.to('api').emit('Immagini', { socketid, nome: data.titolo, creatore: data.creatore, tappe: data.tappe });
 	})
 
 	socket.on('mail', async (data) => {

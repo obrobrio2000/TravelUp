@@ -1,11 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const url = require('url').URL
 const distanza = 10000;
+const GoogleImages = require('google-images');
+const client = new GoogleImages(process.env.GOOGLE_CSE_ID, process.env.GOOGLE_API_KEY);
 
 if ((process.env.NODE_ENV || '').trim() !== 'test') {
     var { io } = require("socket.io-client");
-    var socket = io("http://ws:1337");
+    var socket = io(process.env.WS_BACKEND_URL);
 
     socket.on("connect", () => {
         socket.emit('room', { room_name: 'api' });
@@ -37,6 +40,15 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
         citta = data.citta;
         socketid = data.socketid;
         getUtilities(citta, socketid);
+    });
+
+    socket.on("Immagini", (data) => {
+        console.log('richiesta ricevuta dal server per Immagine');
+        nome = data.nome;
+        creatore = data.creatore;
+        tappe = data.tappe;
+        socketid = data.socketid;
+        getImmagini(nome, creatore, tappe, socketid);
     });
 }
 
@@ -198,6 +210,19 @@ var getSearch = function getSearch(names, citta, locations) {
     return result
 }
 
+var getImmagini = async function getImmagini(nome, creatore, tappe, socketid) {
+    for (const tappa of tappe) {
+        await client.search(tappa.url.replace("https://google.com/search?q=", ""))
+            .then(async (images) => {
+                tappa.foto = images[0].url;
+                // console.log("Immagine tappa ottenuta con successo: " + tappa.foto)
+                if (tappa == tappe[tappe.length - 1] && (process.env.NODE_ENV || '').trim() !== 'test') {
+                    socket.emit("immagini_rispostaApi", { socketid, nome: nome, creatore: creatore, tappe: tappe })
+                };
+            });
+    }
+}
+
 
 
 const port = 1515;
@@ -215,5 +240,6 @@ module.exports = {
     getFood,
     getUtilities,
     getIntrattenimento,
-    getSearch
+    getSearch,
+    getImmagini
 }
