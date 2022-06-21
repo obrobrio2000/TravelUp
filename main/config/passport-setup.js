@@ -35,12 +35,12 @@ passport.use(new GoogleStrategy({
             try {
                 var doc = await utenti.get(profile.emails[0].value);
                 try {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: doc.facebookId, accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
-                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: doc.facebookId, accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", apiKey: doc.apiKey, _rev: doc._rev }, profile.emails[0].value);
+                    // socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 } catch (err) {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
-                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: profile.id, facebookId: "null", accessToken: accessToken, metodo: "Google", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", apiKey: doc.apiKey, _rev: doc._rev }, profile.emails[0].value);
+                    // socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 }
             } catch (err) {
@@ -74,12 +74,12 @@ passport.use(new FacebookStrategy({
             try {
                 var doc = await utenti.get(profile.emails[0].value);
                 try {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: doc.googleId, facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
-                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: doc.googleId, facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", apiKey: doc.apiKey, _rev: doc._rev }, profile.emails[0].value);
+                    // socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 } catch (err) {
-                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", _rev: doc._rev }, profile.emails[0].value);
-                    socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
+                    const response = await utenti.insert({ nomeCompleto: profile.displayName, nome: profile.name.givenName, cognome: profile.name.familyName, email: profile.emails[0].value, foto: profile.photos[0].value, googleId: "null", facebookId: profile.id, accessToken: accessToken, metodo: "Facebook", nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: "no", apiKey: doc.apiKey, _rev: doc._rev }, profile.emails[0].value);
+                    // socket.emit('mail', { emailUtente: profile.emails[0].value, target: "accesso" });
                     return response;
                 }
             } catch (err) {

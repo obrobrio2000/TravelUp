@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
     <link rel="stylesheet" href="/css/main.css">
 
+    <!-- <script>const wsFrontendUrl = "<%= process.env.WS_FRONTEND_URL %>"</script> -->
+
 </head>
 
 <body>
@@ -190,13 +192,13 @@
                     <form method="post" action="https://formspree.io/f/xgedpbrp">
 
                         <div class="inputBox">
-                            <input type="text" placeholder="Nome e cognome *" required>
-                            <input type="number" placeholder="Cellulare (facoltativo)">
+                            <input type="text" name="text" id="text" placeholder="Nome e cognome *" required>
+                            <input type="number" name="number" id="number" placeholder="Cellulare (facoltativo)">
                         </div>
 
                         <div class="inputBox">
-                            <input type="email" name="email" placeholder="La tua email *" required>
-                            <select name="" id="" required>
+                            <input type="email" name="email" id="email" placeholder="La tua email *" required>
+                            <select name="tipoRichiesta" id="tipoRichiesta" required>
                                 <option value="" disabled selected>Tipo di richiesta *</option>
                                 <option value="Problema">Problema</option>
                                 <option value="Suggerimento">Suggerimento</option>
@@ -226,7 +228,8 @@
     <section class="footer">
 
         <h1 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti
-            riservati.<br>Immagini da: Storyset, Google Images<br><a href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
+            riservati.<br>Immagini da: Storyset, Google Images<br><a
+                href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
 
     </section>
 

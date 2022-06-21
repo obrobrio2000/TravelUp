@@ -168,10 +168,10 @@ io.on('connection', (socket) => {
 				socket.to('mail').emit('benvenuto', { socketid, emailUtente });
 				break;
 			};
-			case 'accesso': {
-				socket.to('mail').emit('accesso', { socketid, emailUtente });
-				break;
-			};
+			// case 'accesso': {
+			// 	socket.to('mail').emit('accesso', { socketid, emailUtente });
+			// 	break;
+			// };
 			case 'newsletterYes': {
 				socket.to('mail').emit('newsletterYes', { socketid, emailUtente });
 				break;
@@ -184,10 +184,11 @@ io.on('connection', (socket) => {
 				socket.to('mail').emit('addio', { socketid, emailUtente });
 				break;
 			};
-			case 'test': {
-				socket.to('mail').emit('test', { socketid, emailUtente });
-				break;
-			};
+			// case 'contattaci': {
+			// 	console.log("sendMail ws");
+			// 	socket.to('mail').emit('contattaci', { socketid, emailUtente });
+			// 	break;
+			// };
 			default: {
 				io.to(socketid).emit('Errore');
 				break;

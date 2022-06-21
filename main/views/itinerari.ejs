@@ -110,7 +110,7 @@
                                     <% itin.forEach(function(itinerario) { %>
 
                                         <div class="box" data-aos="fade-up">
-                                            <!-- <img src="/assets/images/itinerari.svg" alt=""> -->
+                                            <img src="<%= itinerario.tappe[0].foto %>" alt="">
                                             <div class="content">
                                                 <span>
                                                     <%= itinerario.tappe[0].data %> -> <%=
@@ -160,6 +160,14 @@
                     <div class="row align-items-center">
                         <div class="col-md-6 content" data-aos="fade-up">
                             <div class="box">
+                                <h3>🔑 La tua chiave API</h3>
+                                <p>Questa è la tua chiave personale per fare chiamate alle nostre API!</p>
+                                <h3>
+                                    <%= utente.apiKey %>
+                                </h3>
+                                <a href="/utente/rigeneraApiKey"><button class="button">Rigenera</button></a>
+                            </div>
+                            <div class="box">
                                 <% if (utente.nlConsent=="no" ) { %>
                                     <h3>📧 Iscriviti alla newsletter</h3>
                                     <p>Riceverai delle email periodiche con degli itinerari che potrebbero interessarti!
@@ -188,11 +196,6 @@
                                         <a href="/utente/recensione/elimina"><button class="button">Elimina</button></a>
                                         <% } %>
                             </div> -->
-                            <div class="box">
-                                <h3>🔑 La tua chiave API</h3>
-                                <p>Questa è la tua chiave personale per fare chiamate alle nostre API!</p>
-                                <h4><%= utente.apiKey %></h4>
-                            </div>
                             <div class="box">
                                 <h3>❌ Elimina account</h3>
                                 <p>Saranno eliminati tutti i tuoi dati presenti sui nostri server, tra cui gli itinerari

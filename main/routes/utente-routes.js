@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const utenti = require('../models/utenti-model');
+const nano = require('nano')(process.env.COUCHDB_URL);
 const itinerari = require('../models/itinerari-model');
 
 if ((process.env.NODE_ENV || '').trim() !== 'test') {
@@ -67,15 +68,35 @@ router.get('/newsletter', authCheck, async (req, res) => {
         };
         const utente = await utenti.find(q);
         if (utente.docs[0].nlConsent == "no") {
-            await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: "yes", hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, _rev: utente.docs[0]._rev }, utente.docs[0]._id);
+            await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: "yes", hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, apiKey: utente.docs[0].apiKey, _rev: utente.docs[0]._rev }, utente.docs[0]._id);
             if ((process.env.NODE_ENV || '').trim() !== 'test') {
                 socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "newsletterYes" });
             }
         } else {
-            await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: "no", hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, _rev: utente.docs[0]._rev }, utente.docs[0]._id);
+            await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: "no", hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, apiKey: utente.docs[0].apiKey, _rev: utente.docs[0]._rev }, utente.docs[0]._id);
             if ((process.env.NODE_ENV || '').trim() !== 'test') {
                 socket.emit('mail', { emailUtente: req.user.emails[0].value, target: "newsletterNo" });
             }
+        }
+        res.redirect('/itinerari#gestisciAccount');
+    } catch (err) {
+        console.log(err);
+        res.render('errore');
+    }
+});
+
+router.get('/rigeneraApiKey', authCheck, async (req, res) => {
+    try {
+        const q = {
+            selector: {
+                _id: { "$eq": req.user.emails[0].value }
+            }
+        };
+        const utente = await utenti.find(q);
+        if (utente.docs[0].nlConsent == "no") {
+            await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: utente.docs[0].nlConsent, hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, apiKey: (await nano.uuids()).uuids[0], _rev: utente.docs[0]._rev }, utente.docs[0]._id);
+        } else {
+            await utenti.insert({ nomeCompleto: utente.docs[0].nomeCompleto, nome: utente.docs[0].nome, cognome: utente.docs[0].cognome, email: utente.docs[0].email, foto: utente.docs[0].foto, googleId: utente.docs[0].googleId, facebookId: utente.docs[0].facebookId, accessToken: utente.docs[0].accessToken, metodo: utente.docs[0].metodo, nlConsent: utente.docs[0].nlConsent, hasReviewed: utente.docs[0].hasReviewed, newUser: utente.docs[0].newUser, apiKey: (await nano.uuids()).uuids[0], _rev: utente.docs[0]._rev }, utente.docs[0]._id);
         }
         res.redirect('/itinerari#gestisciAccount');
     } catch (err) {

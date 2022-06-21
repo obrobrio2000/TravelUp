@@ -31,15 +31,14 @@ router.get('/login', authCheck, (req, res) => {
 });
 
 router.get('/logout', async (req, res) => {
-    if ((process.env.NODE_ENV || '').trim() !== 'test') {
+    if ((process.env.NODE_ENV || '').trim() !== 'test' && req.user) {
     var doc = await utenti.get(req.user.emails[0].value);
-        await utenti.insert({ nomeCompleto: doc.nomeCompleto, nome: doc.nome, cognome: doc.cognome, email: doc.email, foto: doc.foto, googleId: doc.id, facebookId: doc.facebookId, accessToken: "deleted", metodo: doc.metodo, nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: doc.newUser, _rev: doc._rev }, doc._id);
+        await utenti.insert({ nomeCompleto: doc.nomeCompleto, nome: doc.nome, cognome: doc.cognome, email: doc.email, foto: doc.foto, googleId: doc.id, facebookId: doc.facebookId, accessToken: "deleted", metodo: doc.metodo, nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: doc.newUser, apiKey: doc.apiKey, _rev: doc._rev }, doc._id);
     }
     req.logout();
     req.session = null;
     res.redirect('/');
-}
-);
+});
 
 // handling errori in caso di pagine non esistenti
 router.get('*', (req, res) => {

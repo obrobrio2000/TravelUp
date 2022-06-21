@@ -80,7 +80,7 @@ describe("Server mail", function () {
     );
     describe("Funzionamento invio e-mail", function () {
         const emailAddress = process.env.GMAIL_EMAIL;
-        it("Deve inviare una email a " + emailAddress, function (done) {
+        it("Deve inviare una email di benvenuto a " + emailAddress, function (done) {
             request = supertest(sendMail);
             sendMail(emailAddress, "benvenuto", "123456789").then(() => {
                 done();

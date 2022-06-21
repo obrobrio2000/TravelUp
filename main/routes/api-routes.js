@@ -290,14 +290,13 @@ router.post('/itinerari', async (req, res) => {
         res.status(404).send({ itinData: [], success: false, info: "Parametri non validi" });
     }
     if (req.body.itinerario == undefined || req.body.itinerario == "" || req.body.itinerario == null) {
-        const uuid = (await nano.uuids()).uuids[0];
-        await itinerari.insert({ nome: req.body.nome, creatore: req.body.creatore, tappe: req.body.tappe }, uuid);
+        await itinerari.insert({ nome: req.body.nome, creatore: req.body.creatore, tappe: req.body.tappe }, (await nano.uuids()).uuids[0]);
         try {
-            var doc = await itinerari.get(uuid);
-            await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + uuid, output: { itinData: doc, success: true, info: "Itinerario creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
+            var doc = await itinerari.get((await nano.uuids()).uuids[0]);
+            await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + (await nano.uuids()).uuids[0], output: { itinData: doc, success: true, info: "Itinerario creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
             res.status(200).send({ itinData: doc, success: true, info: "Itinerario creato" });
         } catch {
-            await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + uuid, output: { itinData: [], success: false, info: "Itinerario non creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
+            await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + (await nano.uuids()).uuids[0], output: { itinData: [], success: false, info: "Itinerario non creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
             res.status(404).send({ itinData: [], success: false, info: "Itinerario non creato" });
         }
     } else {
@@ -309,14 +308,13 @@ router.post('/itinerari', async (req, res) => {
             };
             const itin = await itinerari.find(q1);
             if (itin.docs.length == 0) {
-                // const uuid = (await nano.uuids()).uuids[0];
-                // await itinerari.insert({ nome: req.body.nome, creatore: req.body.creatore, tappe: req.body.tappe }, uuid);
+                // await itinerari.insert({ nome: req.body.nome, creatore: req.body.creatore, tappe: req.body.tappe }, (await nano.uuids()).uuids[0]);
                 // try {
-                //     var doc = await itinerari.get(uuid);
-                //     await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + uuid, output: { itinData: doc, success: true, info: "Itinerario creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
+                //     var doc = await itinerari.get((await nano.uuids()).uuids[0]);
+                //     await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + (await nano.uuids()).uuids[0], output: { itinData: doc, success: true, info: "Itinerario creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
                 //     res.status(200).send({ itinData: doc, success: true, info: "Itinerario creato" });
                 // } catch {
-                //     await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + uuid, output: { itinData: [], success: false, info: "Itinerario non creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
+                //     await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + (await nano.uuids()).uuids[0], output: { itinData: [], success: false, info: "Itinerario non creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
                 //     res.status(404).send({ itinData: [], success: false, info: "Itinerario non creato" });
                 // }
                 res.status(404).send({ itinData: [], success: false, info: "Itinerario da modificare non trovato" });

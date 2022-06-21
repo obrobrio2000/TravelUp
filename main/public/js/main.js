@@ -1,3 +1,8 @@
+// const socket = io(wsFrontendUrl);
+// socket.on('connect', () => {
+//   socket.emit('room', { room_name: 'clients' });
+// });
+
 $(function () {
 
   $(window).on('load scroll', function () {
@@ -20,6 +25,22 @@ $(function () {
 });
 
 AOS.init({ duration: 1000, delay: 10 });
+
+// function contattaci() {
+//   let text = document.getElementById("text").value;
+//   let number = document.getElementById("number").value;
+//   let email = document.getElementById("email").value;
+//   let tipoRichiesta = document.getElementById("tipoRichiesta").value;
+//   let message = document.getElementById("message").value;
+//   let dati = {
+//     nomeCompleto: text,
+//     numero: number,
+//     emailUtente: email,
+//     tipoRichiesta: tipoRichiesta,
+//     messaggio: message
+//   }
+//   socket.emit('mail', { emailUtente: dati, target: "contattaci" });
+// }
 
 function eliminaItinerario(idItinerario) {
   console.log(idItinerario);

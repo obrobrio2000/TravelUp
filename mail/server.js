@@ -19,12 +19,12 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
     sendMail(emailUtente, "benvenuto", socketid);
   });
 
-  socket.on("accesso", (data) => {
-    console.log('richiesta ricevuta dal server per accesso')
-    emailUtente = data.emailUtente;
-    socketid = data.socketid;
-    sendMail(emailUtente, "accesso", socketid);
-  });
+  // socket.on("accesso", (data) => {
+  //   console.log('richiesta ricevuta dal server per accesso')
+  //   emailUtente = data.emailUtente;
+  //   socketid = data.socketid;
+  //   sendMail(emailUtente, "accesso", socketid);
+  // });
 
   socket.on("newsletterYes", (data) => {
     console.log('richiesta ricevuta dal server per newsletterYes')
@@ -47,12 +47,11 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
     sendMail(emailUtente, "addio", socketid);
   });
 
-  socket.on("test", (data) => {
-    console.log('richiesta ricevuta dal server per test')
-    emailUtente = data.emailUtente;
-    socketid = data.socketid;
-    sendMail(emailUtente, "test", socketid);
-  });
+  // socket.on("contattaci", (data) => {
+  //   console.log('richiesta ricevuta dal server per contattaci')
+  //   dati = data.dati;
+  //   sendMail(dati, "contattaci", socketid);
+  // });
 }
 
 var sendMail = async function sendMail(emailUtente, tipo, socketid) {
@@ -81,17 +80,17 @@ var sendMail = async function sendMail(emailUtente, tipo, socketid) {
         console.log("Messaggio di benvenuto inviato: %s", info.messageId);
         break;
       }
-      case "accesso": {
-        let info = await transporter.sendMail({
-          from: process.env.GMAIL_EMAIL,
-          to: emailUtente,
-          subject: "Accesso su TravelUp",
-          // text: "Hai appena effettuato l'accesso su TravelUp!\n\nSe non sei stato tu, contatta lo staff di TravelUp su https://localhost#contatti o all'indirizzo travelupinc@gmail.com .\n\nCordiali saluti,\n\nTravelUp",
-          html: "Hai appena effettuato l'accesso su TravelUp! 😃<br><br>Se non sei stato tu, contatta lo staff di TravelUp <a href='https://localhost#contatti'>qui</a> o all'indirizzo <a href='mailto:travelupinc@gmail.com'>travelupinc@gmail.com</a>.<br><br>Cordiali saluti,<br><br>TravelUp",
-        });
-        console.log("Messaggio di accesso inviato: %s", info.messageId);
-        break;
-      }
+      // case "accesso": {
+      //   let info = await transporter.sendMail({
+      //     from: process.env.GMAIL_EMAIL,
+      //     to: emailUtente,
+      //     subject: "Accesso su TravelUp",
+      //     // text: "Hai appena effettuato l'accesso su TravelUp!\n\nSe non sei stato tu, contatta lo staff di TravelUp su https://localhost#contatti o all'indirizzo travelupinc@gmail.com .\n\nCordiali saluti,\n\nTravelUp",
+      //     html: "Hai appena effettuato l'accesso su TravelUp! 😃<br><br>Se non sei stato tu, contatta lo staff di TravelUp <a href='https://localhost#contatti'>qui</a> o all'indirizzo <a href='mailto:travelupinc@gmail.com'>travelupinc@gmail.com</a>.<br><br>Cordiali saluti,<br><br>TravelUp",
+      //   });
+      //   console.log("Messaggio di accesso inviato: %s", info.messageId);
+      //   break;
+      // }
       case "newsletterYes": {
         let info = await transporter.sendMail({
           from: process.env.GMAIL_EMAIL,
@@ -125,17 +124,17 @@ var sendMail = async function sendMail(emailUtente, tipo, socketid) {
         console.log("Messaggio di addio inviato: %s", info.messageId);
         break;
       }
-      case "test": {
-        let info = await transporter.sendMail({
-          from: process.env.GMAIL_EMAIL,
-          to: emailUtente,
-          subject: "Test completato con successo!",
-          // text: "Grazie per esserti iscritto alla newsletter di TravelUp!\n\nD'ora in poi riceverai delle email periodiche riguardanti itinerari che ti potrebbero interessare e novità varie di TravelUp.\n\nCordiali saluti,\n\nTravelUp",
-          html: "Il test effettuato con Jest è andato a buon fine!",
-        });
-        console.log("Messaggio di test inviato: %s", info.messageId);
-        break;
-      }
+      // case "contattaci": {
+      //   let info = await transporter.sendMail({
+      //     from: emailUtente.emailUtente,
+      //     to: process.env.GMAIL_EMAIL,
+      //     subject: "Richiesta di contatto da " + emailUtente.emailUtente,
+      //     // text: "Grazie per esserti iscritto alla newsletter di TravelUp!\n\nD'ora in poi riceverai delle email periodiche riguardanti itinerari che ti potrebbero interessare e novità varie di TravelUp.\n\nCordiali saluti,\n\nTravelUp",
+      //     html: "<h1>Richiesta di contatto da " + emailUtente.emailUtente + "</h1><br><br>Nome: " + emailUtente.nomeCompleto + "<br>Numero: " + emailUtente.numero + "<br>Email: " + emailUtente.emailUtente + "<br>Tipo richiesta: " + emailUtente.tipoRichiesta + "<br>Messaggio: " + emailUtente.messaggio + "<br><br>Cordiali saluti,<br><br>TravelUp",
+      //   });
+      //   console.log("Messaggio di addio inviato: %s", info.messageId);
+      //   break;
+      // }
       default: {
         if ((process.env.NODE_ENV || '').trim() !== 'test') {
           io.to(socketid).emit('Errore');

@@ -4,6 +4,7 @@ const utenti = require('../models/utenti-model');
 const itinerari = require('../models/itinerari-model');
 const { google } = require('googleapis');
 const { OAuth2 } = google.auth;
+// var geoip = require('geoip-lite');
 
 const app = express();
 
@@ -18,6 +19,7 @@ const authCheck = (req, res, next) => {
 }
 
 router.get('/', authCheck, async (req, res) => {
+    // console.log(geoip.lookup((req.headers['x-forwarded-for'] || req.socket.remoteAddress)));
     try {
         const q1 = {
             selector: {
