@@ -32,10 +32,10 @@ Quante volte abbiamo deciso di farci una bella vacanza e, una volta giunti a des
   - Il progetto lato server utilizza Node.js per lo scripting server-side, CouchDB come database relazionale;
 - Reti di Calcolatori:
   - Il progetto offre a terze parti le proprie API REST grazie ad Express.js e la documentazione è stata generata con apiDoc;
-  - Il progetto si interfaccia con i servizi REST esterni Google Maps, Google Calendar, Google Custom Search, OpenTripMap ed OpenWeatherMap;
-  - I servizi commerciali con cui il progetto si interfaccia sono Google Maps e Google Calendar, nonché i processi di autenticazione OAuth2 di Google e di Facebook.
+  - Il progetto si interfaccia con i servizi REST esterni Google Maps, Google Calendar, Google Custom Search ed OpenTripMap;
+  - I servizi commerciali con cui il progetto si interfaccia sono Google Maps, Google Calendar e Google Custom Search, nonché i processi di autenticazione OAuth2 di Google e di Facebook.
   - Il servizio richiedente OAuth2 con cui il progetto si interfaccia è Google Calendar;
-  - Il progetto prevede l'uso di protocolli asincroni, grazie alla libreria Socket.IO, per comunicare con le API OpenTripMap, OpenWeatherMap e Google Custom Search e per comunicare con un mail server Nodemailer per l'invio tramite Gmail SMTP di e-mail di vario tipo agli utenti;
+  - Il progetto prevede l'uso di protocolli asincroni, grazie alla libreria Socket.IO, per comunicare con le API OpenTripMap e Google Custom Search e con un mail server Nodemailer per l'invio tramite Gmail SMTP di e-mail di vario tipo agli utenti;
   - Il progetto deve prevedere l'uso di Docker e l'automazione del processo di lancio, configurazione e test;
   - Il progetto è containerizzato con Docker ed i vari container vengono orchestrati con Docker Compose. Il processo di lancio è automatizzato con uno script che ci permette di avviare i container in ambiente di sviluppo, di testing o di produzione.
   - Per il progetto è stato utilizzato Git ed è hostato su GitHub. Di quest'ultimo è stato fatto pieno uso (Actions, Codespaces, Projects, Milestones, Issues ecc.);
@@ -46,7 +46,7 @@ Quante volte abbiamo deciso di farci una bella vacanza e, una volta giunti a des
 - Architetture e tecnologie (diagramma creato con [diagrams.net](https://www.diagrams.net/)):
 
 <p align="center">
-  <img width="100%" src="https://user-images.githubusercontent.com/62136803/174467244-f1894e77-8d2d-4583-98e7-bcbac1d91c74.png" alt="TravelUp: diagramma architetture e tecnologie">
+  <img width="100%" src="https://user-images.githubusercontent.com/62136803/176517368-a97dc82f-a86d-48f2-99d8-b6ce8c24ac25.png" alt="TravelUp: diagramma architetture e tecnologie">
 </p>
 
 - docker-compose.yml (diagramma creato con [docker-compose-viz](https://github.com/pmsipilot/docker-compose-viz)):
@@ -126,7 +126,7 @@ Nella root directory si trova il file *docker-compose.yml* che contiene la confi
   - Nel percorso <u>main/models</u> si trovano *utenti-model.js*, *itinerari-model.js* e *logging_api-model.js*, che esportano rispettivamente i database CouchDB “utenti”, “itinerari” e "logging_api" per poter essere utilizzati negli altri file *.js*. Inoltre, vi si trovano *utenti-model-cache.js* ed *itinerari-model-cache.js*, che puntano alla cache del db per rispondere alle chiamate API interne (di TravelUp).
 - un server Nginx (directory <u>nginx</u>), il quale fornisce una connessione sicura HTTPS TLS1.3 con un certificato self-signed creato con OpenSSL e reindirizza qualsiasi tentativo di connessione HTTP alla porta 80 alla porta sicura 443. Inoltre, funge da reverse-proxy per il suddetto server Node.js principale, permettendoci di raggiungerlo quando ci si connette ad <https://localhost>.
 - un server Node.js Socket.IO (directory <u>ws</u>), che gestisce tutte le richieste con protocolli asincroni del server API esterne e del mail server.
-- un server Node.js API (directory <u>api</u>), che dialoga con il server Socket.IO per quanto riguarda le richieste API ad OpenTripMap, OpenWeatherMap e Google Custom Search.
+- un server Node.js API (directory <u>api</u>), che dialoga con il server Socket.IO per quanto riguarda le richieste API ad OpenTripMap e Google Custom Search.
 - un server Node.js Nodemailer (directory <u>mail</u>), mail server che dialoga con il server Socket.IO per quanto riguarda l’invio di e-mail agli utenti (e-mail di benvenuto ai nuovi utenti, e-mail di notifica di un nuovo accesso, newsletter ecc.).
 - un server CouchDB (directory <u>couchdb</u>) che ospita i vari database per l’accesso e la manipolazione dei dati contenuti in essi. Esso dispone anche di cache (per mezzo di Nginx) e di connessione sicura HTTPS (sia per il db diretto che per la cache).
 
