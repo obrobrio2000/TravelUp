@@ -28,7 +28,33 @@ jobs:
         npm ci --only=production --prefix ./ws
         npm ci --only=production --prefix ./mail
         npm ci --only=production --prefix ./api
-      
+
+    - name: Create .env file
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        envkey_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        envkey_GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        envkey_GOOGLE_CSE_ID: ${{ secrets.GOOGLE_CSE_ID }}
+        envkey_GMAIL_EMAIL: ${{ secrets.GMAIL_EMAIL }}
+        envkey_GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+        envkey_FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
+        envkey_FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
+        envkey_OPENTRIP_KEY: ${{ secrets.OPENTRIP_KEY }}
+        envkey_SESSIONSECRET: ${{ secrets.SESSIONSECRET }}
+        envkey_DOTFILES: ${{ secrets.DOTFILES }}
+        envkey_COUCHDB_USER: ${{ secrets.COUCHDB_USER }}
+        envkey_COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
+        envkey_COUCHDB_HOST: ${{ secrets.COUCHDB_HOST }}
+        envkey_COUCHDB_URL: ${{ secrets.COUCHDB_URL }}
+        envkey_COUCHDB_URL_CACHE: ${{ secrets.COUCHDB_URL_CACHE }}
+        envkey_WS_FRONTEND_URL: ${{ secrets.WS_FRONTEND_URL }}
+        envkey_WS_BACKEND_URL: ${{ secrets.WS_BACKEND_URL }}
+
+    - name: Create travelup_key.pem file
+      run: |
+        echo "${{ secrets.TRAVELUP_KEY_PEM }}" > nginx/ssl/travelup_key.pem
+
     - name: Start containers in testing environment and perform tests
       run: ./start test
 

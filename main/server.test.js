@@ -61,6 +61,24 @@ describe("Server principale", function () {
         }
         );
     });
+    describe('Funzionamento API proprietarie/interne', () => {
+        describe('GET utente di test', () => {
+            it('Deve ritornare 200 OK', (done) => {
+                request.get('/api/utenti/test@test.com?apikey=1234567890')
+                    .expect(200, done);
+            }
+            );
+        }
+        );
+        describe('GET itinerario di test', () => {
+            it('Deve ritornare 200 OK', (done) => {
+                request.get('/api/itinerari/itinerarioTest?apikey=1234567890')
+                    .expect(200, done);
+            }
+            );
+        }
+        );
+    });
 });
 
 describe("Server mail", function () {

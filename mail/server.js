@@ -19,13 +19,6 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
     sendMail(emailUtente, "benvenuto", socketid);
   });
 
-  // socket.on("accesso", (data) => {
-  //   console.log('richiesta ricevuta dal server per accesso')
-  //   emailUtente = data.emailUtente;
-  //   socketid = data.socketid;
-  //   sendMail(emailUtente, "accesso", socketid);
-  // });
-
   socket.on("newsletterYes", (data) => {
     console.log('richiesta ricevuta dal server per newsletterYes')
     emailUtente = data.emailUtente;
@@ -67,23 +60,21 @@ var sendMail = async function sendMail(emailUtente, tipo, socketid) {
           from: process.env.GMAIL_EMAIL,
           to: emailUtente,
           subject: "Benvenuto su TravelUp",
-          // text: "Ti ringraziamo per esserti registrato su TravelUp!\n\nOra potrai creare tantissimi itinerari nelle città di tuo interesse.\n\nCordiali saluti,\n\nTravelUp",
           html: "Ti ringraziamo per esserti registrato su TravelUp! 😃\n\nOra potrai creare tantissimi itinerari nelle città di tuo interesse.\n\nInizia subito <a href='https://localhost/itinerari'>qui</a> o visitando la pagina <a href='https://localhost/itinerari'>https://localhost/itinerari</a>.\n\nCordiali saluti,\n\nTravelUp",
         });
         console.log("Messaggio di benvenuto inviato: %s", info.messageId);
         break;
       }
-      // case "accesso": {
-      //   let info = await transporter.sendMail({
-      //     from: process.env.GMAIL_EMAIL,
-      //     to: emailUtente,
-      //     subject: "Accesso su TravelUp",
-      //     // text: "Hai appena effettuato l'accesso su TravelUp!\n\nSe non sei stato tu, contatta lo staff di TravelUp su https://localhost#contatti o all'indirizzo travelupinc@gmail.com .\n\nCordiali saluti,\n\nTravelUp",
-      //     html: "Hai appena effettuato l'accesso su TravelUp! 😃<br><br>Se non sei stato tu, contatta lo staff di TravelUp <a href='https://localhost#contatti'>qui</a> o all'indirizzo <a href='mailto:travelupinc@gmail.com'>travelupinc@gmail.com</a>.<br><br>Cordiali saluti,<br><br>TravelUp",
-      //   });
-      //   console.log("Messaggio di accesso inviato: %s", info.messageId);
-      //   break;
-      // }
+      case "accesso": {
+        let info = await transporter.sendMail({
+          from: process.env.GMAIL_EMAIL,
+          to: emailUtente,
+          subject: "Accesso su TravelUp",
+          html: "Hai appena effettuato l'accesso su TravelUp! 😃<br><br>Se non sei stato tu, contatta lo staff di TravelUp <a href='https://localhost#contatti'>qui</a> o all'indirizzo <a href='mailto:travelupinc@gmail.com'>travelupinc@gmail.com</a>.<br><br>Cordiali saluti,<br><br>TravelUp",
+        });
+        console.log("Messaggio di accesso inviato: %s", info.messageId);
+        break;
+      }
       case "newsletterYes": {
         let info = await transporter.sendMail({
           from: process.env.GMAIL_EMAIL,

@@ -84,10 +84,10 @@ io.on('connection', (socket) => {
 				socket.to('mail').emit('benvenuto', { socketid, emailUtente });
 				break;
 			};
-			// case 'accesso': {
-			// 	socket.to('mail').emit('accesso', { socketid, emailUtente });
-			// 	break;
-			// };
+			case 'accesso': {
+				socket.to('mail').emit('accesso', { socketid, emailUtente });
+				break;
+			};
 			case 'newsletterYes': {
 				socket.to('mail').emit('newsletterYes', { socketid, emailUtente });
 				break;

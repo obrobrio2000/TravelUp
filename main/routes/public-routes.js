@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+// rate limiter per prevenire attacchi DoS
+const rateLimit = require("express-rate-limit");
+const publicRoutesLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minuto
+    max: 10 * 5 // limita ogni IP a "max" richieste per "windowMs"
+});
+router.use(publicRoutesLimiter);
+
 // bootstrap
 router.get('/css/bootstrap.min.css', function (req, res) {
     res.sendFile('/usr/src/app/node_modules/bootstrap/dist/css/bootstrap.min.css');

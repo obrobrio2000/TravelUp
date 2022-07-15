@@ -16,9 +16,6 @@
   <a href="https://github.com/TUEngineers/TravelUp/actions/workflows/codeql.yml">
     <img alt="CodeQL" src="https://github.com/TUEngineers/TravelUp/actions/workflows/codeql.yml/badge.svg">
   </a>
-  <a href="https://github.com/TUEngineers/TravelUp/actions/workflows/super-linter.yml">
-    <img alt="Lint Code Base" src="https://github.com/TUEngineers/TravelUp/actions/workflows/super-linter.yml/badge.svg">
-  </a>
 </p>
 
 <h2 align="center">Scopo del progetto</h2>
@@ -39,7 +36,7 @@ Quante volte abbiamo deciso di farci una bella vacanza e, una volta giunti a des
   - Il progetto deve prevedere l'uso di Docker e l'automazione del processo di lancio, configurazione e test;
   - Il progetto è containerizzato con Docker ed i vari container vengono orchestrati con Docker Compose. Il processo di lancio è automatizzato con uno script che ci permette di avviare i container in ambiente di sviluppo, di testing o di produzione.
   - Per il progetto è stato utilizzato Git ed è hostato su GitHub. Di quest'ultimo è stato fatto pieno uso (Actions, Codespaces, Projects, Milestones, Issues ecc.);
-  - Il progetto prevede 3 workflows CI/CD con GitHub Actions.
+  - Il progetto prevede 2 workflows CI/CD con GitHub Actions.
 
 <h2 align="center">Architetture di riferimento e tecnologie usate</h2>
 
@@ -61,11 +58,10 @@ E' possibile leggere la documentazione delle API visitando <https://localhost/ap
 
 <h2 align="center">Forme di CI/CD</h2>
 
-Il progetto prevede 3 workflows CI/CD con GitHub Actions:
+Il progetto prevede 2 workflows CI/CD con GitHub Actions:
 
 - docker-node.yml installa node/npm in locale, esegue una clean install destinata alla produzione, inizializza i containers in ambiente di testing (e dunque esegue i test previsti), ed infine ferma i containers e pulisce tutto;
-- codeql.yml esegue semantic code analysis per eventuali vulnerabilità di sicurezza di Javascript;
-- super-linter.yml è una semplice combinazione di vari linter, scritti in bash, per aiutare a convalidare il codice sorgente, impedendo che del codice non funzionante venga caricato nel main branch;
+- codeql.yml esegue semantic code analysis per eventuali vulnerabilità di sicurezza di Javascript.
 
 <h2 align="center">Sicurezza</h2>
 
@@ -130,6 +126,6 @@ Nella root directory si trova il file *docker-compose.yml* che contiene la confi
 - un server Node.js Nodemailer (directory <u>mail</u>), mail server che dialoga con il server Socket.IO per quanto riguarda l’invio di e-mail agli utenti (e-mail di benvenuto ai nuovi utenti, e-mail di notifica di un nuovo accesso, newsletter ecc.).
 - un server CouchDB (directory <u>couchdb</u>) che ospita i vari database per l’accesso e la manipolazione dei dati contenuti in essi. Esso dispone anche di cache (per mezzo di Nginx) e di connessione sicura HTTPS (sia per il db diretto che per la cache).
 
-Nella directory *main* è anche presente un file *server.test.js*, il quale prevede 22 test (raggiungibilità dei vari server, corretto funzionamento delle richieste API esterne per il server API, corretto funzionamento dell’invio delle e-mail per il server Nodemailer, corretto funzionamento di Socket.IO, scrittura/lettura del database ecc.).
+Nella directory *main* è anche presente un file *server.test.js*, il quale prevede 29 test (raggiungibilità dei vari server, corretto funzionamento delle richieste API proprietarie/interne, corretto funzionamento delle richieste API esterne per il server API, corretto funzionamento dell’invio delle e-mail per il server Nodemailer, corretto funzionamento di Socket.IO, scrittura/lettura del database ecc.).
 
-Sono stati esclusi da git (attraverso l'apposito file *.gitignore*) il file del database "utenti" ed il file *.env*, contenenti dati sensibili, ed il file <u>nginx/ssl/</u>*travelup_key.pem*, chiave del certificato self-signed.
+Sono stati esclusi da git (attraverso l'apposito file *.gitignore*) il file *.env*, contenente dati sensibili, ed il file <u>nginx/ssl/</u>*travelup_key.pem*, chiave del certificato self-signed.

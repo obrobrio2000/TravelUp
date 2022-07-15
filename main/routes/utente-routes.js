@@ -55,7 +55,7 @@ router.get('/elimina', authCheck, async (req, res) => {
         res.redirect('/');
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -81,7 +81,7 @@ router.get('/newsletter', authCheck, async (req, res) => {
         res.redirect('/itinerari#gestisciAccount');
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -101,7 +101,7 @@ router.get('/rigeneraApiKey', authCheck, async (req, res) => {
         res.redirect('/itinerari#gestisciAccount');
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 

@@ -22,7 +22,7 @@ router.get(["/", "/index.html", "/home"], async (req, res) => {
         res.render('index', { itin: itin.docs, user: req.user });
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -32,7 +32,7 @@ router.get('/login', authCheck, (req, res) => {
 
 router.get('/logout', async (req, res) => {
     if ((process.env.NODE_ENV || '').trim() !== 'test' && req.user) {
-    var doc = await utenti.get(req.user.emails[0].value);
+        var doc = await utenti.get(req.user.emails[0].value);
         await utenti.insert({ nomeCompleto: doc.nomeCompleto, nome: doc.nome, cognome: doc.cognome, email: doc.email, foto: doc.foto, googleId: doc.id, facebookId: doc.facebookId, accessToken: "deleted", metodo: doc.metodo, nlConsent: doc.nlConsent, hasReviewed: doc.hasReviewed, newUser: doc.newUser, apiKey: doc.apiKey, _rev: doc._rev }, doc._id);
     }
     req.logout();

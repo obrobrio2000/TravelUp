@@ -55,6 +55,11 @@ router.get('/', function (req, res) {
  *     {"userData":[],"itinData":[],"success":false,"info":"Utente non trovato"}
  */
 router.get('/utenti/:utente', async (req, res) => {
+    if (Object.keys(req.body).length === 0 && Object.keys(req.query).length !== 0) {
+        req.body = req.query;
+    } else if (Object.keys(req.body).length !== 0 && Object.keys(req.query).length === 0) {
+        req.query = req.body;
+    }
     const q = {
         selector: {
             apiKey: { "$eq": req.body.apikey }
@@ -62,7 +67,7 @@ router.get('/utenti/:utente', async (req, res) => {
     };
     const apikey = await utenti.find(q);
     if (apikey.docs.length == 0) {
-        res.status(404).send({ userData: [], itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestione Account della tua dashboard." });
+        res.status(404).send({ userData: [], itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestisci account della tua dashboard." });
     }
     if (req.params.utente == undefined || req.params.utente == "" || req.params.utente == null) {
         await logging_api.insert({ apiKey: req.body.apikey, richiesta: "GET /utenti/" + req.params.utente, output: { userData: [], itinData: [], success: false, info: "Parametro non valido" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
@@ -97,7 +102,7 @@ router.get('/utenti/:utente', async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -134,7 +139,7 @@ router.delete('/utenti/:utente', async (req, res) => {
     };
     const apikey = await utenti.find(q);
     if (apikey.docs.length == 0) {
-        res.status(404).send({ userData: [], itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestione Account della tua dashboard." });
+        res.status(404).send({ userData: [], itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestisci account della tua dashboard." });
     }
     if (req.params.utente != apikey.docs[0]._id) {
         res.status(404).send({ userData: [], itinData: [], success: false, info: "Non puoi eliminare un utente diverso da te stesso!" });
@@ -164,7 +169,7 @@ router.delete('/utenti/:utente', async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -202,6 +207,11 @@ router.delete('/utenti/:utente', async (req, res) => {
  *     {"itinData":[],"success":false,"info":"Itinerario non trovato"}
  */
 router.get('/itinerari/:itinerario', async (req, res) => {
+    if (Object.keys(req.body).length === 0 && Object.keys(req.query).length !== 0) {
+        req.body = req.query;
+    } else if (Object.keys(req.body).length !== 0 && Object.keys(req.query).length === 0) {
+        req.query = req.body;
+    }
     const q = {
         selector: {
             apiKey: { "$eq": req.body.apikey }
@@ -209,7 +219,7 @@ router.get('/itinerari/:itinerario', async (req, res) => {
     };
     const apikey = await utenti.find(q);
     if (apikey.docs.length == 0) {
-        res.status(404).send({ itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestione Account della tua dashboard." });
+        res.status(404).send({ itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestisci account della tua dashboard." });
     }
     if (req.params.itinerario == undefined || req.params.itinerario == "" || req.params.itinerario == null) {
         await logging_api.insert({ apiKey: req.body.apikey, richiesta: "GET /itinerari/" + req.params.itinerario, output: { itinData: doc, success: false, info: "Parametro non valido" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
@@ -232,7 +242,7 @@ router.get('/itinerari/:itinerario', async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -284,7 +294,7 @@ router.post('/itinerari', async (req, res) => {
     };
     const apikey = await utenti.find(q);
     if (apikey.docs.length == 0) {
-        res.status(404).send({ itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestione Account della tua dashboard." });
+        res.status(404).send({ itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestisci account della tua dashboard." });
     }
     if (req.body.nome == undefined || req.body.nome == "" || req.body.nome == null || req.body.creatore == undefined || req.body.creatore == "" || req.body.creatore == null || req.body.tappe == undefined || req.body.tappe == "" || req.body.tappe == null) {
         res.status(404).send({ itinData: [], success: false, info: "Parametri non validi" });
@@ -308,15 +318,6 @@ router.post('/itinerari', async (req, res) => {
             };
             const itin = await itinerari.find(q1);
             if (itin.docs.length == 0) {
-                // await itinerari.insert({ nome: req.body.nome, creatore: req.body.creatore, tappe: req.body.tappe }, (await nano.uuids()).uuids[0]);
-                // try {
-                //     var doc = await itinerari.get((await nano.uuids()).uuids[0]);
-                //     await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + (await nano.uuids()).uuids[0], output: { itinData: doc, success: true, info: "Itinerario creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
-                //     res.status(200).send({ itinData: doc, success: true, info: "Itinerario creato" });
-                // } catch {
-                //     await logging_api.insert({ apiKey: req.body.apikey, richiesta: "POST /itinerari/" + (await nano.uuids()).uuids[0], output: { itinData: [], success: false, info: "Itinerario non creato" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
-                //     res.status(404).send({ itinData: [], success: false, info: "Itinerario non creato" });
-                // }
                 res.status(404).send({ itinData: [], success: false, info: "Itinerario da modificare non trovato" });
             } else {
                 var doc = await itinerari.get(req.body.itinerario);
@@ -332,7 +333,7 @@ router.post('/itinerari', async (req, res) => {
             }
         } catch (err) {
             console.log(err);
-            res.render('errore');
+            res.status(404).render('errore');
         }
     }
 });
@@ -369,7 +370,7 @@ router.delete('/itinerari/:itinerario', async (req, res) => {
     };
     const apikey = await utenti.find(q);
     if (apikey.docs.length == 0) {
-        res.status(404).send({ itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestione Account della tua dashboard." });
+        res.status(404).send({ itinData: [], success: false, info: "Chiave API non valida! Dopo aver effettuato il login su TravelUp, puoi trovare la tua chiave API personale nella sezione Gestisci account della tua dashboard." });
     }
     if (req.params.itinerario == undefined || req.params.itinerario == "" || req.params.itinerario == null) {
         await logging_api.insert({ apiKey: req.body.apikey, richiesta: "DELETE /itinerari/" + req.params.itinerario, output: { itinData: doc, success: false, info: "Parametro non valido" }, timestamp: ((new Date()).toISOString()) }, (await nano.uuids()).uuids[0]);
@@ -387,7 +388,7 @@ router.delete('/itinerari/:itinerario', async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 

@@ -36,17 +36,12 @@ router.get('/', authCheck, async (req, res) => {
         res.render('itinerari', { itin: itin.docs, utente: utente.docs[0] });
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
 router.get('/nuovo', authCheck, async (req, res) => {
     res.render('nuovo-itinerario', { user: req.user });
-});
-
-router.get('/:itinerario/modifica', authCheck, async (req, res) => {
-    // res.render('modifica-itinerario', { user: req.user });
-    res.send("Lavori in corso...");
 });
 
 router.get('/:itinerario/elimina', authCheck, async (req, res) => {
@@ -61,11 +56,11 @@ router.get('/:itinerario/elimina', authCheck, async (req, res) => {
             await itinerari.destroy(itin.docs[0]._id, itin.docs[0]._rev);
             res.redirect('/itinerari#itinerari');
         } else {
-            res.render('errore');
+            res.status(404).render('errore');
         }
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -78,13 +73,13 @@ router.get('/:itinerario', async (req, res) => {
         };
         const itin = await itinerari.find(q);
         if (itin.docs.length == 0) {
-            res.render('errore');
+            res.status(404).render('errore');
         } else {
             res.render('visualizza-itinerario', { itinerario: itin.docs[0], user: req.user });
         }
     } catch (err) {
         console.log(err);
-        res.render('errore');
+        res.status(404).render('errore');
     }
 });
 
@@ -97,7 +92,7 @@ router.get('/:itinerario/aggiungiACalendar', authCheck, async (req, res) => {
         };
         const itin = await itinerari.find(q1);
         if (itin.docs.length == 0) {
-            res.render('errore');
+            res.status(404).render('errore');
         } else {
             const q2 = {
                 selector: {
@@ -159,7 +154,6 @@ router.get('/:itinerario/aggiungiACalendar', authCheck, async (req, res) => {
         console.log(err);
         req.session.returnTo = req.originalUrl;
         res.redirect('/auth/google');
-        // res.render('errore');
     }
 });
 

@@ -52,16 +52,6 @@ if ((process.env.NODE_ENV || '').trim() !== 'test') {
     });
 }
 
-// function Musuem(title,desc,url){
-//     this.title = title;
-//     if(desc != ""){
-//         this.desc = desc;
-//     }else{
-//         this.desc = undefined;
-//     }
-//     this.url = 'https://it.wikipedia.org/?curid='+url;
-// }
-
 var getCultura = async function getCultura(citta, socketid) {
     var URLrichiesta = 'https://api.opentripmap.com/0.1/en/places/geoname?name=' + citta + '&country=it&apikey=' + process.env.OPENTRIP_KEY
     URLrichiesta = decodeURI(URLrichiesta)
@@ -215,7 +205,6 @@ var getImmagini = async function getImmagini(nome, creatore, tappe, socketid) {
         await client.search(tappa.url.replace("https://google.com/search?q=", ""))
             .then(async (images) => {
                 tappa.foto = images[0].url;
-                // console.log("Immagine tappa ottenuta con successo: " + tappa.foto)
                 if (tappa == tappe[tappe.length - 1] && (process.env.NODE_ENV || '').trim() !== 'test') {
                     socket.emit("immagini_rispostaApi", { socketid, nome: nome, creatore: creatore, tappe: tappe })
                 };
