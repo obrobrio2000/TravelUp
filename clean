@@ -1,0 +1,9 @@
+#!/bin/bash
+printf "Terminazione dei container ancora aperti e pulizia ...\n"
+docker-compose --log-level ERROR down --remove-orphans
+printf "Aggiornamento dei package-lock.json ...\n"
+(cd main && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+(cd mail && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+(cd api && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+(cd ws && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+# rm -rf ./*/node_modules

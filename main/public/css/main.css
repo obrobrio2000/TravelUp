@@ -1,0 +1,411 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap');
+
+:root {
+  --bluChiaro: #0c8de0;
+  --bluScuro: #014775;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  text-decoration: none !important;
+  font-weight: 400;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow: hidden;
+}
+
+.button {
+  height: 3.5rem;
+  width: 20rem;
+  background: var(--bluChiaro);
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.buttonGoogle {
+  height: 3.5rem;
+  width: 22.5rem;
+  background: var(--bluChiaro);
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.buttonFacebook {
+  height: 3.5rem;
+  width: 22.5rem;
+  background: var(--bluScuro);
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.buttonRed {
+  height: 3.5rem;
+  width: 20rem;
+  background: #830505;
+  color: #fff;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--bluScuro);
+  z-index: -1;
+  transition: .2s linear;
+}
+
+.button:hover:before {
+  top: 0%;
+}
+
+.button:hover {
+  box-shadow: .1rem .5rem var(--bluChiaro), 0 .3rem .5rem rgba(0, 0, 0, .3);
+}
+
+.heading {
+  text-align: center;
+  font-size: 4rem;
+  padding: 1rem;
+  padding-top: 8rem;
+  color: var(--bluScuro);
+}
+
+.heading span {
+  color: var(--bluChiaro);
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1rem 1rem;
+  z-index: 1000;
+}
+
+.header-active {
+  background: #fff;
+  box-shadow: 0 .1rem .3rem rgba(0, 0, 0, .3);
+  padding: .5rem 1rem;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header a {
+  color: var(--bluScuro);
+}
+
+header a:hover {
+  color: var(--bluChiaro);
+}
+
+header .nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+header .nav ul li {
+  margin: 0 1rem;
+}
+
+header .nav ul li a {
+  font-size: 2rem;
+}
+
+.home .content h1 {
+  font-size: 4.75rem;
+  color: var(--bluScuro);
+}
+
+.home .content h1 span {
+  color: var(--bluChiaro);
+}
+
+.home .content h3 {
+  font-size: 2rem;
+  color: var(--bluScuro);
+}
+
+.recens {
+  background: var(--bluScuro);
+}
+
+.recens .heading {
+  color: #fff;
+}
+
+.recens .heading-description {
+  color: #fff;
+  text-align: center;
+}
+
+.recens .box-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: -2.5rem;
+  padding-bottom: 5rem;
+}
+
+.recens .box-container .box {
+  background: #fff;
+  width: 30rem;
+  margin: 5rem 1rem;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.recens .box-container .box img {
+  position: absolute;
+  bottom: -7.5rem;
+  left: -1rem;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.recens .box-container .box p {
+  font-size: 1.4rem;
+  color: var(--bluScuro);
+}
+
+.recens .box-container .box h3 {
+  text-align: end;
+  color: var(--bluChiaro);
+}
+
+.recens .box-container .box span {
+  text-align: end;
+  color: var(--bluScuro);
+  display: block;
+  font-size: 1.5rem;
+}
+
+.recens .box-container .box::before {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: .4rem;
+  height: 2rem;
+  width: 2rem;
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+.contatti {
+  background: var(--bluScuro);
+  margin-top: -0.1rem;
+}
+
+.contatti .heading {
+  color: #fff;
+}
+
+.contatti .heading-description {
+  color: #fff;
+  text-align: center;
+  padding-bottom: 1.5rem;
+}
+
+.contatti form {
+  text-align: center;
+}
+
+.contatti form .inputBox {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.contatti form .inputBox input,
+select {
+  height: 4rem;
+  width: 49%;
+  padding: 0 1rem;
+  margin: 1rem 0;
+  font-size: 1.7rem;
+  color: var(--bluScuro);
+  border-radius: 5px;
+}
+
+.contatti form textarea {
+  height: 20rem;
+  resize: none;
+  padding: 1rem;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.contatti form input[type="submit"] {
+  width: 20rem;
+  border-radius: 5px;
+}
+
+.contatti form input[type="submit"]:hover {
+  background: var(--bluScuro);
+  border-radius: 5px;
+  transition: .2s linear;
+}
+
+.itinerari .heading-description {
+  color: var(--bluScuro);
+  text-align: center;
+}
+
+.itinerari .box-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.itinerari .box-container .box {
+  width: 30rem;
+  margin: 2rem 1rem;
+  overflow: hidden;
+  border-radius: .5rem;
+  box-shadow: 0 .3rem .5rem rgba(0, 0, 0, .3);
+}
+
+.itinerari .box-container .box img {
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.itinerari .box-container .box .content {
+  padding: 0 1.5rem;
+}
+
+.itinerari .box-container .box .content span {
+  color: #666;
+  font-size: 1.5rem;
+  display: block;
+  padding: 1rem 0;
+}
+
+.itinerari .box-container .box .content h3 {
+  font-size: 2rem;
+  color: var(--bluScuro);
+}
+
+.itinerari .box-container .box .content:hover h3 {
+  color: var(--bluChiaro);
+}
+
+.itinerari .box-container .box .content p {
+  font-size: 1.3rem;
+  color: var(--bluScuro);
+}
+
+.footer {
+  background: var(--bluScuro);
+  margin-top: -0.1rem;
+}
+
+.footer a {
+  font-size: 2rem;
+  color: #ccc;
+  display: block;
+}
+
+.footer a:hover {
+  color: var(--bluChiaro);
+}
+
+.footer .credit {
+  color: #fff;
+  width: 80%;
+  margin: 0;
+  padding: 2rem 0;
+  padding-bottom: 4rem;
+  border-top: .1rem solid #ccc;
+}
+
+.loginLink {
+  display: none;
+}
+
+.propic {
+  border-radius: 50%;
+}
+
+.gestisciAccount {
+  background: #eee;
+}
+
+.gestisciAccount .content .box {
+  margin: 3rem 0;
+}
+
+.gestisciAccount .content .box h3 {
+  font-size: 2.5rem;
+  color: var(--black);
+}
+
+.gestisciAccount .content .box h3 i {
+  padding: 0 1rem;
+  color: var(--blue);
+}
+
+.gestisciAccount .content .box p {
+  font-size: 1.7rem;
+  /* padding-left: 6rem; */
+  color: #666;
+}
+
+@media (max-width: 992px) {
+  .gestisciAccount .content .box {
+    align-items: center;
+    text-align: center;
+    }
+}

@@ -1,4 +1,11 @@
-node_modules/*
+node_modules
 *.key
 *.pem
-!*dhparam*.pem
+travelup_key.pem
+!travelup_crt.pem
+!dhparam.pem
+*Zone.Identifier
+fiveserver.config.js
+.env
+utenti.*.couch
+.cache

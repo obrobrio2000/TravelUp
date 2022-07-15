@@ -1,129 +1,131 @@
-version: "3.8"
 services:
-    node:
-        build: "./node"
-        container_name: node
-        hostname: node
-        ports:
-            - "8080:8080"
-        restart: unless-stopped
+    main:
+        build:
+            context: ./main
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
+        container_name: main
+        hostname: main
         environment:
-            - NODE_ENV=production
+            - NODE_NO_WARNINGS=1
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
-            postgres:
+            couchdb:
                 condition: service_healthy
-        links:
-            - postgres
         networks:
             - frontend
             - backend
+        env_file:
+            - ${DOTFILES}/.env
         volumes:
-            - ./node/public:/usr/src/app/public
-            - ./node/server.js:/usr/src/app/server.js
+            - ./main/public:/usr/src/app/public
+            - ./main/config:/usr/src/app/config
+            - ./main/models:/usr/src/app/models
+            - ./main/routes:/usr/src/app/routes
+            - ./main/views:/usr/src/app/views
+            - ./main/server.js:/usr/src/app/server.js
+            - ./main/server.test.js:/usr/src/app/server.test.js
+            - ./mail/server.js:/usr/src/app/server-mail.js
+            - ./api/server.js:/usr/src/app/server-api.js
+            - ./ws/server.js:/usr/src/app/server-ws.js
     mail:
-        build: "./mail"
+        build:
+            context: ./mail
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
         container_name: mail
         hostname: mail
-        ports:
-            - "465:465"
-        restart: unless-stopped
         environment:
-            - NODE_ENV=production
+            - NODE_NO_WARNINGS=1
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         depends_on:
-            - node
-        links:
-            - node
+            - ws
         networks:
-            - frontend
             - backend
+        env_file:
+            - ${DOTFILES}/.env
         volumes:
             - ./mail/server.js:/usr/src/app/server.js
+    api:
+        build:
+            context: ./api
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
+        container_name: api
+        hostname: api
+        environment:
+            - NODE_NO_WARNINGS=1
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
+        depends_on:
+            - ws
+        networks:
+            - backend
+        env_file:
+            - ${DOTFILES}/.env
+        volumes:
+            - ./api/server.js:/usr/src/app/server.js
     ws:
-        build: "./ws"
+        build:
+            context: ./ws
+            args:
+                - NODE_ENV=${NODE_ENV}
+        command: npm run ${NODE_ENV}
         container_name: ws
         hostname: ws
         ports:
             - '1337:1337'
-        restart: unless-stopped
         environment:
-            - NODE_ENV=production
-        depends_on:
-            - node
-        links:
-            - node
+            - NODE_NO_WARNINGS=1
+            - NODE_TLS_REJECT_UNAUTHORIZED=0 # per l'https del db
         networks:
-            - frontend
             - backend
+        env_file:
+            - ${DOTFILES}/.env
         volumes:
             - ./ws/server.js:/usr/src/app/server.js
     nginx:
         build: "./nginx"
         container_name: nginx
         hostname: nginx
+        restart: always
         ports:
             - "80:80"
             - "443:443"
-        restart: unless-stopped
         depends_on:
-            - node
+            - main
         networks:
             - frontend
+            - backend
+        env_file:
+            - ${DOTFILES}/.env
         volumes:
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/ssl:/etc/nginx/ssl
-    postgres:
-        image: postgres:alpine
+            - ${DOTFILES}/nginx/ssl/travelup_key.pem:/etc/nginx/ssl/travelup_key.pem
+    couchdb:
+        image: couchdb
+        container_name: couchdb
+        hostname: couchdb
         restart: always
-        environment:
-            - POSTGRES_PASSWORD=postgres
-        container_name: postgres
-        hostname: postgres
         ports:
-            - "5432:5432"
+            - "6984:6984" # Management diretto (write) su https://localhost:6984/_utils/ e cache (read) su https://localhost:4984/
         networks:
             - backend
+        env_file:
+            - ${DOTFILES}/.env
         volumes:
-            - ./postgres/db-seed.sql:/docker-entrypoint-initdb.d/db-seed.sql
+            - ./couchdb/data:/opt/couchdb/data
+            - ./couchdb/etc/local.ini:/opt/couchdb/etc/local.ini
+            - ./nginx/ssl:/opt/couchdb/ssl
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            test: [ "CMD-SHELL", "curl -k -f https://localhost:6984/" ]
             interval: 5s
             timeout: 5s
             retries: 5
-    pgadmin:
-        image: dpage/pgadmin4
-        environment:
-            PGADMIN_LISTEN_PORT: 16543
-            PGADMIN_DEFAULT_EMAIL: "postgres@example.com"
-            PGADMIN_DEFAULT_PASSWORD: "postgres"
-        container_name: pgadmin
-        hostname: pgadmin
-        ports:
-            - "16543:16543"
-        depends_on:
-            postgres:
-                condition: service_healthy
-        links:
-            - postgres
-        networks:
-            - backend
-    rabbit:
-        image: rabbitmq:management-alpine
-        container_name: rabbit
-        hostname: rabbit
-        ports:
-            - '5672:5672' # AMQP protocol port
-            - '15672:15672' # HTTP management UI
-        restart: unless-stopped
-        environment:
-            - RABBITMQ_DEFAULT_USER=myuser
-            - RABBITMQ_DEFAULT_PASS=mypassword
-        depends_on:
-            - node
-        links:
-            - node
-        networks:
-            - frontend
-            - backend
+            start_period: 40s
 networks:
     frontend:
     backend:

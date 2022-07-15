@@ -1,0 +1,3 @@
+#!/bin/bash
+printf "Risoluzione problemi di permessi di file e cartelle (richiede permessi di root!) ...\n"
+sudo chown -hR $USER:$USER * .

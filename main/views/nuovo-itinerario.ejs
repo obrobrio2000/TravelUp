@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelUp: Nuovo itinerario</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+
+    <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="/css/nuovo-itinerario.css">
+
+    <script>const wsFrontendUrl = "<%= process.env.WS_FRONTEND_URL %>"</script>
+
+</head>
+
+<body>
+
+    <!-- inizio sezione header -->
+
+    <header data-aos="fade-down">
+
+        <div class="container">
+
+            <a class="navbar-brand logo" href="/">
+                <img src="/assets/images/logoleft.png" style="max-width: 175px; height: auto;" alt="">
+            </a>
+
+            <nav class="nav">
+                <ul>
+                    <% if (!user) { %>
+                        <div class="loginLink">
+                            <li><a href="#home">Accedi</a></li>
+                        </div>
+                        <% } else { %>
+                            <li><a href="/itinerari">Torna alla dashboard</a></li>
+                            <li><a href="/logout">Esci</a></li>
+                            <% } %>
+                </ul>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- fine sezione header -->
+
+    <!-- inizio sezione home -->
+
+    <section class="home" id="home">
+        <div class="container pt-5">
+            <div class="container-fluid min-vh-100 pt-5 mt-5 w-100">
+                <div class="space">
+                </div>
+                <div class="border imgtravel" data-aos="fade-down">
+                    <img src="/assets/images/header_travel.png" style="max-width: 100%; height:20%" alt="">
+                </div>
+                <div class="space">
+                </div>
+                <div class="row itinerari">
+                    <div class="col-xs-7 col-sm-4 gestioneItinerari ps-3" data-aos="fade-right">
+                        <div class="row align-items-start w-100 mb-5 " data-aos="fade-right">
+                            <form id="form">
+                                <div class="d-flex justify-content-between">
+                                    <div class="border border-3 border-primary rounded-3 pt-2 px-4 citta">
+                                        <label>Città: </label>
+                                        <input type="text" placeholder="Inserisci città di destinazione"
+                                            autocomplete="off" id="citta" size="23">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row tappeItinerario border ">
+                            <label> Il Tuo Itinerario </label>
+                            <input type="text" placeholder="Inserisci il titolo del tuo itinerario" required="true"
+                                autocomplete="off" id="titoloItinerario">
+                            <div class="list-group scrollInfo">
+                                <ul id="Viewer">
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-between align-items-start ">
+                            <script>var userId = "<%=user.emails[0].value %>";</script>
+                            <button class="button" id="salva" onclick="saveItinerario(userId)">Salva</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-7 col-sm-8 interesse " data-aos="fade-left">
+                        <label>Scopri luoghi d'interesse</label>
+                        <nav class="navbar navbar-expand navbar-light">
+                            <div class="container-fluid">
+                                <div class="w-100 navbar-nav me-auto mb-2 mb-lg-0">
+                                    <button class="button nav-item active border" type="button"
+                                        id="Cultura">Cultura</button>
+                                    <button class="button nav-item active border" type="button"
+                                        id="Utility">Servizi</button>
+                                    <button class="button nav-item active border" type="button"
+                                        id="Food">Ristoro</button>
+                                    <button class="button nav-item active border" type="button"
+                                        id="Intrattenimento">Svago</button>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="list-group scrollInfo">
+                            <ul class="infotappe" id="infotappe">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- fine sezione home -->
+    <!-- inizio sezione footer  -->
+
+    <section class="footer">
+
+        <h1 class="credit text-center mx-auto" style="z-index: 1000;">© 2022 TravelUp ®<br>Tutti
+            i diritti riservati.<br>Immagini da: Storyset, Google Images<br><a
+                href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
+
+    </section>
+
+
+    <!-- fine sezione footer -->
+
+    <script src="/js/aos.js"></script> <!-- AOS JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+    <script src="/js/jquery.min.js"></script> <!-- jQuery -->
+    <script src="/js/socket.io.min.js"></script> <!-- Socket.IO -->
+    <script src="/js/main.js"></script>
+    <script src="/js/nuovo-itinerario.js"></script>
+</body>
+
+</html>

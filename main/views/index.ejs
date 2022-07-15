@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelUp</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+
+    <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- <script>const wsFrontendUrl = "<%= process.env.WS_FRONTEND_URL %>"</script> -->
+
+</head>
+
+<body>
+
+    <!-- inizio sezione header -->
+
+    <header data-aos="fade-down">
+
+        <div class="container">
+
+            <a class="navbar-brand logo" href="/">
+                <img src="/assets/images/logoleft.png" style="max-width: 175px; height: auto;" alt="">
+            </a>
+
+            <nav class="nav">
+                <ul>
+                    <% if (!user) { %>
+                        <div class="loginLink">
+                            <li><a href="#home">Accedi</a></li>
+                        </div>
+                        <% } else { %>
+                            <li><a href="/logout">Esci</a></li>
+                            <% } %>
+                </ul>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- fine sezione header -->
+
+    <!-- inizio sezione home -->
+
+    <section class="home" id="home">
+
+        <div class="container">
+
+            <div class="row min-vh-100 align-items-center text-center">
+
+                <div class="col-md-6 pr-md-5" data-aos="fade-right">
+                    <img src="/assets/images/index.svg" width="100%" alt="">
+                </div>
+
+                <div class="col-md-6 pl-md-5 content" data-aos="fade-left">
+                    <h1>Crea l'<span>itinerario</span> dei tuoi <span>sogni</span></h1>
+                    <h3>TravelUp ti permette di comporre il tuo itinerario di viaggio secondo
+                        luoghi di interesse, eventi, traffico, meteo e molto altro</h3>
+                    <% if (!user) { %>
+                        <a href="/auth/google"><button class="buttonGoogle">Accedi con Google</button></a>
+                        <a href="/auth/facebook"><button class="buttonFacebook">Accedi con Facebook</button></a>
+                        <% } else { %>
+                            <a href="/itinerari"><button class="button">Vai alla dashboard</button></a>
+                            <% } %>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione home -->
+
+    <!-- inizio sezione itinerari -->
+
+    <section class="itinerari" id="itinerari">
+
+        <div class="container min-vh-100">
+
+            <h1 class="heading" data-aos="fade-up"> Itinerari d'esempio </h1>
+            <h2 class="heading-description text-center" data-aos="fade-up">Dai un'occhiata a qualche itinerario
+                predefinito!</h2>
+
+            <div class="box-container">
+
+                <% if (itin.length>0) { %>
+                    <% itin.forEach(function(itinerario) { %>
+
+                        <div class="box" data-aos="fade-up">
+                            <img src="<%= itinerario.foto %>" alt="">
+                            <div class="content">
+                                <span>
+                                    <%= itinerario.tappe[0].data %> -> <%= itinerario.tappe[itinerario.tappe.length -
+                                            1].data %>
+                                </span>
+                                <a href="">
+                                    <h3>
+                                        <%= itinerario.nome %>
+                                    </h3>
+                                </a>
+                                <p>
+                                    <%= itinerario.descrizione %>
+                                </p>
+                                <a target="_blank" href="/itinerari/<%= itinerario._id %>"><button
+                                        class="button">Visualizza</button></a>
+                            </div>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p>Nessun itinerario d'esempio disponibile, segnalare allo staff di TravelUp</p>
+                                <% } %>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione itinerari -->
+
+    <!-- inizio sezione recensioni -->
+
+    <section class="recens" id="recens">
+
+        <div class="container">
+
+            <h1 class="heading" data-aos="fade-up"> Cosa dicono di noi </h1>
+            <h2 class="heading-description text-center" data-aos="fade-up">Recensioni di alcuni nostri utenti!</h2>
+
+            <div class="box-container">
+
+                <div class="box" data-aos="fade-up-right">
+                    <p>Ho usato TravelUp per il mio viaggio a Parigi e si è rivelato utilissimo! Non ho perso tempo
+                        a "cercare che posto vedere" perché avevo già tutto organizzato!</p>
+                    <h3>Filippo S.</h3>
+                    <span>04/05/2022</span>
+                    <img src="https://avatars.githubusercontent.com/manoftardis" alt="">
+                </div>
+
+                <div class="box" data-aos="fade-up">
+                    <p>Idea bellissima e davvero utile! Questo sito mi ha davvero fatto godere ogni minuto della mia
+                        vacanza in Sicilia! Davvero un sito da 30 e Lode!</p>
+                    <h3>Stefano M.</h3>
+                    <span>03/04/2022</span>
+                    <img src="https://avatars.githubusercontent.com/StefanoM99" alt="">
+                </div>
+
+                <div class="box" data-aos="fade-up-left">
+                    <p>Con TravelUp puoi creare il tuo itinerario personalizzato, ma il bello è che è davvero molto ma
+                        molto facile da utilizzare! Complimenti agli ideatori!</p>
+                    <h3>Giovanni M.</h3>
+                    <span>02/03/2022</span>
+                    <img src="https://avatars.githubusercontent.com/obrobrio2000" alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione recensioni  -->
+
+    <!-- inizio sezione contattaci -->
+
+    <section class="contatti" id="contatti">
+
+        <div class="container min-vh-100">
+
+            <div class="row justify-content-center">
+
+                <h1 class="heading" data-aos="fade-up"> Contattaci </h1>
+
+                <h2 class="heading-description text-center" data-aos="fade-up">Hai qualche domanda o vuoi segnalarci
+                    qualche
+                    problema? Contatta il
+                    nostro supporto, ti risponderemo al più presto!</h2>
+
+                <div class="col-md-10" data-aos="fade-up">
+
+                    <form method="post" action="https://formspree.io/f/xgedpbrp">
+
+                        <div class="inputBox">
+                            <input type="text" name="text" id="text" placeholder="Nome e cognome *" required>
+                            <input type="number" name="number" id="number" placeholder="Cellulare (facoltativo)">
+                        </div>
+
+                        <div class="inputBox">
+                            <input type="email" name="email" id="email" placeholder="La tua email *" required>
+                            <select name="tipoRichiesta" id="tipoRichiesta" required>
+                                <option value="" disabled selected>Tipo di richiesta *</option>
+                                <option value="Problema">Problema</option>
+                                <option value="Suggerimento">Suggerimento</option>
+                                <option value="Domanda">Domanda</option>
+                            </select>
+                        </div>
+
+                        <textarea name="message" id="message" name="name" cols="30" rows="10" placeholder="Messaggio *"
+                            required></textarea>
+
+                        <input type="submit" name="submit" id="submit" value="Invia" class="button">
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- fine sezione contattaci -->
+
+    <!-- inizio sezione footer  -->
+
+    <section class="footer">
+
+        <h1 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti
+            riservati.<br>Immagini da: Storyset, Google Images<br><a
+                href="https://github.com/TUEngineers/TravelUp">github.com/TUEngineers/TravelUp</a></h1>
+
+    </section>
+
+    <!-- fine sezione footer -->
+
+    <script src="/js/aos.js"></script> <!-- AOS JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+    <script src="/js/jquery.min.js"></script> <!-- jQuery -->
+    <script src="/js/main.js"></script>
+
+</body>
+
+</html>

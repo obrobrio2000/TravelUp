@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelUp: Visualizza itinerario</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+
+
+    <link rel="stylesheet" href="/css/aos.css"> <!-- AOS CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/all.min.css"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="/css/visualizza-itinerario.css">
+    
+    <script>
+       
+
+        
+
+// [START maps_directions_waypoints]
+function initMap() {
+    var n = "<%= itinerario.tappe.length %>";
+    var tappe = <%- JSON.stringify(itinerario.tappe) %>;
+    
+ const directionsService = new google.maps.DirectionsService();
+ const directionsRenderer = new google.maps.DirectionsRenderer();
+ const map = new google.maps.Map(document.getElementById("map"), {
+   zoom: 12,
+   center: { lat: parseFloat(tappe[0].lat), lng: parseFloat(tappe[0].lon) },
+ }); 
+
+ directionsRenderer.setMap(map);
+ 
+   calculateAndDisplayRoute(directionsService, directionsRenderer);
+
+}
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    var n = "<%= itinerario.tappe.length %>";
+    var tappe = <%- JSON.stringify(itinerario.tappe) %>;
+    console.log(n);
+    console.log(tappe)
+ const waypts = [];
+ const checkboxArray = document.getElementById("waypoints");
+
+ 
+ 
+     
+ for (let i = 0; i < n; i++) {
+    waypts.push({
+        location: {lat :parseFloat(tappe[i].lat) ,lng: parseFloat(tappe[i].lon)},
+        stopover: true,
+      });
+ }
+     
+ 
+
+ directionsService
+   .route({
+    origin: {lat :  parseFloat(tappe[0].lat) ,lng:  parseFloat(tappe[0].lon)},
+     destination: {lat :  parseFloat(tappe[n-1].lat) ,lng:  parseFloat(tappe[n-1].lon)},
+     waypoints: waypts,
+     optimizeWaypoints: true,
+     travelMode: google.maps.TravelMode.DRIVING,
+     drivingOptions: {
+        departureTime: new Date(Date.now()),  // for the time N milliseconds from now.
+        trafficModel: 'bestguess'
+  }
+   })
+   .then((response) => {
+      
+     directionsRenderer.setDirections(response);
+     console.log(response);
+     const route = response.routes[0];
+     const summaryPanel = document.getElementById("directions-panel");
+
+     summaryPanel.innerHTML = "";
+
+     /*// For each route, display summary information.
+     for (let i = 0; i < route.legs.length; i++) {
+       const routeSegment = i + 1;
+
+       summaryPanel.innerHTML +=
+         "<b>Route Segment: " + routeSegment + "</b><br>";
+       summaryPanel.innerHTML += route.legs[i].start_address + " to ";
+       summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+       summaryPanel.innerHTML += route.legs[i].distance.text + "<br><br>";
+     }
+   })
+   .catch((e) => window.alert("Directions request failed due to " + status));
+}*/
+   });
+}
+window.initMap = initMap;
+    </script>
+
+</head>
+
+<body>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v13.0&appId=516293156710461&autoLogAppEvents=1"
+        nonce="bIDk1MgX"></script>
+
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <header class="no-mobile no-print header-active" data-aos="fade-down"><a href="/"><img
+                src="/assets/images/logoleft.png" class="logoHeader" style="max-width: 175px; height: auto;" alt=""></a>
+    </header>
+
+    <div class="container text-center">
+        <div class="timeline" data-aos="fade-down">
+            <% itinerario.tappe.forEach(function(tappa) { %>
+                <div class="timeline-row" data-aos="fade-up">
+                    <div class="timeline-time">
+                        <%= tappa.data %>
+                            <!-- <small>21/10/2022</small> -->
+                    </div>
+                    <div class="timeline-content text-center">
+                        <i class="icon-attachment"></i>
+                        <h4>
+                            <%= tappa.nome %>
+                        </h4>
+                        <p class=" text-center">
+                            <a class="text-center" target="_blank" href="<%= tappa.url %>"><button
+                                    class="buttonScopri no-print">Scopri di più</button></a>
+                            <a class="text-center" target="_blank"
+                                href="https://maps.google.com/?q=<%= tappa.lat %>,<%= tappa.lon %>"><button
+                                    class="buttonScopri no-print">Apri su Maps</button></a>
+                        </p>
+                        <div class="thumbs">
+                            <img class="img-fluid" src="<%= tappa.foto %>" alt="">
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+
+        </div>
+        <div class="map no-print" data-aos="fade-up">
+            <div id="map" style="height:450px;border-radius: 1rem;"></div>
+        </div>
+    </div>
+
+    <!-- inizio sezione footer  -->
+
+    <section class="footer" data-aos="fade-up">
+
+        <div class="container text-center no-print">
+            <a><button class="button" onclick="window.print();return false;">Stampa/scarica PDF</button></a>
+            <a href="/itinerari/<%= itinerario._id %>/aggiungiACalendar"><button class="button">Inserisci su Google
+                    Calendar</button></a>
+            <div class="container facebookShareButton text-center">
+                <div class="fb-share-button" data-layout="button" data-size="large"><a target="_blank"
+                        class="fb-xfbml-parse-ignore">Condividi su
+                        Facebook</a>
+                </div>
+            </div>
+            <div class="container twitterShareButton">
+                <a class="twitter-share-button" data-size="large"
+                    data-text="Guarda l&#39;itinerario di viaggio che ho appena creato su TravelUp!"
+                    data-hashtags="travelup" data-dnt="true" data-show-count="false">Condividi su Twitter</a>
+            </div>
+        </div>
+
+        <h4 class="credit text-center mx-auto">© 2022 TravelUp ®<br>Tutti i diritti riservati.<br>Immagini da: Storyset,
+            Google Images
+        </h4>
+
+    </section>
+
+    <!-- fine sezione footer -->
+
+    <script src="/js/aos.js"></script> <!-- AOS JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+    <script src="/js/jquery.min.js"></script> <!-- jQuery -->
+    <script src="/js/polyfill.js"></script> <!-- Polyfill.io -->
+    <script>AOS.init({ duration: 1000, delay: 10 });</script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_API_KEY %>&callback=initMap&v=weekly"
+        defer></script>
+
+</body>
+
+</html>

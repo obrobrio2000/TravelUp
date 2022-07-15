@@ -1,2 +1,19 @@
-docker-compose down
-docker-compose up --build
+#!/bin/bash
+printf "Terminazione dei container ancora aperti e pulizia ...\n"
+docker-compose --log-level ERROR down --remove-orphans
+printf "Aggiornamento dei package-lock.json ...\n"
+(cd main && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+(cd mail && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+(cd api && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+(cd ws && npm i --package-lock-only --loglevel=error) > /dev/null 2>&1
+# rm -rf ./*/node_modules
+if [[ "$1" == "development" ]] || [[ "$1" == "production" ]]; then
+    printf "Avvio dei container in ambiente $1 ...\n"
+    NODE_ENV="$1" docker-compose --log-level ERROR up --build --remove-orphans
+elif [[ "$1" == "test" ]]; then
+    printf "Avvio dei container in ambiente $1 ...\n"
+    NODE_ENV="$1" docker-compose --log-level ERROR up --build --remove-orphans --exit-code-from main
+else
+    printf "Utilizzo: ./start development|test|production\n"
+    exit 1
+fi
