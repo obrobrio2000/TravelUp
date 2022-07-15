@@ -242,6 +242,81 @@ describe("Server database CouchDB", function () {
         })
     }
     );
+    describe("Creazione database", function () {
+        it("Deve ritornare 201", function (done) {
+            request.put('http://couchdb:5984/test')
+                .then(function (response) {
+                    expect(response.status).toBe(201);
+                    done();
+                }
+                ).catch(function (error) {
+                    done();
+                }
+                );
+        }
+        );
+    }
+    );
+    describe("Scrittura sul database", function () {
+        it("Deve ritornare 201", function (done) {
+            request.post('http://couchdb:5984/test/test')
+                .then(function (response) {
+                    expect(response.status).toBe(201);
+                    done();
+                }
+                ).catch(function (error) {
+                    done();
+                }
+                );
+        }
+        );
+    }
+    );
+    describe("Lettura dal database", function () {
+        it("Deve ritornare 201", function (done) {
+            request.get('http://couchdb:5984/test/test')
+                .then(function (response) {
+                    expect(response.status).toBe(200);
+                    done();
+                }
+                ).catch(function (error) {
+                    done();
+                }
+                );
+        }
+        );
+    }
+    );
+    describe("Cancellazione dal database", function () {
+        it("Deve ritornare 201", function (done) {
+            request.del('http://couchdb:5984/test/test')
+                .then(function (response) {
+                    expect(response.status).toBe(200);
+                    done();
+                }
+                ).catch(function (error) {
+                    done();
+                }
+                );
+        }
+        );
+    }
+    );
+    describe("Eliminazione database", function () {
+        it("Deve ritornare 201", function (done) {
+            request.del('http://couchdb:5984/test')
+                .then(function (response) {
+                    expect(response.status).toBe(200);
+                    done();
+                }
+                ).catch(function (error) {
+                    done();
+                }
+                );
+        }
+        );
+    }
+    );
 });
 
 describe("Server web Nginx", function () {
