@@ -4,7 +4,7 @@
   <img width="100%" src="https://user-images.githubusercontent.com/62136803/173881903-6421bb46-f17c-4309-aa37-1e2d01ce5205.png" alt="TravelUp: logo">
 </p>
 
-<p align="center">TravelUp è un'utile applicazione web per organizzare il tuo itinerario di viaggio.<br><br>Progetto per i Corsi di "Linguaggi e Tecnologie per il Web" e "Reti di Calcolatori", tenuti rispettivamente dai Proff. Riccardo Rosati ed Andrea Vitaletti nel 2° semestre del 3° anno del CdL in Ingegneria Informatica e Automatica (A.A. 2021/2022) presso Sapienza Università di Roma.</p>
+<p align="center">TravelUp is a useful web application to organize your travel itinerary.<br><br>Project for the Courses of "Web Languages and Technologies" and "Computer Networks", held respectively by Profs. Riccardo Rosati and Andrea Vitaletti in the 2nd semester of the 3rd year of the Bachelor's Degree Course in Computer and System Engineering (A.Y. 2021/2022) at Sapienza University of Rome.</p>
 
 <p align="center">
   <a href="https://github.com/TUEngineers/TravelUp/blob/main/LICENSE">
@@ -18,114 +18,114 @@
   </a>
 </p>
 
-<h2 align="center">Scopo del progetto</h2>
+<h2 align="center">Purpose of the project</h2>
 
-Quante volte abbiamo deciso di farci una bella vacanza e, una volta giunti a destinazione, ci siamo ritrovati a dover prendere il telefono in mano, aprire l'app di Google Maps e cercare attrazioni da visitare o ristoranti in cui mangiare? Ed ogni volta si perdono dai 10 minuti fino ad addirittura mezz'ora, specialmente se siamo in comitiva e parte un dibattito su quali posti visitare e/o in quale ordine. Bene, TravelUp nasce per ovviare a questo problema, permettendoti di creare il tuo itinerario di viaggio prima di partire e portarlo con te (in versione digitale o stampata su carta), condividerlo con gli amici (per es. sui social grazie ad un permalink), vedere la mappa Google Maps, aggiungerlo al tuo calendario Google Calendar e molto altro ancora!
+How many times have we decided to have a nice vacation and, once we reached our destination, we found ourselves having to pick up the phone, open the Google Maps app and look for attractions to visit or restaurants to eat? And every time we lose from 10 minutes up to even half an hour, especially if we are in a group and a debate on which places to visit and/or in what order starts. Well, TravelUp was created to overcome this problem, allowing you to create your travel itinerary before leaving and take it with you (in digital or printed version), share it with friends (e.g. on social networks thanks to a permalink), see the Google Maps map, add it to your Google Calendar and much more!
 
-<h2 align="center">Soddisfacimento dei requisiti</h2>
+<h2 align="center">Meeting the requirements</h2>
 
-- Linguaggi e Tecnologie per il Web:
-  - Il progetto lato client utilizza HTML, CSS, JS, Bootstrap, JQuery, AOS;
-  - Il progetto lato server utilizza Node.js per lo scripting server-side, CouchDB come database relazionale;
-- Reti di Calcolatori:
-  - Il progetto offre a terze parti le proprie API REST grazie ad Express.js e la documentazione è stata generata con apiDoc;
-  - Il progetto si interfaccia con i servizi REST esterni Google Maps, Google Calendar, Google Custom Search ed OpenTripMap;
-  - I servizi commerciali con cui il progetto si interfaccia sono Google Maps, Google Calendar e Google Custom Search, nonché i processi di autenticazione OAuth2 di Google e di Facebook.
-  - Il servizio richiedente OAuth2 con cui il progetto si interfaccia è Google Calendar;
-  - Il progetto prevede l'uso di protocolli asincroni, grazie alla libreria Socket.IO, per comunicare con le API OpenTripMap e Google Custom Search e con un mail server Nodemailer per l'invio tramite Gmail SMTP di e-mail di vario tipo agli utenti;
-  - Il progetto deve prevedere l'uso di Docker e l'automazione del processo di lancio, configurazione e test;
-  - Il progetto è containerizzato con Docker ed i vari container vengono orchestrati con Docker Compose. Il processo di lancio è automatizzato con uno script che ci permette di avviare i container in ambiente di sviluppo, di testing o di produzione.
-  - Per il progetto è stato utilizzato Git ed è hostato su GitHub. Di quest'ultimo è stato fatto pieno uso (Actions, Codespaces, Projects, Milestones, Issues ecc.);
-  - Il progetto prevede 2 workflows CI/CD con GitHub Actions.
+- Web Languages and Technologies:
+  - Client side project uses HTML, CSS, JS, Bootstrap, JQuery, AOS;
+  - Server side project uses Node.js for server-side scripting, CouchDB as relational database;
+- Computer Networks:
+  - The project offers its REST APIs to third parties thanks to Express.js and the documentation was generated with apiDoc;
+  - The project interfaces with the external REST services Google Maps, Google Calendar, Google Custom Search and OpenTripMap;
+  - The commercial services with which the project interfaces are Google Maps, Google Calendar and Google Custom Search, as well as the OAuth2 authentication processes of Google and Facebook.
+  - The OAuth2 requesting service with which the project interfaces is Google Calendar;
+  - The project involves the use of asynchronous protocols, thanks to the Socket.IO library, to communicate with the OpenTripMap and Google Custom Search APIs and with a Nodemailer mail server for sending various types of e-mails to users via Gmail SMTP ;
+  - The project must include the use of Docker and the automation of the launch, configuration and test process;
+  - The project is containerized with Docker and the various containers are orchestrated with Docker Compose. The launch process is automated with a script that allows us to launch the containers in a development, testing or production environment.
+  - Git was used for the project and it is hosted on GitHub. Full use of the latter has been made (Actions, Codespaces, Projects, Milestones, Issues etc.);
+  - The project includes 2 CI/CD workflows with GitHub Actions.
 
-<h2 align="center">Architetture di riferimento e tecnologie usate</h2>
+<h2 align="center">Reference architectures and technologies used</h2>
 
-- Architetture e tecnologie (diagramma creato con [diagrams.net](https://www.diagrams.net/)):
+- Architectures and technologies (diagram created with [diagrams.net](https://www.diagrams.net/)):
 
 <p align="center">
   <img width="100%" src="https://user-images.githubusercontent.com/62136803/176517368-a97dc82f-a86d-48f2-99d8-b6ce8c24ac25.png" alt="TravelUp: diagramma architetture e tecnologie">
 </p>
 
-- docker-compose.yml (diagramma creato con [docker-compose-viz](https://github.com/pmsipilot/docker-compose-viz)):
+- docker-compose.yml (diagram created with [docker-compose-viz](https://github.com/pmsipilot/docker-compose-viz)):
 
 <p align="center">
   <img width="100%" src="https://user-images.githubusercontent.com/62136803/174195519-b59ed68a-e8ef-4459-91b1-57a384142622.png" alt="TravelUp: diagramma docker-compose.yml">
 </p>
 
-<h2 align="center">Documentazione delle API</h2>
+<h2 align="center">API documentation</h2>
 
-E' possibile leggere la documentazione delle API visitando <https://localhost/api> e si può provare a fare qualche richiesta API con cURL o Postman.
+You can read the API documentation by visiting <https://localhost/api> and you can try making some API requests with cURL or Postman.
 
-<h2 align="center">Forme di CI/CD</h2>
+<h2 align="center">Forms of CI/CD</h2>
 
-Il progetto prevede 2 workflows CI/CD con GitHub Actions:
+The project includes 2 CI/CD workflows with GitHub Actions:
 
-- docker-node.yml installa node/npm in locale, esegue una clean install destinata alla produzione, inizializza i containers in ambiente di testing (e dunque esegue i test previsti), ed infine ferma i containers e pulisce tutto;
-- codeql.yml esegue semantic code analysis per eventuali vulnerabilità di sicurezza di Javascript.
+- docker-node.yml installs node/npm locally, performs a clean install intended for production, initializes the containers in the test environment (and therefore runs the required tests), and finally stops the containers and cleans everything;
+- codeql.yml performs semantic code analysis for any Javascript security vulnerabilities.
 
-<h2 align="center">Sicurezza</h2>
+<h2 align="center">Security</h2>
 
-- Nginx mette a disposizione una connessione sicura HTTPS con un self-signed certificate (creato con OpenSSL).
-- E' previsto un 301 Permanent Redirect per qualsiasi tentativo di connessione alla porta HTTP 80 verso la porta sicura HTTPS 443, il che assicura che i nuovi visitatori vengano inoltrati ad una connessione TLS1.3.
-- E' prevista la HTTP Strict Transport Security, il che fa in modo che i browser non provino nemmeno a connettersi tramite HTTP, e ciò aumenta leggermente le prestazioni del sito e riduce leggermente il carico del server.
-- E' previsto anche un forte gruppo Diffie-Hellman, utilizzato nella negoziazione della Perfect Forward Secrecy con i client.
-- Il summenzionato certificato self-signed viene utilizzato anche da CouchDB per rendere sicura la connessione al database.
-- Nginx, inoltre, mette a disposizione la cache del database, utilizzata per le chiamate API interne, anch'essa resa sicura dal medesimo certificato.
-- Per le richieste API interne è necessaria un'API key generata ed assegnata ad ogni utente, e ciò permette di tenere traccia dell'utilizzo delle suddette API nel database di logging dedicato.
-- Sono eseguiti opportuni check di autenticazione per ogni pagina che lo richiede.
-- Sono state utilizzate variabili d'ambiente (conservate in un file .env) per ogni variabile sensibile.
+- Nginx provides a secure HTTPS connection with a self-signed certificate (created with OpenSSL).
+- A 301 Permanent Redirect is provided for any attempt to connect to the HTTP port 80 to the secure HTTPS port 443, which ensures that new visitors are forwarded to a TLS1.3 connection.
+- HTTP Strict Transport Security is provided, which makes browsers not even try to connect via HTTP, which slightly increases site performance and slightly reduces server load.
+- A strong Diffie-Hellman group is also expected, used in negotiating Perfect Forward Secrecy with clients.
+- The aforementioned self-signed certificate is also used by CouchDB to secure the connection to the database.
+- Nginx also provides the database cache, used for internal API calls, which is also secured by the same certificate.
+- For internal API requests, an API key generated and assigned to each user is required, and this allows you to keep track of the use of the aforementioned API in the dedicated logging database.
+- Appropriate authentication checks are performed for each page that requests it.
+- Environment variables (stored in an .env file) have been used for each sensitive variable.
 
-<h2 align="center">Istruzioni</h2>
+<h2 align="center">Instructions</h2>
 
-1) Clonare la repository
+1) Clone the repository
 
 ```bash
 git clone https://github.com/TUEngineers/TravelUp.git
 ```
 
-2) Posizionarsi nella directory principale
+2) Change to the root directory
 
 ```bash
 cd TravelUp
 ```
 
-3) Avviare i container nell'ambiente desiderato
+3) Start the containers in the desired environment
 
 ```bash
 ./start development|test|production
 ```
 
-4) In caso di avvio in ambiente di sviluppo o di produzione, visitare <https://localhost>; in caso di avvio in ambiente di testing, i test appariranno sul terminale.
+4) If you are booting into a development or production environment, visit <https://localhost>; in case of boot in test environment, the tests will appear on the terminal.
 
-<h2 align="center">Descrizione dei file</h2>
+<h2 align="center">Description of the files</h2>
 
-Nella root directory si trova il file *docker-compose.yml* che contiene la configurazione dei vari container Docker che simulano i vari server. Precisamente, il progetto prevede:
+In the root directory is the *docker-compose.yml* file which contains the configuration of the various Docker containers that simulate the various servers. Specifically, the project includes:
 
-- un server Node.js principale (directory <u>main</u>), il cui codice richiama il tipico design pattern del model-view-controller. Il file *server.js* inizializza il server e tutti gli elementi necessari (sessione cookie, autenticazione OAuth2 ecc.), ed in seguito carica tutti i file nelle varie cartelle, che richiamano il modello del Model View Controller.
-  - Nel percorso <u>main/routes</u> è possibile trovare tutti i file deputati al routing delle pagine:
-    - *main-routes.js*, che fornisce il routing per la homepage, il login, il logout, il check dell’autenticazione (ovvero se si è già loggati o meno) e l’handling delle pagine inesistenti con una pagina di errore.
-    - *public-routes.js*, che fornisce il routing per gli assets contenuti in <u>main/node_modules</u>, ovvero Bootstrap, JQuery, AOS, FontAwesome ecc.
-    - *auth-routes.js*, che gestisce i callback di autenticazione OAuth2 ed il routing alla dashboard una volta loggati (con opportuni checks).
-    - *itinerari-routes.js*, che gestisce il routing e la logica di funzionamento della dashboard e degli itinerari (compresa l’aggiunta dell’itinerario a Google Calendar tramite le API ufficiali).
-    - *utente-routes.js*, che gestisce il routing e la logica di funzionamento delle azioni legate all’utente, ovvero l’eliminazione volontaria dell’account (e di tutti i dati, nel rispetto del Diritto all’oblio del GDPR) e la gestione dell’iscrizione alla newsletter.
-    - *api-routes.js*, che gestisce le chiamate API interne (di TravelUp) e fornisce i dati appropriati. La documentazione di quest’ultime è consultabile visitando <https://localhost/api>.
-  - Nel percorso <u>main/views</u> è possibile trovare tutti i file del frontend delle varie pagine (estensione *.ejs*), ovvero il codice HTML (con integrazioni JS server-side grazie ad Express.js). Nello specifico:
-    - *index.ejs* è la homepage.
-    - *itinerari.ejs* è la dashboard personale dell’utente dove può gestire i suoi itinerari, crearne di nuovi e gestire vari aspetti del proprio account.
-    - *nuovo-itinerario.ejs* è la pagina di creazione di un nuovo itinerario.
-    - *visualizza-itinerario.ejs* è la pagina di visualizzazione di un itinerario, dove si può anche stampare/scaricare, condividere sui social ed aggiungere a Google Calendar.
-    - *api.js* contiene la documentazione delle APIs interne (di TravelUp) per poter essere utilizzate ed integrate dagli sviluppatori.
-    - *login.ejs* è una pagina di login secondaria (la principale pagina di login è l’homepage stessa) usata solo in caso di redirect (per es. se si prova a visitare il link della dashboard senza prima aver effettuato il login).
-    - *errore.ejs* è una generica pagina di errore usata come redirect in caso di errore nel backend oppure in caso si provi a visitare una pagina non esistente (404).
-  - Nel percorso <u>main/public</u> si trovano gli assets necessari allo styling CSS, allo scripting client-side JS e le varie immagini utilizzate.
-  - Nel percorso <u>main/config</u> si trova *passport-setup.js* che è il file che gestisce, grazie al modulo Passport di Node.js, i login OAuth2 di Google e Facebook e l’aggiunta/aggiornamento degli utenti nel database.
-  - Nel percorso <u>main/models</u> si trovano *utenti-model.js*, *itinerari-model.js* e *logging_api-model.js*, che esportano rispettivamente i database CouchDB “utenti”, “itinerari” e "logging_api" per poter essere utilizzati negli altri file *.js*. Inoltre, vi si trovano *utenti-model-cache.js* ed *itinerari-model-cache.js*, che puntano alla cache del db per rispondere alle chiamate API interne (di TravelUp).
-- un server Nginx (directory <u>nginx</u>), il quale fornisce una connessione sicura HTTPS TLS1.3 con un certificato self-signed creato con OpenSSL e reindirizza qualsiasi tentativo di connessione HTTP alla porta 80 alla porta sicura 443. Inoltre, funge da reverse-proxy per il suddetto server Node.js principale, permettendoci di raggiungerlo quando ci si connette ad <https://localhost>.
-- un server Node.js Socket.IO (directory <u>ws</u>), che gestisce tutte le richieste con protocolli asincroni del server API esterne e del mail server.
-- un server Node.js API (directory <u>api</u>), che dialoga con il server Socket.IO per quanto riguarda le richieste API ad OpenTripMap e Google Custom Search.
-- un server Node.js Nodemailer (directory <u>mail</u>), mail server che dialoga con il server Socket.IO per quanto riguarda l’invio di e-mail agli utenti (e-mail di benvenuto ai nuovi utenti, e-mail di notifica di un nuovo accesso, newsletter ecc.).
-- un server CouchDB (directory <u>couchdb</u>) che ospita i vari database per l’accesso e la manipolazione dei dati contenuti in essi. Esso dispone anche di cache (per mezzo di Nginx) e di connessione sicura HTTPS (sia per il db diretto che per la cache).
+- a main Node.js server (<u>main<u> directory), whose code recalls the typical design pattern of the model-view-controller. The *server.js* file initializes the server and all the necessary elements (cookie session, OAuth2 authentication etc.), and then loads all the files in the various folders, which recall the Model View Controller model.
+  - In the <u>main/routes<u> path you can find all the files dedicated to page routing:
+    - *main-routes.js*, which provides homepage routing, login, logout, authentication check (i.e. if you are already logged in or not) and handling of non-existent pages with an error page .
+    - *public-routes.js*, which provides routing for the assets contained in <u>main/node_modules<u>, i.e. Bootstrap, JQuery, AOS, FontAwesome etc.
+    - *auth-routes.js*, which manages the OAuth2 authentication callbacks and the routing to the dashboard once logged in (with appropriate checks).
+    - *itineraries-routes.js*, which manages the routing and operating logic of the dashboard and itineraries (including adding the itinerary to Google Calendar via the official API).
+    - *user-routes.js*, which manages the routing and operating logic of the actions related to the user, i.e. the voluntary deletion of the account (and all data, in compliance with the Right to be forgotten of the GDPR) and the management of the newsletter subscription.
+    - *api-routes.js*, which handles internal (TravelUp's) API calls and provides the appropriate data. The documentation of the latter can be consulted by visiting <https://localhost/api>.
+  - In the path <u>main/views<u> it is possible to find all the files of the frontend of the various pages (extension *.ejs*), that is the HTML code (with JS server-side integrations thanks to Express.js). In particular:
+    - *index.ejs* is the homepage.
+    - *itineraries.ejs* is the user's personal dashboard where he can manage his itineraries, create new ones and manage various aspects of his account.
+    - *new-itinerary.ejs* is the page for creating a new itinerary.
+    - *view-itinerary.ejs* is the page for viewing an itinerary, where you can also print/download, share on social networks and add to Google Calendar.
+    - *api.js* contains the documentation of the internal (TravelUp's) APIs to be used and integrated by developers.
+    - *login.ejs* is a secondary login page (the main login page is the homepage itself) used only in case of redirects (e.g. if you try to visit the dashboard link without logging in first).
+    - *error.ejs* is a generic error page used as a redirect in case of an error in the backend or if you try to visit a non-existent page (404).
+  - In the <u>main/public<u> path you will find the assets necessary for CSS styling, client-side JS scripting and the various images used.
+  - In the path <u>main/config<u> there is *passport-setup.js* which is the file that manages, thanks to the Passport module of Node.js, the OAuth2 logins of Google and Facebook and the addition/updating of users in the database.
+  - In the path <u>main/models<u> there are *users-model.js*, *itineraries-model.js* and *logging_api-model.js*, which respectively export the CouchDB "users" databases, "itineraries” and "logging_api" to be used in the other *.js* files. Also, there are *users-model-cache.js* and *itineraries-model-cache.js*, which point to the db cache to answer internal API calls (from TravelUp).
+- an Nginx server (<u>nginx<u> directory), which provides a secure HTTPS TLS1.3 connection with a self-signed certificate created with OpenSSL and redirects any HTTP connection attempt on port 80 to secure port 443. Furthermore, it acts as a reverse-proxy for the aforementioned main Node.js server, allowing us to reach it when connecting to <https://localhost>.
+- a Node.js Socket.IO server (<u>ws<u> directory), which handles all requests with asynchronous protocols from the external API server and the mail server.
+- a Node.js API server (<u>api<u> directory), which communicates with the Socket.IO server regarding API requests to OpenTripMap and Google Custom Search.
+- a Node.js Nodemailer server (<u>mail<u> directory), a mail server that communicates with the Socket.IO server for sending e-mails to users (welcome e-mails to new users , e-mail notification of a new access, newsletter, etc.).
+- a CouchDB server (<u>couchdb<u> directory) which hosts the various databases for accessing and manipulating the data contained in them. It also has a cache (via Nginx) and a secure HTTPS connection (for both direct db and cache).
 
-Nella directory *main* è anche presente un file *server.test.js*, il quale prevede 29 test (raggiungibilità dei vari server, corretto funzionamento delle richieste API proprietarie/interne, corretto funzionamento delle richieste API esterne per il server API, corretto funzionamento dell’invio delle e-mail per il server Nodemailer, corretto funzionamento di Socket.IO, scrittura/lettura del database ecc.).
+In the *main* directory there is also a *server.test.js* file, which includes 29 tests (reachability of the various servers, correct functioning of the proprietary/internal API requests, correct functioning of the external API requests for the API server, correct functioning of the sending of e-mails for the Nodemailer server, correct functioning of Socket.IO, writing/reading of the database, etc.).
 
-Sono stati esclusi da git (attraverso l'apposito file *.gitignore*) il file *.env*, contenente dati sensibili, ed il file <u>nginx/ssl/</u>*travelup_key.pem*, chiave del certificato self-signed.
+The *.env* file, containing sensitive data, and the file <u>nginx/ssl/</u>*travelup_key.pem*, self-signed certificate key, have been excluded from git (through the appropriate *.gitignore* file).
